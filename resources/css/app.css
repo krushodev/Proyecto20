@@ -1,38 +1,67 @@
-/* ========================================
-   VITTORIO RELOJES - ESTILOS PRINCIPALES
-   ======================================== */
-
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-/* ========================================
-   TEMA Y VARIABLES GLOBALES
-   ======================================== */
-
-@theme {
-    --font-sans:
-        'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-/* ========================================
-   COMPONENTES
-   ======================================== */
-
+/* COMPONENTES */
 @import './componentes/navbar.css';
 @import './componentes/footer.css';
+@import './componentes/buttons.css';
 
-/* ========================================
-   PÁGINAS
-   ======================================== */
-
+/* PÁGINAS */
 @import './paginas/inicio.css';
 @import './paginas/catalogo.css';
 @import './paginas/nosotros.css';
 @import './paginas/comercializacion.css';
 @import './paginas/contacto.css';
 @import './paginas/terminos-y-condiciones.css';
+
+/* ========================================
+   VITTORIO RELOJES - ESTILOS PRINCIPALES
+   ======================================== */
+
+/* ========================================
+   RESET Y VARIABLES GLOBALES
+   ======================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --font-sans:
+        'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-bg-primary: #0e0e0e;
+    --color-bg-surface: #131313;
+    --color-bg-surface-low: #1c1b1b;
+    --color-bg-surface-high: #2a2a2a;
+    --color-bg-surface-highest: #353535;
+
+    --color-text-primary: #dcdcdc;
+    --color-text-secondary: #c6c6c6;
+    --color-text-on-surface: #e5e2e1;
+    --color-text-variant: #c4c7c7;
+    --color-text-muted: #777777;
+
+    --color-border-primary: rgba(220, 220, 220, 0.3);
+    --color-border-subtle: rgba(220, 220, 220, 0.1);
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}

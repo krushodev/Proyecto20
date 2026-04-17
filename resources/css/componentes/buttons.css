@@ -47,6 +47,48 @@
     border-color: #ffffff;
 }
 
+.btn-primary-vittorio-sm {
+    background-color: var(--color-text-primary);
+    color: #2f3131;
+    padding: 0.75rem 1.5rem;
+    font-family: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.625rem;
+    border: none;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary-vittorio-sm:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.btn-icon-vittorio {
+    padding: 0.75rem;
+    border: 1px solid rgba(68, 71, 72, 0.2);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+}
+
+.btn-icon-vittorio:hover {
+    border-color: rgba(220, 220, 220, 0.5);
+}
+
+.btn-icon-vittorio svg {
+    width: 18px;
+    height: 18px;
+}
+
 .btn-link-vittorio {
     font-size: 0.75rem;
     text-transform: uppercase;

@@ -65,3 +65,7 @@ img {
     max-width: 100%;
     display: block;
 }
+
+main {
+    padding-top: 5rem;
+}

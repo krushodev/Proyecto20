@@ -3,7 +3,6 @@
 @section ('title', 'Inicio - Vittorio')
 
 @section ('content')
-  <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-inner">
       <div class="hero-content">
@@ -27,7 +26,6 @@
       </div>
     </div>
   </section>
-  <!-- Curator Introduction -->
   <section class="philosophy-section">
     <div class="section-inner">
       <div class="philosophy-content">
@@ -36,10 +34,8 @@
       </div>
     </div>
   </section>
-  <!-- Collections Bento Grid -->
   <section class="collections-bento">
     <div class="section-inner">
-      <!-- Row 1: 3-col grid, main spans 2, secondary spans 1 -->
       <div class="bento-grid bento-row-1">
         <div class="collection-card collection-card-large">
           <img
@@ -68,7 +64,6 @@
         </div>
       </div>
 
-      <!-- Row 2: 4-col grid, feature spans 1, movement spans 3 -->
       <div class="bento-grid bento-row-2">
         <div class="feature-card">
           <div class="feature-icon">
@@ -94,7 +89,6 @@
       </div>
     </div>
   </section>
-  <!-- Technical Specs Grid -->
   <section class="tech-specs-section">
     <div class="tech-specs-grid">
       <div class="tech-spec-item">
@@ -115,7 +109,6 @@
       </div>
     </div>
   </section>
-  <!-- Call to Action Banner -->
   <section class="cta-banner">
     <div class="cta-banner-background">
       <img

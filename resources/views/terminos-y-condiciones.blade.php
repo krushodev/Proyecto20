@@ -5,17 +5,9 @@
 @section ('content')
   <div class="terminos-page">
     <section class="terminos-hero">
-      <div>
-        <div>
-          <h1>Términos y Condiciones</h1>
-          <p>Marco legal, políticas de privacidad y garantías de ingeniería. Documentación elaborada para una experiencia confiable y transparente.</p>
-        </div>
-        <aside class="hero-info">
-          <span>Documentación Legal V.2</span>
-          <p>Si tiene dudas o necesita orientación, nuestro equipo está listo para brindar soporte corporativo con la máxima discreción.</p>
-          <a href="/contacto">Contactar</a>
-        </aside>
-      </div>
+      <h1>Términos y <span>Condiciones</span></h1>
+      <div class="hero-divider"></div>
+      <p>Marco legal, políticas de privacidad y garantías de ingeniería. Documentación elaborada para una experiencia confiable y transparente.</p>
     </section>
 
     <section class="terminos-content">
@@ -95,12 +87,15 @@
             </div>
             <div>
               <p>Debido a la naturaleza exclusiva de nuestras piezas, cada envío se realiza bajo estrictos protocolos de seguridad y seguro de valor total. Los tiempos de entrega pueden variar según la complejidad del ensamblaje y la ubicación geográfica del destinatario.</p>
-              <div class="section-grid">
-                <div>
-                  <p>Certificación de Envío</p>
-                  <p>Transporte blindado y seguimiento satelital 24/7 para envíos internacionales.</p>
-                </div>
-                <span data-icon="precision_manufacturing">✓</span>
+            </div>
+            <div class="section-grid">
+              <div>
+                <h3>Certificación de Envío</h3>
+                <p>Transporte blindado y seguimiento satelital 24/7 para envíos internacionales con cobertura total.</p>
+              </div>
+              <div>
+                <h3>Política de Devoluciones</h3>
+                <p>Aceptamos devoluciones dentro de los primeros 30 días si la pieza no cumple con sus expectativas de ingeniería.</p>
               </div>
             </div>
           </section>

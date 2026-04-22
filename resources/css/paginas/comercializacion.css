@@ -46,6 +46,10 @@
     color: var(--color-text-on-surface);
 }
 
+.hero-copy .title-accent {
+    color: rgba(220, 220, 220, 0.5);
+}
+
 .hero-copy p {
     max-width: 46rem;
     color: var(--color-text-variant);
@@ -198,7 +202,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
     padding: 2.5rem 2rem;
     border-radius: 2rem;
     background: rgba(255, 255, 255, 0.03);
@@ -215,6 +219,7 @@
     font-weight: 800;
     margin-bottom: 1rem;
     color: var(--color-text-on-surface);
+    letter-spacing: -0.02em;
 }
 
 .cta-button {

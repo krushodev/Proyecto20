@@ -5,7 +5,7 @@
 @section ('content')
   <main class="catalog-main">
     <header class="catalog-header">
-      <h1 class="catalog-header-title">Colección <span>2026</span></h1>
+      <h1 class="catalog-header-title">Colección <span class="title-accent">2026</span></h1>
       <div class="catalog-header-divider"></div>
       <p class="catalog-header-description">La intersección entre la ingeniería de precisión suiza y la vanguardia estética. Cada pieza es un manifiesto de durabilidad y diseño monocromático.</p>
     </header>

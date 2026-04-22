@@ -5,7 +5,7 @@
 @section ('content')
   <div class="terminos-page">
     <section class="terminos-hero">
-      <h1>Términos y <span>Condiciones</span></h1>
+      <h1>Términos y <span class="title-accent">Condiciones</span></h1>
       <div class="hero-divider"></div>
       <p>Marco legal, políticas de privacidad y garantías de ingeniería. Documentación elaborada para una experiencia confiable y transparente.</p>
     </section>

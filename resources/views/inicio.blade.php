@@ -12,17 +12,12 @@
           <button class="btn-primary-vittorio">Explorar Colección</button>
         </div>
       </div>
-    </div>
-
-    <div class="hero-image-wrapper">
-      <div class="hero-image-inner">
+      <div class="hero-image-wrapper">
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTXUdWqCNSj-3YvMp2OoGnBE16MRH6opzgxK86GASD5ks8WFUVxEHJGigpVIa2zvMoBw4nYsMXumgBG4hKgwzTC2QYQzAxENsxQPl5iA3XU7Km81YYYl8K6PRptg9rnBtUBhYcR6pEbeR_wr5OtR0qIaDSLXGQXQFeWr43QmifRR55hungBObCIvboeGKVfj7SHCPlSo8-I0IcYZtLwcDL72BAk4YCHqIKflsWO1TAdMDCZOOfTXap7hXGanbMuqlhqHXN_Hfacejh"
           alt="Luxury Watch"
           class="hero-image"
         />
-        <div class="hero-gradient-mobile"></div>
-        <div class="hero-gradient-desktop"></div>
       </div>
     </div>
   </section>

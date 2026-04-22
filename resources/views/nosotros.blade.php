@@ -6,18 +6,9 @@
   <div class="nosotros-page">
     <header class="nosotros-hero">
       <p class="section-label">Nuestra Esencia</p>
-      <h1>El arte de la precisión infinita</h1>
+      <h1>El arte de la precisión <span class="title-accent">infinita</span></h1>
       <p class="description">Vittorio no es simplemente una manufactura. Es un compromiso con el tiempo, una búsqueda implacable de la perfección técnica y la elegancia arquitectónica.</p>
     </header>
-
-    <section class="nosotros-media">
-      <div class="nosotros-image">
-        <img
-          alt="Luxury watch movement"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPrZcuKH1tLqGHzoQxrA0bBBgRh7ONJK7tWrFZtuUrZdaki3SR48ASzbvIaPz8-VGzAk8pDy6te8SylUktIuUOxsByh1xS0VIAYyAl8YiZBLr8XhBevIgQwTdDQDU0dWRLAmGWprYSF9BJc1Q6z9pIpl8n_eS_Kyy1ApNRufD2S9iafRc6u_Z0_fLXbQeJ0jIIWxuSPNZ00_d74ZKk91SYxYZd2vaMArl9czkUmdmkuFCxtfKfGYx56_XqMhVlYNUtVGTe0MErIraA"
-        />
-      </div>
-    </section>
 
     <section class="nosotros-grid">
       <div class="nosotros-copy">

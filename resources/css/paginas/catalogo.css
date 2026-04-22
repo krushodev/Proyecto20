@@ -39,7 +39,8 @@
     }
 }
 
-.catalog-header-title span {
+.catalog-header-title span,
+.catalog-header-title .title-accent {
     color: #8e9192;
 }
 

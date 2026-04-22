@@ -16,6 +16,6 @@
       </button>
     </div>
 
-    <div class="footer-copyright">© 2024 Vittorio. Ingeniería de Precisión.</div>
+    <div class="footer-copyright">© 2026 Vittorio. Ingeniería de Precisión.</div>
   </div>
 </footer>

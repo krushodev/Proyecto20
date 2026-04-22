@@ -6,7 +6,7 @@
   <div class="comercializacion-page">
     <section class="comercializacion-hero">
       <div class="hero-copy">
-        <h1>Logística de <br />Precisión.</h1>
+        <h1>Logística de <br /><span class="title-accent">Precisión.</span></h1>
         <p>Cada pieza es un testimonio de la excelencia en ingeniería. Nuestro proceso de comercialización refleja este estándar, garantizando un tránsito seguro y protocolos financieros transparentes.</p>
       </div>
       <div class="hero-media">

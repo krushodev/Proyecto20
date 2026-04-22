@@ -43,7 +43,8 @@
     }
 }
 
-.terminos-hero h1 span {
+.terminos-hero h1 span,
+.terminos-hero h1 .title-accent {
     color: #8e9192;
 }
 

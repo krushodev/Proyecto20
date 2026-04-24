@@ -18,12 +18,12 @@
       <button class="navbar-icon-btn" aria-label="Buscar">
         <i data-lucide="search"></i>
       </button>
-      <button class="navbar-icon-btn" aria-label="Carrito">
+      <a href="{{ url('/carrito') }}" class="navbar-icon-btn" aria-label="Carrito">
         <i data-lucide="shopping-cart"></i>
-      </button>
-      <button class="navbar-icon-btn" aria-label="Cuenta">
+      </a>
+      <a href="{{ url('/login') }}" class="navbar-icon-btn" aria-label="Cuenta">
         <i data-lucide="user"></i>
-      </button>
+      </a>
     </div>
   </div>
 </nav>

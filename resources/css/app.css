@@ -2,6 +2,7 @@
 @import './componentes/navbar.css';
 @import './componentes/footer.css';
 @import './componentes/buttons.css';
+@import './componentes/login.css';
 
 /* PÁGINAS */
 @import './paginas/inicio.css';

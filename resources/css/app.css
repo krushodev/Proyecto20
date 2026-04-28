@@ -68,5 +68,33 @@ img {
 }
 
 main {
-    padding-top: 5rem;
+    padding-top: 4.5rem;
+}
+
+@media (min-width: 768px) {
+    main {
+        padding-top: 5.25rem;
+    }
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-sans);
+}
+
+/* Utilidad: acento de título reutilizable */
+.title-accent {
+    color: rgba(220, 220, 220, 0.5);
+}
+
+/* Imágenes responsive */
+img {
+    height: auto;
+}
+
+/* Scrollbar */
+html {
+    scroll-behavior: smooth;
 }

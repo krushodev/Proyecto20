@@ -209,6 +209,9 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 

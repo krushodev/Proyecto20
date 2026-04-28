@@ -4,10 +4,11 @@
 
 @section ('content')
   <div class="terminos-page">
-    <section class="terminos-hero">
+    <section class="terminos-hero" aria-label="Términos y condiciones">
+      <p class="catalog-header-eyebrow">Marco legal · Argentina</p>
       <h1>Términos y <span class="title-accent">Condiciones</span></h1>
       <div class="hero-divider"></div>
-      <p>Marco legal, políticas de privacidad y garantías de ingeniería. Documentación elaborada para una experiencia confiable y transparente.</p>
+      <p>Políticas de uso, privacidad, garantía y devoluciones de Vittorio Relojería S.R.L. (La Plata, Argentina). Redactadas para que la experiencia sea tan transparente como nuestras piezas.</p>
     </section>
 
     <section class="terminos-content">

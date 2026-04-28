@@ -269,3 +269,149 @@
     object-fit: cover;
     border-radius: 1.75rem;
 }
+
+/* ========================================
+   QUICK ROW (chips de contacto)
+   ======================================== */
+.contact-quickrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-text-on-surface);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.contact-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.contact-chip svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.6;
+}
+
+/* ========================================
+   MAP LINK CTA (con icono lucide)
+   ======================================== */
+.map-link-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-text-on-surface);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    width: fit-content;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.map-link-cta:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.map-link-cta svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.6;
+}
+
+/* ========================================
+   IFRAME MAPA
+   ======================================== */
+.contacto-map {
+    max-width: 84rem;
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 2rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+    background: #111;
+}
+
+.contacto-map iframe {
+    width: 100%;
+    height: 360px;
+    border: 0;
+    display: block;
+    filter: grayscale(0.5) invert(0.92) hue-rotate(180deg);
+}
+
+@media (min-width: 768px) {
+    .contacto-map iframe {
+        height: 420px;
+    }
+}
+
+/* ========================================
+   FOOTNOTE CARDS (icono lucide)
+   ======================================== */
+.footnote-card .footnote-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-on-surface);
+    margin-bottom: 1rem;
+}
+
+.footnote-card .footnote-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.6;
+}
+
+.footnote-card a {
+    color: var(--color-text-on-surface);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+    text-underline-offset: 3px;
+}
+
+.footnote-card a:hover {
+    text-decoration-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hero h1 sin uppercase forzado */
+.contacto-hero h1 {
+    text-transform: none;
+}
+
+/* Section label dentro del hero */
+.contacto-hero .section-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(220, 220, 220, 0.6);
+    margin-bottom: 1rem;
+}

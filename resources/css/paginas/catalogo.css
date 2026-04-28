@@ -181,3 +181,28 @@
     color: var(--color-text-primary);
     text-transform: uppercase;
 }
+
+.product-card-price {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+}
+
+.catalog-header-eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: rgba(220, 220, 220, 0.55);
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width: 767.98px) {
+    .catalog-main {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+    .catalog-category-section {
+        margin-bottom: 5rem;
+    }
+}

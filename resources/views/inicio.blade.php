@@ -3,21 +3,27 @@
 @section ('title', 'Inicio - Vittorio')
 
 @section ('content')
-  <section class="hero-section">
+  <section class="hero-section" aria-label="Presentación de Vittorio">
     <div class="hero-inner">
       <div class="hero-content">
         <h1 class="hero-title">El tiempo,<br /><span class="hero-title-accent">redefinido.</span></h1>
-        <p class="hero-description">Ingeniería suiza de precisión fusionada con una estética monolítica. Una declaración de intenciones en cada segundo.</p>
+        <p class="hero-description">
+          Ingeniería de precisión fusionada con una estética monolítica.
+          Manufactura argentina con más de 25 años creando piezas atemporales.
+        </p>
         <div class="hero-cta">
-          <button class="btn-primary-vittorio">Explorar Colección</button>
+          <a href="{{ url('/catalogo') }}" class="btn-primary-vittorio">Explorar Colección</a>
         </div>
       </div>
       <div class="hero-image-wrapper">
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTXUdWqCNSj-3YvMp2OoGnBE16MRH6opzgxK86GASD5ks8WFUVxEHJGigpVIa2zvMoBw4nYsMXumgBG4hKgwzTC2QYQzAxENsxQPl5iA3XU7Km81YYYl8K6PRptg9rnBtUBhYcR6pEbeR_wr5OtR0qIaDSLXGQXQFeWr43QmifRR55hungBObCIvboeGKVfj7SHCPlSo8-I0IcYZtLwcDL72BAk4YCHqIKflsWO1TAdMDCZOOfTXap7hXGanbMuqlhqHXN_Hfacejh"
-          alt="Luxury Watch"
-          class="hero-image"
-        />
+        <div class="hero-image-frame">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTXUdWqCNSj-3YvMp2OoGnBE16MRH6opzgxK86GASD5ks8WFUVxEHJGigpVIa2zvMoBw4nYsMXumgBG4hKgwzTC2QYQzAxENsxQPl5iA3XU7Km81YYYl8K6PRptg9rnBtUBhYcR6pEbeR_wr5OtR0qIaDSLXGQXQFeWr43QmifRR55hungBObCIvboeGKVfj7SHCPlSo8-I0IcYZtLwcDL72BAk4YCHqIKflsWO1TAdMDCZOOfTXap7hXGanbMuqlhqHXN_Hfacejh"
+            alt="Reloj Vittorio en acero cepillado"
+            class="hero-image"
+            loading="eager"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -25,7 +31,7 @@
     <div class="section-inner">
       <div class="philosophy-content">
         <h2 class="section-label">Filosofía Vittorio</h2>
-        <p class="section-title">No fabricamos relojes. Curamos instrumentos de precisión para aquellos que entienden que el lujo es silencio y estructura.</p>
+        <p class="section-title">No fabricamos relojes en serie. Diseñamos y ensamblamos a mano instrumentos de precisión para quienes entienden que el lujo es silencio, estructura y perdurabilidad.</p>
       </div>
     </div>
   </section>
@@ -65,19 +71,19 @@
     <div class="tech-specs-grid">
       <div class="tech-spec-item">
         <h5 class="tech-spec-title">Material</h5>
-        <p class="tech-spec-description">Titanio de Grado 5, utilizado en ingeniería aeroespacial por su extrema ligereza y durabilidad.</p>
+        <p class="tech-spec-description">Acero quirúrgico 316L y titanio Grado 5, seleccionados por su resistencia y ligereza.</p>
       </div>
       <div class="tech-spec-item">
         <h5 class="tech-spec-title">Movimiento</h5>
-        <p class="tech-spec-description">Vittorio Calibre 9, automático con reserva de marcha de 72 horas y rotor bidireccional.</p>
+        <p class="tech-spec-description">Calibre Vittorio V-9 automático con reserva de marcha de 72 horas y rotor bidireccional.</p>
       </div>
       <div class="tech-spec-item">
         <h5 class="tech-spec-title">Cristal</h5>
-        <p class="tech-spec-description">Doble cúpula de zafiro con revestimiento antirreflectante de 7 capas en el interior.</p>
+        <p class="tech-spec-description">Cristal de zafiro con tratamiento antirreflectante interior y exterior.</p>
       </div>
       <div class="tech-spec-item">
         <h5 class="tech-spec-title">Resistencia</h5>
-        <p class="tech-spec-description">Estanqueidad probada hasta 200 metros bajo presión hidrostática controlada.</p>
+        <p class="tech-spec-description">Estanqueidad certificada hasta 100 metros para uso diario sin compromiso.</p>
       </div>
     </div>
   </section>

@@ -33,7 +33,7 @@
 
 @media (min-width: 992px) {
     .comercializacion-hero {
-        grid-template-columns: 1.05fr 0.95fr;
+        grid-template-columns: 7fr 5fr;
     }
 }
 
@@ -61,24 +61,27 @@
 .hero-media {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .hero-image {
     width: 100%;
-    max-width: 400px;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border-radius: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: #111;
-    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.24);
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.35));
 }
 
-.hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+@media (min-width: 992px) {
+    .hero-media {
+        justify-content: flex-end;
+    }
+    
+    .hero-image {
+        max-width: 100%;
+    }
 }
 
 .comercializacion-features .section-heading h2,
@@ -233,4 +236,141 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 1.75rem;
+}
+
+/* Override: payment logos must NOT have fixed aspect-ratio */
+.payment-logo img {
+    width: auto !important;
+    height: 28px !important;
+    max-width: 100px !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.section-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(220, 220, 220, 0.6);
+    margin-bottom: 1rem;
+}
+
+.feature-card-cta {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+    margin-top: 1.25rem;
+}
+
+/* Bloques de medios de pago */
+.comercializacion-finance {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.payment-block {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.75rem;
+    padding: 1.75rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .payment-block {
+        padding: 2rem 2.25rem;
+    }
+}
+
+.payment-block-title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(220, 220, 220, 0.7);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.payment-logos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.85rem;
+}
+
+.payment-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    text-align: center;
+    min-height: 100px;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.payment-logo:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.payment-logo svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 1.5;
+    color: var(--color-text-on-surface);
+}
+
+.payment-logo span:last-child {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-variant);
+}
+
+.payment-logo-text {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: linear-gradient(135deg, #00b6ff, #0073ff);
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.45rem;
+}
+
+.payment-disclaimer {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    text-align: center;
+    margin: 0;
+    padding: 0 1rem;
+}
+
+/* Variante de finance-intro */
+.comercializacion-finance .finance-intro h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-text-on-surface);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    margin-bottom: 0.85rem;
+}
+
+.comercializacion-finance .finance-intro p {
+    max-width: 48rem;
+    color: var(--color-text-variant);
+    line-height: 1.8;
 }

@@ -1,6 +1,14 @@
-/* ========================================
-   PÁGINA: QUIÉNES SOMOS
-   ======================================== */
+{{-- 
+  ============================================================
+  ARCHIVO: nosotros.css
+  PROPÓSITO: Estilos de la página "Quiénes Somos"
+  DESCRIPCIÓN: Define el diseño de la página de historia
+  y filosofía de Vittorio incluyendo: hero, grid con
+  imagen y texto, métricas de la empresa y CTA.
+  ============================================================
+--}}
+
+
 
 .nosotros-page {
     padding: 3rem 1.5rem 6rem;

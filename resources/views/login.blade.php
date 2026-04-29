@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  VISTA: login.blade.php
+  PROPÓSITO: Página de inicio de sesión de usuarios
+  DESCRIPCIÓN: Formulario de autenticación para usuarios
+  registrados. Incluye campos de email y contraseña, opción
+  de recordarme y enlace a registro de nuevos usuarios.
+  ============================================================
+--}}
 @extends ('layout.layout')
 
 @section ('title', 'Iniciar Sesión - Vittorio')

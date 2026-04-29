@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  VISTA: contacto.blade.php
+  PROPÓSITO: Página de contacto y formulario de consultas
+  DESCRIPCIÓN: Muestra información de contacto de la empresa
+  (teléfono, email, dirección), formulario de consulta y mapa
+  de ubicación. El equipo responde dentro de las 24 hs hábiles.
+  ============================================================
+--}}
 @extends ('layout.layout')
 
 @section ('title', 'Contacto - Vittorio')

@@ -1,4 +1,14 @@
-﻿@extends ('layout.layout')
+﻿{{-- 
+  ============================================================
+  VISTA: terminos-y-condiciones.blade.php
+  PROPÓSITO: Página de términos y condiciones legales
+  DESCRIPCIÓN: Contiene las políticas legales del sitio web
+  incluyendo: uso de la plataforma, política de privacidad,
+  garantía de productos, envíos y devoluciones, y propiedad
+  intelectual. Marco legal de Vittorio Relojería S.R.L.
+  ============================================================
+--}}
+@extends ('layout.layout')
 
 @section ('title', 'Términos y Condiciones - Vittorio')
 

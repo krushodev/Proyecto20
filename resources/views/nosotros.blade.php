@@ -1,4 +1,13 @@
-﻿@extends ('layout.layout')
+﻿{{-- 
+  ============================================================
+  VISTA: nosotros.blade.php
+  PROPÓSITO: Página "Quiénes Somos" de Vittorio
+  DESCRIPCIÓN: Presenta la historia de la empresa, su filosofía,
+  datos del taller en La Plata y métricas de la marca.
+  Incluye información del fundador y llamada a la acción.
+  ============================================================
+--}}
+@extends ('layout.layout')
 
 @section ('title', 'Quiénes Somos - Vittorio')
 

@@ -1,3 +1,13 @@
+{{-- 
+  ============================================================
+  VISTA: catalogo.blade.php
+  PROPÓSITO: Catálogo de productos/relojes Vittorio
+  DESCRIPCIÓN: Muestra todos los modelos de relojes disponibles
+  organizados por categorías. Cada producto incluye imagen,
+  nombre y precio. Los datos se obtienen de la variable $catalogo
+  pasada desde el controlador.
+  ============================================================
+--}}
 @extends ('layout.layout')
 
 @section ('title', 'Catálogo - Vittorio')

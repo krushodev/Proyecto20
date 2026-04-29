@@ -1,6 +1,15 @@
-/* ========================================
-   NAVBAR - Barra de navegación
-   ======================================== */
+{{-- 
+  ============================================================
+  ARCHIVO: navbar.css
+  PROPÓSITO: Estilos de la barra de navegación
+  DESCRIPCIÓN: Define el diseño de la navbar fija en la parte
+  superior del sitio. Incluye logo, menú de navegación,
+  selector de divisa, botones de búsqueda/carrito/usuario
+  y menú responsive para dispositivos móviles.
+  ============================================================
+--}}
+
+
 
 .navbar-vittorio {
     position: fixed;

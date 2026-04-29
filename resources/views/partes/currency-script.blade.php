@@ -1,3 +1,14 @@
+{{-- 
+  ============================================================
+  COMPONENTE: currency-script.blade.php
+  PROPÓSITO: Script de conversión de divisas
+  DESCRIPCIÓN: JavaScript que maneja el cambio de moneda
+  en el sitio. Permite convertir precios entre USD, ARS,
+  EUR y BRL usando tasas de cambio predefinidas.
+  Almacena la selección en localStorage.
+  Se incluye en la plantilla principal layout.blade.php
+  ============================================================
+--}}
 <script>
   (function () {
     // Cotizaciones referenciales (base USD).

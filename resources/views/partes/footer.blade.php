@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  COMPONENTE: footer.blade.php
+  PROPÓSITO: Pie de página del sitio
+  DESCRIPCIÓN: Contiene logo, descripción de la marca, enlaces
+  de navegación, botón para compartir y copyright.
+  Se incluye en la plantilla principal layout.blade.php
+  ============================================================
+--}}
 <footer class="footer-vittorio">
   <div class="footer-container">
     <div class="footer-brand-section">

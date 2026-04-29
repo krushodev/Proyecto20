@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  VISTA: inicio.blade.php
+  PROPÓSITO: Página principal/home del sitio Vittorio
+  DESCRIPCIÓN: Landing page que muestra la marca de relojes,
+  su filosofía, colección destacada y especificaciones técnicas.
+  Incluye hero section, filosofía, grid de colecciones y specs.
+  ============================================================
+--}}
 @extends ('layout.layout')
 
 @section ('title', 'Inicio - Vittorio')

@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  COMPONENTE: head.blade.php
+  PROPÓSITO: Sección head del HTML
+  DESCRIPCIÓN: Incluye metadatos, título, favicon, fuentes
+  Google (Space Grotesk), Bootstrap CSS y Vite para assets.
+  Se incluye en la plantilla principal layout.blade.php
+  ============================================================
+--}}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>@yield ('title', 'Vittorio')</title>

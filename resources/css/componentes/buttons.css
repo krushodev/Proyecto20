@@ -1,6 +1,14 @@
-/* ========================================
-   BUTTONS - Estilos de botones reutilizables
-   ======================================== */
+{{-- 
+  ============================================================
+  ARCHIVO: buttons.css
+  PROPÓSITO: Estilos de botones reutilizables
+  DESCRIPCIÓN: Define los estilos para los diferentes tipos
+  de botones de la marca: primario (sólido), outline (borde),
+  pequeño e iconos. Todos con efectos hover y transiciones.
+  ============================================================
+--}}
+
+
 
 .btn-primary-vittorio {
     background-color: var(--color-text-primary);

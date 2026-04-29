@@ -1,3 +1,13 @@
+{{-- 
+  ============================================================
+  COMPONENTE: navbar.blade.php
+  PROPÓSITO: Barra de navegación principal
+  DESCRIPCIÓN: Navegación fija en la parte superior con logo,
+  menú de enlaces, selector de divisa, búsqueda, carrito,
+  cuenta de usuario y menú responsive (offcanvas) para móvil.
+  Se incluye en la plantilla principal layout.blade.php
+  ============================================================
+--}}
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">
   <div class="container-fluid navbar-container">
     <a href="{{ url('/') }}" class="navbar-brand">

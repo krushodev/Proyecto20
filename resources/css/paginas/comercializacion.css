@@ -1,6 +1,15 @@
-/* ========================================
-   PÁGINA: COMERCIALIZACIÓN
-   ======================================== */
+{{-- 
+  ============================================================
+  ARCHIVO: comercializacion.css
+  PROPÓSITO: Estilos de la página de comercialización
+  DESCRIPCIÓN: Define el diseño de la página de información
+  comercial incluyendo: hero, secciones de entrega (nacional,
+  concierge, internacional), métodos de pago (Argentina e
+  internacional) y opciones de financiamiento.
+  ============================================================
+--}}
+
+
 
 .comercializacion-page {
     padding: 5rem 1.5rem 6rem;

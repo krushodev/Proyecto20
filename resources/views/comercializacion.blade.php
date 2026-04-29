@@ -1,4 +1,13 @@
-﻿@extends ('layout.layout')
+﻿{{-- 
+  ============================================================
+  VISTA: comercializacion.blade.php
+  PROPÓSITO: Página de información comercial y logística
+  DESCRIPCIÓN: Detalla los métodos de pago aceptados (locales
+  e internacionales), opciones de envío y políticas de entrega.
+  Incluye información sobre envíos nacionales e internacionales.
+  ============================================================
+--}}
+@extends ('layout.layout')
 
 @section ('title', 'Comercialización - Vittorio')
 

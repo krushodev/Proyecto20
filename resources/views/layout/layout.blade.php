@@ -1,3 +1,12 @@
+{{-- 
+  ============================================================
+  PLANTILLA: layout.blade.php
+  PROPÓSITO: Plantilla principal del sitio
+  DESCRIPCIÓN: Estructura base HTML que heredan todas las vistas.
+  Incluye el head, navbar, contenido principal (yield), footer
+  y scripts globales (Bootstrap, Lucide icons).
+  ============================================================
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

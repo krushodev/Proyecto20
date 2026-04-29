@@ -1,3 +1,13 @@
+{{-- 
+  ============================================================
+  VISTA: registro.blade.php
+  PROPÓSITO: Página de registro de nuevos usuarios
+  DESCRIPCIÓN: Formulario para crear una nueva cuenta de usuario
+  en el sistema. Permite a los visitantes registrarse para acceder
+  a funcionalidades adicionales del sitio.
+  NOTA: Actualmente muestra "Página en Construcción"
+  ============================================================
+--}}
 @extends ('layout.layout')
 
 @section ('title', 'Página en Construcción - Vittorio')

@@ -1,3 +1,14 @@
+{{-- 
+  ============================================================
+  ARCHIVO: login.css
+  PROPÓSITO: Estilos de la página de inicio de sesión
+  DESCRIPCIÓN: Define el diseño del formulario de login
+  incluyendo contenedor, campos de entrada, opciones
+  (recordarme, olvidé contraseña), botón de envío y
+  enlace a registro.
+  ============================================================
+--}}
+
 .login-page {
   min-height: 100vh;
   display: flex;

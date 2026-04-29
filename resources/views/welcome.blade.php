@@ -1,3 +1,10 @@
+{{-- 
+  ============================================================
+  VISTA: welcome.blade.php
+  PROPÓSITO: Página de bienvenida por defecto de Laravel
+  DESCRIPCIÓN: Esta es la página inicial que muestra Laravel
+  ============================================================
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

@@ -1,11 +1,9 @@
-{{-- 
-  ============================================================
-  ARCHIVO: app.css
-  PROPÓSITO: Hoja de estilos principal de Vittorio
-  DESCRIPCIÓN: Importa todos los componentes y páginas del sitio.
-  Define variables CSS globales, reset y estilos base.
-  ============================================================
---}}
+/* ============================================================
+   ARCHIVO: app.css
+   PROPÓSITO: Hoja de estilos principal de Vittorio
+   DESCRIPCIÓN: Importa todos los componentes y páginas del sitio.
+   Define variables CSS globales, reset y estilos base.
+   ============================================================ */
 
 /* COMPONENTES */
 @import './componentes/navbar.css';

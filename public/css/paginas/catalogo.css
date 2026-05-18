@@ -1,13 +1,11 @@
-{{-- 
-  ============================================================
-  ARCHIVO: catalogo.css
-  PROPÓSITO: Estilos de la página de catálogo
-  DESCRIPCIÓN: Define el diseño del catálogo de productos
-  incluyendo: header con título y descripción, secciones
-  por categoría, grid de productos (tarjetas con imagen,
-  nombre y precio).
-  ============================================================
---}}
+/* ============================================================
+   ARCHIVO: catalogo.css
+   PROPÓSITO: Estilos de la página de catálogo
+   DESCRIPCIÓN: Define el diseño del catálogo de productos
+   incluyendo: header con título y descripción, secciones
+   por categoría, grid de productos (tarjetas con imagen,
+   nombre y precio).
+   ============================================================ */
 
 
 

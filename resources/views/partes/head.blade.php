@@ -18,7 +18,5 @@
   rel="stylesheet"
 />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-@if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-  @vite (['resources/css/app.css', 'resources/js/app.js'])
-@endif
+<link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 @stack ('styles')

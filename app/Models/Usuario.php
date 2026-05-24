@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Usuario extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'usuarios';
 
@@ -16,6 +18,7 @@ class Usuario extends Authenticatable
         'nombre',
         'email',
         'password',
+        'rol_id',
     ];
 
     protected $hidden = [
@@ -29,5 +32,10 @@ class Usuario extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function rol(): BelongsTo
+    {
+        return $this->belongsTo(Rol::class);
     }
 }

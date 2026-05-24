@@ -1,84 +1,94 @@
-{{-- 
-  ============================================================
-  VISTA: registro.blade.php
-  PROPÓSITO: Página de registro de nuevos usuarios
-  DESCRIPCIÓN: Formulario para crear una nueva cuenta de usuario
-  en el sistema. Permite a los visitantes registrarse para acceder
-  a funcionalidades adicionales del sitio.
-  NOTA: Actualmente muestra "Página en Construcción"
-  ============================================================
---}}
 @extends ('layout.layout')
 
-@section ('title', 'Página en Construcción - Vittorio')
+@section ('title', 'Crear Cuenta - Vittorio')
 
 @section ('content')
-<div class="construction-page">
-  <div class="construction-container">
-    <div class="construction-icon">
-      <i data-lucide="hard-hat"></i>
+<div class="login-page">
+  <div class="login-container">
+    <div class="login-header">
+      <h1 class="login-title">Crear Cuenta</h1>
+      <p class="login-subtitle">Registrate en Vittorio</p>
     </div>
-    <h1 class="construction-title">Página en Construcción</h1>
-    <p class="construction-text">Estamos trabajando para traerte esta sección pronto.</p>
-    <a href="{{ url('/') }}" class="btn-home">Volver al Inicio</a>
+
+    <form class="login-form" action="{{ url('/registro') }}" method="POST">
+      @csrf
+
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          class="form-input {{ $errors->has('nombre') ? 'is-invalid' : '' }}"
+          placeholder="Tu nombre completo"
+          value="{{ old('nombre') }}"
+          required
+          minlength="2"
+          maxlength="100"
+          autocomplete="name"
+        />
+        @error('nombre')
+          <span class="form-error">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}"
+          placeholder="tu@email.com"
+          value="{{ old('email') }}"
+          required
+          autocomplete="email"
+        />
+        @error('email')
+          <span class="form-error">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
+          placeholder="••••••••"
+          required
+          minlength="8"
+          autocomplete="new-password"
+        />
+        @error('password')
+          <span class="form-error">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <div class="form-group">
+        <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
+        <input
+          type="password"
+          id="password_confirmation"
+          name="password_confirmation"
+          class="form-input"
+          placeholder="••••••••"
+          required
+          minlength="8"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <button type="submit" class="btn-login">Crear Cuenta</button>
+    </form>
+
+    <div class="login-footer">
+      <p class="register-text">
+        ¿Ya tenés cuenta?
+        <a href="{{ url('/login') }}" class="register-link">Iniciá sesión</a>
+      </p>
+    </div>
   </div>
 </div>
-
-<style>
-.construction-page {
-  min-height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #0a0a0a;
-}
-
-.construction-container {
-  text-align: center;
-  max-width: 500px;
-}
-
-.construction-icon {
-  margin-bottom: 2rem;
-}
-
-.construction-icon i {
-  width: 80px;
-  height: 80px;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.construction-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-}
-
-.construction-text {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 2rem;
-}
-
-.btn-home {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.btn-home:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-1px);
-}
-</style>
 @endsection

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rol;
-use App\Models\Usuario;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegistroRequest;
+use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AuthController extends Controller
 {
+    public function __construct(private AuthService $authService) {}
+
     public function mostrarLogin(): View
     {
         return view('server.usuarios.login');
@@ -21,14 +24,9 @@ class AuthController extends Controller
         return view('server.usuarios.registro');
     }
 
-    public function autenticar(Request $request): RedirectResponse
+    public function autenticar(LoginRequest $request): RedirectResponse
     {
-        $credenciales = $request->validate([
-            'email'    => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-        ]);
-
-        if (Auth::attempt($credenciales, $request->boolean('remember'))) {
+        if ($this->authService->autenticarUsuario($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
 
             $rol = Auth::user()->rol?->nombre;
@@ -45,24 +43,9 @@ class AuthController extends Controller
             ->withErrors(['email' => 'Las credenciales no coinciden con nuestros registros.']);
     }
 
-    public function registrar(Request $request): RedirectResponse
+    public function registrar(RegistroRequest $request): RedirectResponse
     {
-        $datos = $request->validate([
-            'nombre'   => ['required', 'string', 'min:2', 'max:100'],
-            'email'    => ['required', 'email', 'unique:usuarios,email'],
-            'password' => ['required', 'min:8', 'confirmed'],
-        ]);
-
-        $rolCliente = Rol::where('nombre', 'cliente')->first();
-
-        $usuario = Usuario::create([
-            'nombre'   => $datos['nombre'],
-            'email'    => $datos['email'],
-            'password' => $datos['password'],
-            'rol_id'   => $rolCliente?->id,
-        ]);
-
-        Auth::login($usuario);
+        $this->authService->registrarUsuario($request->validated());
 
         return redirect('/cliente');
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActualizarUsuarioRequest;
 use App\Models\Rol;
 use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UsuarioController extends Controller
@@ -24,15 +24,9 @@ class UsuarioController extends Controller
         return view('server.admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
-    public function update(Request $request, Usuario $usuario): RedirectResponse
+    public function update(ActualizarUsuarioRequest $request, Usuario $usuario): RedirectResponse
     {
-        $request->validate([
-            'nombre' => ['required', 'string', 'min:2', 'max:100'],
-            'email'  => ['required', 'email', 'unique:usuarios,email,' . $usuario->id],
-            'rol_id' => ['required', 'exists:roles,id'],
-        ]);
-
-        $usuario->update($request->only('nombre', 'email', 'rol_id'));
+        $usuario->update($request->validated());
 
         return redirect()->route('usuarios.index');
     }

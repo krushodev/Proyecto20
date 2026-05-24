@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CrearRolRequest;
 use App\Models\Rol;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RolController extends Controller
@@ -16,13 +16,9 @@ class RolController extends Controller
         return view('server.admin.roles.index', compact('roles'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CrearRolRequest $request): RedirectResponse
     {
-        $request->validate([
-            'nombre' => ['required', 'string', 'unique:roles,nombre'],
-        ]);
-
-        Rol::create($request->only('nombre'));
+        Rol::create($request->validated());
 
         return redirect()->route('roles.index');
     }

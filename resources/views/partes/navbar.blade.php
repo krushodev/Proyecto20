@@ -1,11 +1,10 @@
-{{-- 
+{{--
   ============================================================
   COMPONENTE: navbar.blade.php
   PROPÓSITO: Barra de navegación principal
-  DESCRIPCIÓN: Navegación fija en la parte superior con logo,
-  menú de enlaces, selector de divisa, búsqueda, carrito,
-  cuenta de usuario y menú responsive (offcanvas) para móvil.
-  Se incluye en la plantilla principal layout.blade.php
+  DESCRIPCIÓN: Navegación fija con logo, menú, divisa, búsqueda,
+  carrito y cuenta. El icono de cuenta y el carrito son
+  condicionales según el estado de autenticación y el rol.
   ============================================================
 --}}
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">
@@ -15,6 +14,7 @@
     </a>
 
     <div class="navbar-actions order-lg-3">
+      {{-- Selector de divisa --}}
       <div class="dropdown navbar-currency">
         <button
           class="navbar-icon-btn dropdown-toggle"
@@ -32,15 +32,75 @@
           <li><button type="button" class="dropdown-item" data-currency="BRL">BRL · Real</button></li>
         </ul>
       </div>
+
+      {{-- Búsqueda --}}
       <button class="navbar-icon-btn" aria-label="Buscar" type="button">
         <i data-lucide="search"></i>
       </button>
-      <button class="navbar-icon-btn" aria-label="Carrito" type="button">
-        <i data-lucide="shopping-cart"></i>
-      </button>
-      <a href="{{ url('/login') }}" class="navbar-icon-btn" aria-label="Cuenta">
-        <i data-lucide="user"></i>
-      </a>
+
+      {{-- Carrito: enlace para clientes, acceso a login para invitados, oculto para admin --}}
+      @auth
+        @if(auth()->user()->rol?->nombre === 'cliente')
+          <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Carrito">
+            <i data-lucide="shopping-cart"></i>
+          </a>
+        @endif
+      @else
+        <a href="{{ route('login') }}" class="navbar-icon-btn" aria-label="Carrito">
+          <i data-lucide="shopping-cart"></i>
+        </a>
+      @endauth
+
+      {{-- Cuenta: dropdown para autenticados, enlace a login para invitados --}}
+      @auth
+        <div class="dropdown">
+          <button
+            class="navbar-icon-btn dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            aria-label="Mi cuenta"
+          >
+            <i data-lucide="user"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end navbar-user-menu">
+            <li class="navbar-user-name">{{ auth()->user()->nombre }}</li>
+
+            @if(auth()->user()->rol?->nombre === 'admin')
+              <li>
+                <a class="dropdown-item" href="{{ route('admin.panel') }}">
+                  <i data-lucide="layout-dashboard"></i> Panel Admin
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+            @endif
+
+            @if(auth()->user()->rol?->nombre === 'cliente')
+              <li>
+                <a class="dropdown-item" href="{{ route('carrito') }}">
+                  <i data-lucide="shopping-cart"></i> Mi Carrito
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+            @endif
+
+            <li>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item navbar-logout-btn">
+                  <i data-lucide="log-out"></i> Cerrar Sesión
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      @else
+        <a href="{{ route('login') }}" class="navbar-icon-btn" aria-label="Iniciar sesión">
+          <i data-lucide="user"></i>
+        </a>
+      @endauth
+
+      {{-- Hamburguesa móvil --}}
       <button
         class="navbar-toggler navbar-icon-btn d-lg-none"
         type="button"
@@ -54,15 +114,22 @@
     </div>
 
     <div class="navbar-menu collapse navbar-collapse order-lg-2" id="vittorioMenu">
-      <a href="{{ url('/') }}" class="navbar-link {{ Request::is('/') ? 'active' : '' }}">Inicio</a>
-      <a href="{{ url('/catalogo') }}" class="navbar-link {{ Request::is('catalogo') ? 'active' : '' }}">Catálogo</a>
-      <a href="{{ url('/nosotros') }}" class="navbar-link {{ Request::is('nosotros') ? 'active' : '' }}">Quiénes Somos</a>
+      <a href="{{ url('/') }}"              class="navbar-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
+      <a href="{{ url('/catalogo') }}"      class="navbar-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
+      <a href="{{ url('/nosotros') }}"      class="navbar-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
       <a href="{{ url('/comercializacion') }}" class="navbar-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
-      <a href="{{ url('/contacto') }}" class="navbar-link {{ Request::is('contacto') ? 'active' : '' }}">Contacto</a>
+      <a href="{{ url('/contacto') }}"      class="navbar-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
+
+      @auth
+        @if(auth()->user()->rol?->nombre === 'admin')
+          <a href="{{ route('admin.panel') }}" class="navbar-link {{ Request::is('admin*') ? 'active' : '' }}">Admin</a>
+        @endif
+      @endauth
     </div>
   </div>
 </nav>
 
+{{-- OffCanvas móvil --}}
 <div class="offcanvas offcanvas-end navbar-offcanvas" tabindex="-1" id="vittorioOffcanvas" aria-labelledby="vittorioOffcanvasLabel">
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="vittorioOffcanvasLabel">
@@ -74,18 +141,77 @@
   </div>
   <div class="offcanvas-body">
     <nav class="offcanvas-nav" aria-label="Menú móvil">
-      <a href="{{ url('/') }}" class="offcanvas-link {{ Request::is('/') ? 'active' : '' }}">Inicio</a>
-      <a href="{{ url('/catalogo') }}" class="offcanvas-link {{ Request::is('catalogo') ? 'active' : '' }}">Catálogo</a>
-      <a href="{{ url('/nosotros') }}" class="offcanvas-link {{ Request::is('nosotros') ? 'active' : '' }}">Quiénes Somos</a>
+      <a href="{{ url('/') }}"              class="offcanvas-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
+      <a href="{{ url('/catalogo') }}"      class="offcanvas-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
+      <a href="{{ url('/nosotros') }}"      class="offcanvas-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
       <a href="{{ url('/comercializacion') }}" class="offcanvas-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
-      <a href="{{ url('/contacto') }}" class="offcanvas-link {{ Request::is('contacto') ? 'active' : '' }}">Contacto</a>
+      <a href="{{ url('/contacto') }}"      class="offcanvas-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
     </nav>
+
     <div class="offcanvas-footer">
-      <a href="{{ url('/login') }}" class="offcanvas-cta">
-        <i data-lucide="user"></i>
-        <span>Mi cuenta</span>
-      </a>
+      @guest
+        <a href="{{ route('login') }}" class="offcanvas-cta">
+          <i data-lucide="user"></i>
+          <span>Iniciar sesión</span>
+        </a>
+      @else
+        @if(auth()->user()->rol?->nombre === 'admin')
+          <a href="{{ route('admin.panel') }}" class="offcanvas-cta">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Panel Admin</span>
+          </a>
+        @else
+          <a href="{{ route('carrito') }}" class="offcanvas-cta">
+            <i data-lucide="shopping-cart"></i>
+            <span>Mi Carrito</span>
+          </a>
+        @endif
+        <form action="{{ route('logout') }}" method="POST" style="width:100%">
+          @csrf
+          <button type="submit" class="offcanvas-cta offcanvas-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </form>
+      @endguest
       <p class="offcanvas-tagline">Manufactura desde La Plata · Argentina</p>
     </div>
   </div>
 </div>
+
+@push('styles')
+<style>
+.navbar-user-name {
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.navbar-user-menu { min-width: 180px; }
+.navbar-user-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+.navbar-user-menu .dropdown-item i { width: 15px; height: 15px; }
+.navbar-logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: #ff6b6b;
+}
+.navbar-logout-btn:hover { color: #ff6b6b; background-color: rgba(255,107,107,0.08); }
+.offcanvas-logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+}
+</style>
+@endpush

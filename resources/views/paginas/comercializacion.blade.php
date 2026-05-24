@@ -1,10 +1,7 @@
-﻿{{-- 
+{{--
   ============================================================
   VISTA: comercializacion.blade.php
   PROPÓSITO: Página de información comercial y logística
-  DESCRIPCIÓN: Detalla los métodos de pago aceptados (locales
-  e internacionales), opciones de envío y políticas de entrega.
-  Incluye información sobre envíos nacionales e internacionales.
   ============================================================
 --}}
 @extends ('layout.layout')
@@ -30,9 +27,7 @@
     </section>
 
     <section class="comercializacion-features" aria-label="Logística de envío">
-      <header class="section-heading">
-        <h2>Entrega Global</h2>
-      </header>
+      <header class="section-heading"><h2>Entrega Global</h2></header>
       <div class="feature-grid">
         <article class="feature-card">
           <span>Envío nacional</span>
@@ -71,86 +66,35 @@
       <div class="payment-block">
         <h3 class="payment-block-title">Argentina</h3>
         <ul class="payment-logos">
-          <li class="payment-logo" title="Mercado Pago">
-            <img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" />
-            <span>Mercado Pago</span>
-          </li>
-          <li class="payment-logo" title="MODO">
-            <span class="payment-logo-text">MODO</span>
-            <span>MODO</span>
-          </li>
-          <li class="payment-logo" title="Transferencia bancaria CBU/CVU">
-            <i data-lucide="landmark"></i>
-            <span>Transferencia / CBU</span>
-          </li>
-          <li class="payment-logo" title="Pago en efectivo en sucursal">
-            <i data-lucide="banknote"></i>
-            <span>Rapipago / Pago Fácil</span>
-          </li>
-          <li class="payment-logo" title="Cuotas sin interés">
-            <i data-lucide="calendar-clock"></i>
-            <span>Hasta 12 cuotas</span>
-          </li>
+          <li class="payment-logo" title="Mercado Pago"><img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" /><span>Mercado Pago</span></li>
+          <li class="payment-logo" title="MODO"><span class="payment-logo-text">MODO</span><span>MODO</span></li>
+          <li class="payment-logo" title="Transferencia bancaria CBU/CVU"><i data-lucide="landmark"></i><span>Transferencia / CBU</span></li>
+          <li class="payment-logo" title="Pago en efectivo en sucursal"><i data-lucide="banknote"></i><span>Rapipago / Pago Fácil</span></li>
+          <li class="payment-logo" title="Cuotas sin interés"><i data-lucide="calendar-clock"></i><span>Hasta 12 cuotas</span></li>
         </ul>
       </div>
 
       <div class="payment-block">
         <h3 class="payment-block-title">Internacional</h3>
         <ul class="payment-logos">
-          <li class="payment-logo" title="Visa">
-            <img src="https://cdn.simpleicons.org/visa/ffffff" alt="Visa" />
-            <span>Visa</span>
-          </li>
-          <li class="payment-logo" title="Mastercard">
-            <img src="https://cdn.simpleicons.org/mastercard/ffffff" alt="Mastercard" />
-            <span>Mastercard</span>
-          </li>
-          <li class="payment-logo" title="American Express">
-            <img src="https://cdn.simpleicons.org/americanexpress/ffffff" alt="American Express" />
-            <span>Amex</span>
-          </li>
-          <li class="payment-logo" title="PayPal">
-            <img src="https://cdn.simpleicons.org/paypal/ffffff" alt="PayPal" />
-            <span>PayPal</span>
-          </li>
-          <li class="payment-logo" title="Stripe">
-            <img src="https://cdn.simpleicons.org/stripe/ffffff" alt="Stripe" />
-            <span>Stripe</span>
-          </li>
-          <li class="payment-logo" title="Google Pay">
-            <img src="https://cdn.simpleicons.org/googlepay/ffffff" alt="Google Pay" />
-            <span>Google Pay</span>
-          </li>
-          <li class="payment-logo" title="Apple Pay">
-            <img src="https://cdn.simpleicons.org/applepay/ffffff" alt="Apple Pay" />
-            <span>Apple Pay</span>
-          </li>
-          <li class="payment-logo" title="Wire Transfer">
-            <i data-lucide="globe"></i>
-            <span>Wire Transfer</span>
-          </li>
+          <li class="payment-logo" title="Visa"><img src="https://cdn.simpleicons.org/visa/ffffff" alt="Visa" /><span>Visa</span></li>
+          <li class="payment-logo" title="Mastercard"><img src="https://cdn.simpleicons.org/mastercard/ffffff" alt="Mastercard" /><span>Mastercard</span></li>
+          <li class="payment-logo" title="American Express"><img src="https://cdn.simpleicons.org/americanexpress/ffffff" alt="American Express" /><span>Amex</span></li>
+          <li class="payment-logo" title="PayPal"><img src="https://cdn.simpleicons.org/paypal/ffffff" alt="PayPal" /><span>PayPal</span></li>
+          <li class="payment-logo" title="Stripe"><img src="https://cdn.simpleicons.org/stripe/ffffff" alt="Stripe" /><span>Stripe</span></li>
+          <li class="payment-logo" title="Google Pay"><img src="https://cdn.simpleicons.org/googlepay/ffffff" alt="Google Pay" /><span>Google Pay</span></li>
+          <li class="payment-logo" title="Apple Pay"><img src="https://cdn.simpleicons.org/applepay/ffffff" alt="Apple Pay" /><span>Apple Pay</span></li>
+          <li class="payment-logo" title="Wire Transfer"><i data-lucide="globe"></i><span>Wire Transfer</span></li>
         </ul>
       </div>
 
       <div class="payment-block">
         <h3 class="payment-block-title">Criptomonedas</h3>
         <ul class="payment-logos">
-          <li class="payment-logo" title="Bitcoin">
-            <img src="https://cdn.simpleicons.org/bitcoin/ffffff" alt="Bitcoin" />
-            <span>Bitcoin</span>
-          </li>
-          <li class="payment-logo" title="Ethereum">
-            <img src="https://cdn.simpleicons.org/ethereum/ffffff" alt="Ethereum" />
-            <span>Ethereum</span>
-          </li>
-          <li class="payment-logo" title="USDT">
-            <img src="https://cdn.simpleicons.org/tether/ffffff" alt="USDT Tether" />
-            <span>USDT</span>
-          </li>
-          <li class="payment-logo" title="USDC">
-            <i data-lucide="circle-dollar-sign"></i>
-            <span>USDC</span>
-          </li>
+          <li class="payment-logo" title="Bitcoin"><img src="https://cdn.simpleicons.org/bitcoin/ffffff" alt="Bitcoin" /><span>Bitcoin</span></li>
+          <li class="payment-logo" title="Ethereum"><img src="https://cdn.simpleicons.org/ethereum/ffffff" alt="Ethereum" /><span>Ethereum</span></li>
+          <li class="payment-logo" title="USDT"><img src="https://cdn.simpleicons.org/tether/ffffff" alt="USDT Tether" /><span>USDT</span></li>
+          <li class="payment-logo" title="USDC"><i data-lucide="circle-dollar-sign"></i><span>USDC</span></li>
         </ul>
       </div>
 

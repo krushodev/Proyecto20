@@ -2,9 +2,11 @@
   ============================================================
   COMPONENTE: navbar.blade.php
   PROPÓSITO: Barra de navegación principal
-  DESCRIPCIÓN: Navegación fija con logo, menú, divisa, búsqueda,
-  carrito y cuenta. El icono de cuenta y el carrito son
-  condicionales según el estado de autenticación y el rol.
+  DESCRIPCIÓN: Navegación fija con logo, menú, divisa, búsqueda
+  y cuenta. El icono de cuenta es condicional según el rol:
+  - @guest     → enlace a Login
+  - rol cliente → enlace a Área Cliente + Cerrar Sesión
+  - rol admin   → enlace a Panel Admin + Cerrar Sesión
   ============================================================
 --}}
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">
@@ -14,6 +16,7 @@
     </a>
 
     <div class="navbar-actions order-lg-3">
+
       {{-- Selector de divisa --}}
       <div class="dropdown navbar-currency">
         <button
@@ -38,21 +41,23 @@
         <i data-lucide="search"></i>
       </button>
 
-      {{-- Carrito: enlace para clientes, acceso a login para invitados, oculto para admin --}}
+      {{-- Carrito: solo visible para clientes --}}
       @auth
         @if(auth()->user()->rol?->nombre === 'cliente')
-          <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Carrito">
+          <a href="{{ route('cliente') }}" class="navbar-icon-btn" aria-label="Área cliente">
             <i data-lucide="shopping-cart"></i>
           </a>
         @endif
-      @else
-        <a href="{{ route('login') }}" class="navbar-icon-btn" aria-label="Carrito">
-          <i data-lucide="shopping-cart"></i>
-        </a>
       @endauth
 
-      {{-- Cuenta: dropdown para autenticados, enlace a login para invitados --}}
-      @auth
+      {{-- Cuenta: condicional por estado y rol --}}
+      @guest
+        {{-- Visitante: enlace directo a login --}}
+        <a href="{{ route('login') }}" class="navbar-icon-btn" aria-label="Iniciar sesión">
+          <i data-lucide="user"></i>
+        </a>
+      @else
+        {{-- Autenticado: dropdown con opciones según rol --}}
         <div class="dropdown">
           <button
             class="navbar-icon-btn dropdown-toggle"
@@ -72,18 +77,15 @@
                   <i data-lucide="layout-dashboard"></i> Panel Admin
                 </a>
               </li>
-              <li><hr class="dropdown-divider"></li>
-            @endif
-
-            @if(auth()->user()->rol?->nombre === 'cliente')
+            @elseif(auth()->user()->rol?->nombre === 'cliente')
               <li>
-                <a class="dropdown-item" href="{{ route('carrito') }}">
-                  <i data-lucide="shopping-cart"></i> Mi Carrito
+                <a class="dropdown-item" href="{{ route('cliente') }}">
+                  <i data-lucide="user-circle"></i> Área Cliente
                 </a>
               </li>
-              <li><hr class="dropdown-divider"></li>
             @endif
 
+            <li><hr class="dropdown-divider"></li>
             <li>
               <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -94,11 +96,7 @@
             </li>
           </ul>
         </div>
-      @else
-        <a href="{{ route('login') }}" class="navbar-icon-btn" aria-label="Iniciar sesión">
-          <i data-lucide="user"></i>
-        </a>
-      @endauth
+      @endguest
 
       {{-- Hamburguesa móvil --}}
       <button
@@ -114,11 +112,11 @@
     </div>
 
     <div class="navbar-menu collapse navbar-collapse order-lg-2" id="vittorioMenu">
-      <a href="{{ url('/') }}"              class="navbar-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
-      <a href="{{ url('/catalogo') }}"      class="navbar-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
-      <a href="{{ url('/nosotros') }}"      class="navbar-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
-      <a href="{{ url('/comercializacion') }}" class="navbar-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
-      <a href="{{ url('/contacto') }}"      class="navbar-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
+      <a href="{{ url('/') }}"                 class="navbar-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
+      <a href="{{ url('/catalogo') }}"          class="navbar-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
+      <a href="{{ url('/nosotros') }}"          class="navbar-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
+      <a href="{{ url('/comercializacion') }}"  class="navbar-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
+      <a href="{{ url('/contacto') }}"          class="navbar-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
 
       @auth
         @if(auth()->user()->rol?->nombre === 'admin')
@@ -141,11 +139,11 @@
   </div>
   <div class="offcanvas-body">
     <nav class="offcanvas-nav" aria-label="Menú móvil">
-      <a href="{{ url('/') }}"              class="offcanvas-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
-      <a href="{{ url('/catalogo') }}"      class="offcanvas-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
-      <a href="{{ url('/nosotros') }}"      class="offcanvas-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
-      <a href="{{ url('/comercializacion') }}" class="offcanvas-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
-      <a href="{{ url('/contacto') }}"      class="offcanvas-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
+      <a href="{{ url('/') }}"                 class="offcanvas-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
+      <a href="{{ url('/catalogo') }}"          class="offcanvas-link {{ Request::is('catalogo')        ? 'active' : '' }}">Catálogo</a>
+      <a href="{{ url('/nosotros') }}"          class="offcanvas-link {{ Request::is('nosotros')        ? 'active' : '' }}">Quiénes Somos</a>
+      <a href="{{ url('/comercializacion') }}"  class="offcanvas-link {{ Request::is('comercializacion') ? 'active' : '' }}">Comercialización</a>
+      <a href="{{ url('/contacto') }}"          class="offcanvas-link {{ Request::is('contacto')        ? 'active' : '' }}">Contacto</a>
     </nav>
 
     <div class="offcanvas-footer">
@@ -160,10 +158,10 @@
             <i data-lucide="layout-dashboard"></i>
             <span>Panel Admin</span>
           </a>
-        @else
-          <a href="{{ route('carrito') }}" class="offcanvas-cta">
-            <i data-lucide="shopping-cart"></i>
-            <span>Mi Carrito</span>
+        @elseif(auth()->user()->rol?->nombre === 'cliente')
+          <a href="{{ route('cliente') }}" class="offcanvas-cta">
+            <i data-lucide="user-circle"></i>
+            <span>Área Cliente</span>
           </a>
         @endif
         <form action="{{ route('logout') }}" method="POST" style="width:100%">
@@ -183,10 +181,10 @@
 <style>
 .navbar-user-name {
   padding: 0.4rem 1rem 0.2rem;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .navbar-user-menu { min-width: 180px; }

@@ -66,7 +66,7 @@
     <div class="login-footer">
       <p class="register-text">
         ¿No tenés cuenta?
-        <a href="{{ url('/registro') }}" class="register-link">Crear cuenta</a>
+        <a href="{{ route('registro') }}" class="register-link">Crear cuenta</a>
       </p>
     </div>
   </div>

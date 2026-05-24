@@ -8,6 +8,6 @@ class ClienteController extends Controller
 {
     public function index(): View
     {
-        return view('carrito');
+        return view('server.usuarios.cliente');
     }
 }

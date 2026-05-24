@@ -1,10 +1,7 @@
-﻿{{-- 
+{{--
   ============================================================
   VISTA: nosotros.blade.php
   PROPÓSITO: Página "Quiénes Somos" de Vittorio
-  DESCRIPCIÓN: Presenta la historia de la empresa, su filosofía,
-  datos del taller en La Plata y métricas de la marca.
-  Incluye información del fundador y llamada a la acción.
   ============================================================
 --}}
 @extends ('layout.layout')
@@ -37,22 +34,10 @@
           />
         </div>
         <div class="nosotros-metrics">
-          <div class="nosotros-metric">
-            <p>25+</p>
-            <p>Años de oficio</p>
-          </div>
-          <div class="nosotros-metric">
-            <p>30+</p>
-            <p>Países de envío</p>
-          </div>
-          <div class="nosotros-metric">
-            <p>9</p>
-            <p>Modelos propios</p>
-          </div>
-          <div class="nosotros-metric">
-            <p>100%</p>
-            <p>Ensamblado a mano</p>
-          </div>
+          <div class="nosotros-metric"><p>25+</p><p>Años de oficio</p></div>
+          <div class="nosotros-metric"><p>30+</p><p>Países de envío</p></div>
+          <div class="nosotros-metric"><p>9</p><p>Modelos propios</p></div>
+          <div class="nosotros-metric"><p>100%</p><p>Ensamblado a mano</p></div>
         </div>
       </div>
     </section>

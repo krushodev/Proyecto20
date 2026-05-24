@@ -14,14 +14,14 @@ class UsuarioController extends Controller
     {
         $usuarios = Usuario::with('rol')->get();
 
-        return view('backend.admin.usuarios.index', compact('usuarios'));
+        return view('server.admin.usuarios.index', compact('usuarios'));
     }
 
     public function edit(Usuario $usuario): View
     {
         $roles = Rol::all();
 
-        return view('backend.admin.usuarios.edit', compact('usuario', 'roles'));
+        return view('server.admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
     public function update(Request $request, Usuario $usuario): RedirectResponse

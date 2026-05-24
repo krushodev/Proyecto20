@@ -1,4 +1,4 @@
-{{-- 
+{{--
   ============================================================
   VISTA: inicio.blade.php
   PROPÓSITO: Página principal/home del sitio Vittorio

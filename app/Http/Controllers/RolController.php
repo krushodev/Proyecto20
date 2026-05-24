@@ -13,7 +13,7 @@ class RolController extends Controller
     {
         $roles = Rol::all();
 
-        return view('backend.admin.roles.index', compact('roles'));
+        return view('server.admin.roles.index', compact('roles'));
     }
 
     public function store(Request $request): RedirectResponse

@@ -86,7 +86,7 @@
     <div class="login-footer">
       <p class="register-text">
         ¿Ya tenés cuenta?
-        <a href="{{ url('/login') }}" class="register-link">Iniciá sesión</a>
+        <a href="{{ route('login') }}" class="register-link">Iniciá sesión</a>
       </p>
     </div>
   </div>

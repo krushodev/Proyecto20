@@ -13,12 +13,12 @@ class AuthController extends Controller
 {
     public function mostrarLogin(): View
     {
-        return view('login');
+        return view('server.usuarios.login');
     }
 
     public function mostrarRegistro(): View
     {
-        return view('registro');
+        return view('server.usuarios.registro');
     }
 
     public function autenticar(Request $request): RedirectResponse
@@ -37,7 +37,7 @@ class AuthController extends Controller
                 return redirect()->intended('/admin');
             }
 
-            return redirect()->intended('/');
+            return redirect()->intended('/cliente');
         }
 
         return back()
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         Auth::login($usuario);
 
-        return redirect('/');
+        return redirect('/cliente');
     }
 
     public function logout(Request $request): RedirectResponse

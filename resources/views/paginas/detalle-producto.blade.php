@@ -1,12 +1,15 @@
-{{-- 
+{{--
   ============================================================
   VISTA: detalle-producto.blade.php
   PROPÓSITO: Página de detalle de producto individual
-  DESCRIPCIÓN: Muestra información detallada de un reloj
-  específico incluyendo imágenes, especificaciones técnicas,
-  precio y opciones de compra. Actualmente en construcción.
   ============================================================
 --}}
+@extends ('layout.layout')
+
+@section ('title', 'Detalle del Producto - Vittorio')
+
+@section ('content')
 <div>
   <section></section>
 </div>
+@endsection

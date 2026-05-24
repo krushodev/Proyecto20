@@ -1,10 +1,7 @@
-{{-- 
+{{--
   ============================================================
   VISTA: contacto.blade.php
   PROPÓSITO: Página de contacto y formulario de consultas
-  DESCRIPCIÓN: Muestra información de contacto de la empresa
-  (teléfono, email, dirección), formulario de consulta y mapa
-  de ubicación. El equipo responde dentro de las 24 hs hábiles.
   ============================================================
 --}}
 @extends ('layout.layout')
@@ -67,38 +64,16 @@
 
       <aside class="contacto-details-card">
         <h2>Datos de la casa</h2>
-
         <div class="contact-quickrow">
-          <a class="contact-chip" href="tel:+542211234567" aria-label="Llamar al teléfono">
-            <i data-lucide="phone"></i>
-            <span>+54 221 123-4567</span>
-          </a>
-          <a class="contact-chip" href="mailto:contacto@vittorio.com.ar" aria-label="Enviar correo">
-            <i data-lucide="mail"></i>
-            <span>contacto@vittorio.com.ar</span>
-          </a>
-          <a class="contact-chip" href="https://wa.me/5492211234567" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <i data-lucide="message-circle"></i>
-            <span>WhatsApp</span>
-          </a>
+          <a class="contact-chip" href="tel:+542211234567"><i data-lucide="phone"></i><span>+54 221 123-4567</span></a>
+          <a class="contact-chip" href="mailto:contacto@vittorio.com.ar"><i data-lucide="mail"></i><span>contacto@vittorio.com.ar</span></a>
+          <a class="contact-chip" href="https://wa.me/5492211234567" target="_blank" rel="noopener"><i data-lucide="message-circle"></i><span>WhatsApp</span></a>
         </div>
-
-        <div class="detail-row">
-          <p>Razón social</p>
-          <p>Vittorio Relojería S.R.L.</p>
-        </div>
-        <div class="detail-row">
-          <p>Dirección</p>
-          <address>Calle 50 N° 1234,<br />B1900 La Plata,<br />Provincia de Buenos Aires, Argentina</address>
-        </div>
-        <div class="detail-row">
-          <p>Horario del taller</p>
-          <p>Lun a Vie · 09:00 — 18:00<br />Sáb · solo con cita previa</p>
-        </div>
-
+        <div class="detail-row"><p>Razón social</p><p>Vittorio Relojería S.R.L.</p></div>
+        <div class="detail-row"><p>Dirección</p><address>Calle 50 N° 1234,<br />B1900 La Plata,<br />Provincia de Buenos Aires, Argentina</address></div>
+        <div class="detail-row"><p>Horario del taller</p><p>Lun a Vie · 09:00 — 18:00<br />Sáb · solo con cita previa</p></div>
         <a class="map-link-cta" href="https://www.google.com/maps/place/La+Plata,+Provincia+de+Buenos+Aires" target="_blank" rel="noopener">
-          <i data-lucide="map-pin"></i>
-          <span>Ver en Google Maps</span>
+          <i data-lucide="map-pin"></i><span>Ver en Google Maps</span>
         </a>
       </aside>
     </section>

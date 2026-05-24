@@ -35,7 +35,7 @@ class AuthController extends Controller
                 return redirect()->intended('/admin');
             }
 
-            return redirect()->intended('/cliente');
+            return redirect()->intended('/');
         }
 
         return back()
@@ -47,7 +47,7 @@ class AuthController extends Controller
     {
         $this->authService->registrarUsuario($request->validated());
 
-        return redirect('/cliente');
+        return redirect('/');
     }
 
     public function logout(Request $request): RedirectResponse

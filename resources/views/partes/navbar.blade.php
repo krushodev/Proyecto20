@@ -5,7 +5,7 @@
   DESCRIPCIÓN: Navegación fija con logo, menú, divisa, búsqueda
   y cuenta. El icono de cuenta es condicional según el rol:
   - @guest     → enlace a Login
-  - rol cliente → enlace a Área Cliente + Cerrar Sesión
+  - rol cliente → nombre + Cerrar Sesión
   - rol admin   → enlace a Panel Admin + Cerrar Sesión
   ============================================================
 --}}
@@ -41,15 +41,6 @@
         <i data-lucide="search"></i>
       </button>
 
-      {{-- Carrito: solo visible para clientes --}}
-      @auth
-        @if(auth()->user()->rol?->nombre === 'cliente')
-          <a href="{{ route('cliente') }}" class="navbar-icon-btn" aria-label="Área cliente">
-            <i data-lucide="shopping-cart"></i>
-          </a>
-        @endif
-      @endauth
-
       {{-- Cuenta: condicional por estado y rol --}}
       @guest
         {{-- Visitante: enlace directo a login --}}
@@ -75,12 +66,6 @@
               <li>
                 <a class="dropdown-item" href="{{ route('admin.panel') }}">
                   <i data-lucide="layout-dashboard"></i> Panel Admin
-                </a>
-              </li>
-            @elseif(auth()->user()->rol?->nombre === 'cliente')
-              <li>
-                <a class="dropdown-item" href="{{ route('cliente') }}">
-                  <i data-lucide="user-circle"></i> Área Cliente
                 </a>
               </li>
             @endif
@@ -157,11 +142,6 @@
           <a href="{{ route('admin.panel') }}" class="offcanvas-cta">
             <i data-lucide="layout-dashboard"></i>
             <span>Panel Admin</span>
-          </a>
-        @elseif(auth()->user()->rol?->nombre === 'cliente')
-          <a href="{{ route('cliente') }}" class="offcanvas-cta">
-            <i data-lucide="user-circle"></i>
-            <span>Área Cliente</span>
           </a>
         @endif
         <form action="{{ route('logout') }}" method="POST" style="width:100%">

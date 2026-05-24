@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
@@ -64,12 +63,3 @@ Route::middleware(['auth', 'check.rol:admin'])
             ->only(['index', 'store', 'destroy']);
     });
 
-/*
-|--------------------------------------------------------------------------
-| Área de cliente (auth + rol cliente)
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth', 'check.rol:cliente'])->group(function () {
-    Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente');
-});

@@ -1,0 +1,229 @@
+/* ============================================================
+   ARCHIVO: detalle-producto.css
+   PROPÓSITO: Estilos de la página de detalle de producto
+   ============================================================ */
+
+.detail-main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+}
+
+.detail-card {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.detail-panel {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
+    border-radius: 28px;
+    padding: 2rem;
+}
+
+.detail-top {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.detail-grid {
+    display: grid;
+    gap: 2.5rem;
+    justify-items: center;
+}
+
+.detail-image-container {
+    width: 300px;
+    max-width: 300px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-image-frame {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.01);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.detail-image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.detail-copy {
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.detail-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-variant);
+    margin-bottom: 0.75rem;
+}
+
+.detail-title {
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.detail-price {
+    color: var(--color-text-secondary);
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+}
+
+.detail-description {
+    color: var(--color-text-variant);
+    line-height: 1.8;
+    max-width: 640px;
+    margin: 0 auto 1.75rem;
+    font-size: 1rem;
+}
+
+.detail-specs {
+    margin-top: 1.75rem;
+}
+
+.detail-specs-title {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    margin-bottom: 1rem;
+}
+
+.detail-specs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    max-width: 520px;
+}
+
+.detail-specs li {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.detail-specs li strong {
+    color: var(--color-text-primary);
+    display: inline-block;
+    min-width: 120px;
+}
+
+.detail-eyebrow,
+.detail-title,
+.detail-price,
+.detail-description,
+.detail-specs-title {
+    margin-bottom: 1rem;
+}
+
+.detail-eyebrow {
+    font-size: 0.9rem;
+    color: var(--color-text-variant);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.detail-title {
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1.05;
+}
+
+.detail-price {
+    color: var(--color-text-secondary);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.detail-description {
+    color: var(--color-text-variant);
+    line-height: 1.8;
+    max-width: 640px;
+    margin: 0 auto 1.75rem;
+}
+
+.detail-specs {
+    margin-top: 1.75rem;
+}
+
+.detail-specs-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.detail-specs ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto 0;
+    display: grid;
+    gap: 0.85rem;
+    max-width: 520px;
+}
+
+.detail-specs li {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.detail-specs li strong {
+    color: var(--color-text-primary);
+    display: inline-block;
+    min-width: 110px;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.75rem;
+}
+
+.btn-primary-vittorio {
+    margin: 0;
+    padding: 0.85rem 1.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+}
+
+@media (min-width: 860px) {
+    .detail-grid {
+        grid-template-columns: 300px 1fr;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .detail-top {
+        text-align: left;
+    }
+
+    .detail-copy {
+        margin: 0;
+        text-align: left;
+    }
+}

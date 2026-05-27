@@ -27,20 +27,22 @@
         <div class="catalog-product-grid">
           @foreach($categoria['modelos'] as $modelo)
             <article class="product-card">
-              <div class="product-card-image-wrapper">
-                <img
-                  src="{{ asset($modelo['imagen_lifestyle']) }}"
-                  alt="{{ $modelo['nombre'] }}"
-                  class="product-card-image product-card-image-lifestyle"
-                  loading="lazy"
-                />
-                <img
-                  src="{{ asset($modelo['imagen_studio']) }}"
-                  alt="{{ $modelo['nombre'] }} en estudio"
-                  class="product-card-image product-card-image-studio"
-                  loading="lazy"
-                />
-              </div>
+              <a href="{{ route('detalle-producto', ['producto' => $modelo['slug']]) }}" class="product-card-image-link" aria-label="Ver detalles de {{ $modelo['nombre'] }}">
+                <div class="product-card-image-wrapper">
+                  <img
+                    src="{{ asset($modelo['imagen_lifestyle']) }}"
+                    alt="{{ $modelo['nombre'] }}"
+                    class="product-card-image product-card-image-lifestyle"
+                    loading="lazy"
+                  />
+                  <img
+                    src="{{ asset($modelo['imagen_studio']) }}"
+                    alt="{{ $modelo['nombre'] }} en estudio"
+                    class="product-card-image product-card-image-studio"
+                    loading="lazy"
+                  />
+                </div>
+              </a>
               <div class="product-card-info">
                 <h3 class="product-card-name">{{ $modelo['nombre'] }}</h3>
                 <p class="product-card-price" data-price-usd="{{ $modelo['precio'] }}">US$ {{ number_format($modelo['precio'], 0, ',', '.') }} USD</p>

@@ -14,6 +14,7 @@
 /* PÁGINAS */
 @import './paginas/inicio.css';
 @import './paginas/catalogo.css';
+@import './paginas/detalle-producto.css';
 @import './paginas/nosotros.css';
 @import './paginas/comercializacion.css';
 @import './paginas/contacto.css';

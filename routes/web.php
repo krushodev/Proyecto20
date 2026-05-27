@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',                      [PublicController::class, 'inicio'])->name('home');
-Route::get('/catalogo',              [PublicController::class, 'catalogo']);
+Route::get('/catalogo',              [PublicController::class, 'catalogo'])->name('catalogo');
 Route::get('/nosotros',              [PublicController::class, 'nosotros']);
 Route::get('/comercializacion',      [PublicController::class, 'comercializacion']);
 Route::get('/contacto',              [PublicController::class, 'contacto'])->name('contacto');
 Route::get('/terminos-y-condiciones',[PublicController::class, 'terminosYCondiciones']);
-Route::get('/detalle-producto',      [PublicController::class, 'detalleProducto']);
+Route::get('/detalle-producto/{producto}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
+Route::get('/carrito',               [PublicController::class, 'carrito'])->name('carrito');
 Route::get('/detalle-compra',        [PublicController::class, 'detalleCompra']);
 
 /*

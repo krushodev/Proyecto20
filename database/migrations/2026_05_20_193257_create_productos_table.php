@@ -18,8 +18,13 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 10, 2);
-            $table->string('imagen_lifestyle')->nullable();
-            $table->string('imagen_studio')->nullable();
+            $table->text('imagen_lifestyle')->nullable();
+            $table->text('imagen_studio')->nullable();
+            $table->string('caja')->nullable();
+            $table->string('movimiento')->nullable();
+            $table->string('cristal')->nullable();
+            $table->string('resistencia')->nullable();
+            $table->string('correa')->nullable();
             $table->integer('stock')->default(0);
             $table->boolean('activo')->default(true);
             $table->timestamps();

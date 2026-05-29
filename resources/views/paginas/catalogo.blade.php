@@ -17,40 +17,44 @@
       <p class="catalog-header-description">Modelos propios diseñados y ensamblados en nuestro taller argentino. Cada pieza es un manifiesto de precisión, durabilidad y diseño monocromático atemporal.</p>
     </header>
 
-    @foreach($catalogo as $categoria)
-      <section class="catalog-category-section" aria-label="{{ $categoria['nombre'] }}">
+    @forelse($categorias as $categoria)
+      <section class="catalog-category-section" aria-label="{{ $categoria->nombre }}">
         <header class="catalog-category-header">
-          <h2 class="catalog-category-title">{{ $categoria['nombre'] }}</h2>
+          <h2 class="catalog-category-title">{{ $categoria->nombre }}</h2>
           <div class="catalog-category-divider"></div>
         </header>
 
         <div class="catalog-product-grid">
-          @foreach($categoria['modelos'] as $modelo)
+          @foreach($categoria->productos as $producto)
             <article class="product-card">
-              <a href="{{ route('detalle-producto', ['producto' => $modelo['slug']]) }}" class="product-card-image-link" aria-label="Ver detalles de {{ $modelo['nombre'] }}">
+              <a href="{{ route('detalle-producto', $producto->slug) }}" class="product-card-image-link" aria-label="Ver detalles de {{ $producto->nombre }}">
                 <div class="product-card-image-wrapper">
                   <img
-                    src="{{ asset($modelo['imagen_lifestyle']) }}"
-                    alt="{{ $modelo['nombre'] }}"
+                    src="{{ $producto->imagen_lifestyle }}"
+                    alt="{{ $producto->nombre }}"
                     class="product-card-image product-card-image-lifestyle"
                     loading="lazy"
                   />
                   <img
-                    src="{{ asset($modelo['imagen_studio']) }}"
-                    alt="{{ $modelo['nombre'] }} en estudio"
+                    src="{{ $producto->imagen_studio }}"
+                    alt="{{ $producto->nombre }} en estudio"
                     class="product-card-image product-card-image-studio"
                     loading="lazy"
                   />
                 </div>
               </a>
               <div class="product-card-info">
-                <h3 class="product-card-name">{{ $modelo['nombre'] }}</h3>
-                <p class="product-card-price" data-price-usd="{{ $modelo['precio'] }}">US$ {{ number_format($modelo['precio'], 0, ',', '.') }} USD</p>
+                <h3 class="product-card-name">{{ $producto->nombre }}</h3>
+                <p class="product-card-price" data-price-usd="{{ $producto->precio }}">US$ {{ number_format($producto->precio, 0, ',', '.') }} USD</p>
               </div>
             </article>
           @endforeach
         </div>
       </section>
-    @endforeach
+    @empty
+      <p style="text-align:center; color: var(--color-text-muted); padding: 4rem 0;">
+        No hay productos disponibles en este momento.
+      </p>
+    @endforelse
   </section>
 @endsection

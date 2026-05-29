@@ -1,0 +1,154 @@
+/* ============================================================
+   ARCHIVO: detalle-compra.css
+   PROPÓSITO: Estilos de la página de confirmación de compra
+   ============================================================ */
+
+.dc-main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+}
+
+/* Encabezado con check */
+.dc-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.dc-check-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    color: #6ee7b7;
+}
+
+.dc-check-icon i {
+    width: 56px;
+    height: 56px;
+}
+
+.dc-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+}
+
+.dc-meta {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+/* Tarjeta de detalle */
+.dc-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.dc-card-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+}
+
+/* Ítems */
+.dc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: var(--color-border-subtle);
+    margin-bottom: 1.5rem;
+}
+
+.dc-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-bg-surface);
+}
+
+.dc-item-image {
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    background-color: var(--color-bg-surface-low);
+}
+
+.dc-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dc-item-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.dc-item-qty {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.dc-item-subtotal {
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Total */
+.dc-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+.dc-total-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+}
+
+.dc-total-amount {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Acciones */
+.dc-actions {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Estado vacío */
+.dc-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.dc-empty-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-text-muted);
+}
+
+.dc-empty-text {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+}

@@ -41,6 +41,13 @@
         <i data-lucide="search"></i>
       </button>
 
+      {{-- Carrito (solo usuarios autenticados) --}}
+      @auth
+        <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Mi carrito">
+          <i data-lucide="shopping-cart"></i>
+        </a>
+      @endauth
+
       {{-- Cuenta: condicional por estado y rol --}}
       @guest
         {{-- Visitante: enlace directo a login --}}

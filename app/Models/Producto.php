@@ -18,14 +18,19 @@ class Producto extends Model
         'precio',
         'imagen_lifestyle',
         'imagen_studio',
+        'caja',
+        'movimiento',
+        'cristal',
+        'resistencia',
+        'correa',
         'stock',
         'activo',
     ];
 
     protected $casts = [
-        'precio' => 'decimal:2',
-        'stock' => 'integer',
-        'activo' => 'boolean',
+        'precio'  => 'decimal:2',
+        'stock'   => 'integer',
+        'activo'  => 'boolean',
     ];
 
     public function categoria(): BelongsTo

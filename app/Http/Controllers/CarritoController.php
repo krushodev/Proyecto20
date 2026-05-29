@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\AgregarAlCarritoRequest;
+use App\Services\CarritoService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+class CarritoController extends Controller
+{
+    public function __construct(private readonly CarritoService $carritoService) {}
+
+    public function index(): View
+    {
+        $carrito = $this->carritoService->obtenerCarrito();
+        $carrito->load('detalles.producto');
+
+        return view('paginas.carrito', compact('carrito'));
+    }
+
+    public function agregar(AgregarAlCarritoRequest $request): RedirectResponse
+    {
+        try {
+            $this->carritoService->agregarProducto($request->validated());
+
+            return redirect()->route('carrito')
+                ->with('success', 'Producto agregado al carrito.');
+        } catch (\RuntimeException $e) {
+            return back()->withErrors(['stock' => $e->getMessage()]);
+        }
+    }
+
+    public function eliminar(int $detalle): RedirectResponse
+    {
+        try {
+            $this->carritoService->eliminarProducto($detalle);
+
+            return redirect()->route('carrito')
+                ->with('success', 'Producto eliminado del carrito.');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException) {
+            abort(404);
+        }
+    }
+
+    public function confirmar(): RedirectResponse
+    {
+        try {
+            $venta = $this->carritoService->confirmarCompra();
+
+            return redirect()->route('detalle-compra')
+                ->with('venta_confirmada_id', $venta->id);
+        } catch (\RuntimeException $e) {
+            return back()->withErrors(['carrito' => $e->getMessage()]);
+        }
+    }
+
+    public function detalleCompra(): View
+    {
+        $ventaId = session('venta_confirmada_id');
+
+        $venta = $ventaId
+            ? \App\Models\VentaCabecera::with('detalles.producto')->find($ventaId)
+            : null;
+
+        return view('paginas.detalle-compra', compact('venta'));
+    }
+}

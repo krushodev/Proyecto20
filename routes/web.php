@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
@@ -19,9 +20,7 @@ Route::get('/nosotros',              [PublicController::class, 'nosotros']);
 Route::get('/comercializacion',      [PublicController::class, 'comercializacion']);
 Route::get('/contacto',              [PublicController::class, 'contacto'])->name('contacto');
 Route::get('/terminos-y-condiciones',[PublicController::class, 'terminosYCondiciones']);
-Route::get('/detalle-producto/{producto}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
-Route::get('/carrito',               [PublicController::class, 'carrito'])->name('carrito');
-Route::get('/detalle-compra',        [PublicController::class, 'detalleCompra']);
+Route::get('/detalle-producto/{slug}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +47,20 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
+| Carrito de compras (requiere autenticación)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
+    Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
+    Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::post('/carrito/confirmar',               [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    Route::get('/detalle-compra',                   [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Área de administración (auth + rol admin)
 |--------------------------------------------------------------------------
 */
@@ -63,4 +76,3 @@ Route::middleware(['auth', 'check.rol:admin'])
         Route::resource('roles', RolController::class)
             ->only(['index', 'store', 'destroy']);
     });
-

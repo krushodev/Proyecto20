@@ -33,6 +33,22 @@ class UsuarioService
         });
     }
 
+    public function actualizarPerfil(Usuario $usuario, array $datos): void
+    {
+        DB::transaction(function () use ($usuario, $datos) {
+            $campos = [
+                'nombre' => $datos['nombre'],
+                'email'  => $datos['email'],
+            ];
+
+            if (!empty($datos['password'])) {
+                $campos['password'] = $datos['password'];
+            }
+
+            $usuario->update($campos);
+        });
+    }
+
     public function eliminar(Usuario $usuario): void
     {
         DB::transaction(function () use ($usuario) {

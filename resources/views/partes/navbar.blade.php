@@ -57,10 +57,20 @@
                   <i data-lucide="layout-dashboard"></i> Panel Admin
                 </a>
               </li>
+              <li>
+                <a class="dropdown-item" href="{{ route('admin.perfil') }}">
+                  <i data-lucide="settings"></i> Mi Perfil
+                </a>
+              </li>
             @else
               <li>
                 <a class="dropdown-item" href="{{ route('mis-compras') }}">
                   <i data-lucide="package"></i> Mis Compras
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ route('mi-perfil') }}">
+                  <i data-lucide="settings"></i> Mi Perfil
                 </a>
               </li>
             @endif
@@ -143,10 +153,18 @@
             <i data-lucide="layout-dashboard"></i>
             <span>Panel Admin</span>
           </a>
+          <a href="{{ route('admin.perfil') }}" class="offcanvas-cta">
+            <i data-lucide="settings"></i>
+            <span>Mi Perfil</span>
+          </a>
         @else
           <a href="{{ route('mis-compras') }}" class="offcanvas-cta">
             <i data-lucide="package"></i>
             <span>Mis Compras</span>
+          </a>
+          <a href="{{ route('mi-perfil') }}" class="offcanvas-cta">
+            <i data-lucide="settings"></i>
+            <span>Mi Perfil</span>
           </a>
         @endif
         <form action="{{ route('logout') }}" method="POST" style="width:100%">

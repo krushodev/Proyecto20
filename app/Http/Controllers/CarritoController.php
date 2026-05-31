@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AgregarAlCarritoRequest;
 use App\Services\CarritoService;
+use App\Services\VentaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CarritoController extends Controller
 {
-    public function __construct(private readonly CarritoService $carritoService) {}
+    public function __construct(
+        private readonly CarritoService $carritoService,
+        private readonly VentaService $ventaService,
+    ) {}
 
     public function index(): View
     {
@@ -60,7 +64,7 @@ class CarritoController extends Controller
         $ventaId = session('venta_confirmada_id');
 
         $venta = $ventaId
-            ? \App\Models\VentaCabecera::with('detalles.producto')->find($ventaId)
+            ? $this->ventaService->obtenerPorId($ventaId)
             : null;
 
         return view('paginas.detalle-compra', compact('venta'));

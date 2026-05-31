@@ -5,9 +5,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVentaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +40,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/login',    [AuthController::class, 'autenticar']);
     Route::get('/registro',  [AuthController::class, 'mostrarRegistro'])->name('registro');
     Route::post('/registro', [AuthController::class, 'registrar']);
+
+    Route::get('/forgot-password',        [ForgotPasswordController::class, 'mostrar'])->name('password.request');
+    Route::post('/forgot-password',       [ForgotPasswordController::class, 'enviar'])->name('password.email');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'mostrar'])->name('password.reset');
+    Route::post('/reset-password',        [ResetPasswordController::class, 'resetear'])->name('password.update');
 });
 
 /*

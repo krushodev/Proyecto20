@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EnviarContactoRequest;
 use App\Services\CategoriaService;
+use App\Services\ContactoService;
 use App\Services\ProductoService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PublicController extends Controller
@@ -11,6 +14,7 @@ class PublicController extends Controller
     public function __construct(
         private readonly CategoriaService $categoriaService,
         private readonly ProductoService $productoService,
+        private readonly ContactoService $contactoService,
     ) {}
 
     public function inicio(): View
@@ -38,6 +42,14 @@ class PublicController extends Controller
     public function contacto(): View
     {
         return view('paginas.contacto');
+    }
+
+    public function enviarContacto(EnviarContactoRequest $request): RedirectResponse
+    {
+        $this->contactoService->guardar($request->validated());
+
+        return redirect()->route('contacto')
+            ->with('success', '¡Mensaje enviado! Te responderemos dentro de las 24 hs hábiles.');
     }
 
     public function terminosYCondiciones(): View

@@ -51,7 +51,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'es.cliente'])->group(function () {
+Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
     Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
     Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');

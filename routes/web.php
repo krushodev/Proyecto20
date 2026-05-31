@@ -57,8 +57,10 @@ Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
     Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
     Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::delete('/carrito/vaciar',                [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/carrito/confirmar',               [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
     Route::get('/detalle-compra',                   [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
+    Route::get('/mis-compras',                      [CarritoController::class, 'misCompras'])->name('mis-compras');
 });
 
 /*

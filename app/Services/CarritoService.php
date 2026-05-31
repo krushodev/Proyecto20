@@ -96,6 +96,15 @@ class CarritoService
         });
     }
 
+    public function vaciarCarrito(): void
+    {
+        DB::transaction(function () {
+            $carrito = $this->obtenerCarrito();
+            $carrito->detalles()->delete();
+            $carrito->update(['total' => 0]);
+        });
+    }
+
     private function recalcularTotal(VentaCabecera $carrito): void
     {
         $total = $carrito->detalles()->sum('subtotal');

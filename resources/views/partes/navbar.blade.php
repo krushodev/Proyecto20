@@ -57,6 +57,12 @@
                   <i data-lucide="layout-dashboard"></i> Panel Admin
                 </a>
               </li>
+            @else
+              <li>
+                <a class="dropdown-item" href="{{ route('mis-compras') }}">
+                  <i data-lucide="package"></i> Mis Compras
+                </a>
+              </li>
             @endif
 
             <li><hr class="dropdown-divider"></li>
@@ -136,6 +142,11 @@
           <a href="{{ route('admin.panel') }}" class="offcanvas-cta">
             <i data-lucide="layout-dashboard"></i>
             <span>Panel Admin</span>
+          </a>
+        @else
+          <a href="{{ route('mis-compras') }}" class="offcanvas-cta">
+            <i data-lucide="package"></i>
+            <span>Mis Compras</span>
           </a>
         @endif
         <form action="{{ route('logout') }}" method="POST" style="width:100%">

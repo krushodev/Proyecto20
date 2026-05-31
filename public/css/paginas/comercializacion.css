@@ -1,14 +1,9 @@
 /* ============================================================
    ARCHIVO: comercializacion.css
    PROPÓSITO: Estilos de la página de comercialización
-   DESCRIPCIÓN: Define el diseño de la página de información
-   comercial incluyendo: hero, secciones de entrega (nacional,
-   concierge, internacional), métodos de pago (Argentina e
-   internacional) y opciones de financiamiento.
    ============================================================ */
 
-
-
+/* ── Contenedor principal ──────────────────────────────────── */
 .comercializacion-page {
     padding: 5rem 1.5rem 6rem;
     display: flex;
@@ -24,13 +19,16 @@
 }
 
 .comercializacion-hero,
+.comercializacion-proceso,
 .comercializacion-features,
 .comercializacion-finance,
 .comercializacion-cta {
     max-width: 84rem;
     margin: 0 auto;
+    width: 100%;
 }
 
+/* ── Hero ──────────────────────────────────────────────────── */
 .comercializacion-hero {
     display: grid;
     gap: 2.5rem;
@@ -69,7 +67,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .hero-image {
@@ -77,48 +74,302 @@
     max-width: 500px;
     height: auto;
     object-fit: contain;
-    object-position: center;
     filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.35));
 }
 
 @media (min-width: 992px) {
-    .hero-media {
-        justify-content: flex-end;
-    }
-    
-    .hero-image {
-        max-width: 100%;
-    }
+    .hero-media { justify-content: flex-end; }
+    .hero-image { max-width: 100%; }
 }
 
-.comercializacion-features .section-heading h2,
-.comercializacion-finance .finance-intro h2,
-.comercializacion-cta .cta-copy h2 {
-    font-size: 1.1rem;
-    letter-spacing: 0.35em;
+/* ── Etiqueta de sección (label superior) ─────────────────── */
+.section-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: rgba(220, 220, 220, 0.6);
     margin-bottom: 1rem;
 }
 
-.feature-grid,
-.finance-grid {
-    display: grid;
-    gap: 1.75rem;
+/* ── Encabezados de sección ──────────────────────────────── */
+.section-heading {
+    margin-bottom: 2rem;
 }
 
+.section-heading h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: var(--color-text-on-surface);
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
+}
+
+/* ── Paso a paso ───────────────────────────────────────────── */
+.proceso-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+    .proceso-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .proceso-steps { grid-template-columns: repeat(4, 1fr); }
+}
+
+.proceso-step {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.75rem;
+    padding: 2rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step-number {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(220, 220, 220, 0.35);
+}
+
+.step-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-on-surface);
+    margin-bottom: 0.5rem;
+}
+
+.step-body p {
+    font-size: 0.9rem;
+    color: var(--color-text-variant);
+    line-height: 1.8;
+}
+
+.step-body p strong {
+    color: var(--color-text-on-surface);
+    font-weight: 600;
+}
+
+/* ── Medios de pago ────────────────────────────────────────── */
+.comercializacion-finance {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.finance-intro h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-text-on-surface);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.85rem;
+}
+
+.finance-intro p {
+    max-width: 48rem;
+    color: var(--color-text-variant);
+    line-height: 1.8;
+}
+
+/* Tiles de métodos de pago */
+.payment-block {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.75rem;
+    padding: 1.75rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .payment-block { padding: 2rem 2.25rem; }
+}
+
+.payment-logos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.85rem;
+}
+
+.payment-logos--duo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 400px;
+}
+
+.payment-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    text-align: center;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.payment-logo:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.payment-logo svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 1.5;
+    color: var(--color-text-on-surface);
+    opacity: 0.85;
+}
+
+.payment-logo img {
+    width: auto;
+    height: 26px;
+    max-width: 90px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.payment-logo span {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-on-surface);
+    font-weight: 600;
+}
+
+.payment-logo small {
+    font-size: 0.68rem;
+    color: rgba(220, 220, 220, 0.4);
+    letter-spacing: 0.04em;
+}
+
+/* Bloque de datos bancarios */
+.payment-bank-details {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.75rem;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+@media (min-width: 768px) {
+    .payment-bank-details { padding: 2rem 2.25rem; }
+}
+
+.payment-bank-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(220, 220, 220, 0.7);
+    font-weight: 600;
+    margin: 0;
+}
+
+.payment-bank-title i {
+    width: 15px;
+    height: 15px;
+    opacity: 0.6;
+}
+
+.payment-bank-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.payment-bank-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.85rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.payment-bank-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.payment-bank-list li span {
+    color: rgba(220, 220, 220, 0.4);
+    flex-shrink: 0;
+}
+
+.payment-bank-list li strong {
+    font-weight: 600;
+    color: var(--color-text-on-surface);
+    text-align: right;
+    word-break: break-all;
+}
+
+.payment-bank-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: rgba(220, 220, 220, 0.35);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.payment-bank-note i {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.payment-bank-note strong {
+    color: rgba(220, 220, 220, 0.55);
+    font-weight: 600;
+}
+
+.payment-disclaimer {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    text-align: center;
+    padding: 0 1rem;
+    margin: 0;
+}
+
+/* ── Entrega ────────────────────────────────────────────────── */
 .feature-grid {
+    display: grid;
+    gap: 1.75rem;
     grid-template-columns: 1fr;
 }
 
 @media (min-width: 880px) {
-    .feature-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-.feature-card,
-.finance-card {
+.feature-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.75rem;
@@ -126,14 +377,12 @@
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
 }
 
-.feature-card.highlight,
 .feature-card.feature-card-highlight {
     border-color: rgba(255, 255, 255, 0.18);
     background: rgba(255, 255, 255, 0.05);
 }
 
-.feature-card span,
-.finance-card span {
+.feature-card span {
     display: inline-block;
     text-transform: uppercase;
     letter-spacing: 0.25em;
@@ -142,17 +391,13 @@
     margin-bottom: 1rem;
 }
 
-.feature-card h3,
-.finance-card h4 {
+.feature-card h3 {
     font-size: 1.35rem;
     margin-bottom: 0.85rem;
     color: var(--color-text-on-surface);
 }
 
-.feature-card p,
-.finance-card p,
-.comercializacion-hero p,
-.comercializacion-cta p {
+.feature-card p {
     color: var(--color-text-variant);
     line-height: 1.85;
     font-size: 1rem;
@@ -168,45 +413,15 @@
     margin-bottom: 0.7rem;
 }
 
-.feature-card button,
-.cta-button {
-    margin-top: 1.5rem;
-    padding: 1rem 1.75rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: transparent;
-    color: var(--color-text-on-surface);
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+.feature-card-cta {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+    margin-top: 1.25rem;
 }
 
-.feature-card button:hover,
-.cta-button:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.22);
-}
-
-.comercializacion-finance .finance-intro h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    color: var(--color-text-on-surface);
-    letter-spacing: -0.03em;
-}
-
-.finance-grid {
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 860px) {
-    .finance-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
+/* ── CTA banner ─────────────────────────────────────────────── */
 .comercializacion-cta {
     display: flex;
     flex-wrap: wrap;
@@ -225,159 +440,50 @@
 }
 
 .comercializacion-cta .cta-copy h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--color-text-on-surface);
     letter-spacing: -0.02em;
+    color: var(--color-text-on-surface);
+    margin-bottom: 0.75rem;
+}
+
+.comercializacion-cta .cta-copy p {
+    color: var(--color-text-variant);
+    line-height: 1.75;
+    font-size: 1rem;
 }
 
 .cta-button {
-    min-width: 220px;
-}
-
-.comercializacion-page img {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 1.75rem;
-}
-
-/* Override: payment logos must NOT have fixed aspect-ratio */
-.payment-logo img {
-    width: auto !important;
-    height: 28px !important;
-    max-width: 100px !important;
-    aspect-ratio: auto !important;
-    object-fit: contain !important;
-    border-radius: 0 !important;
-    filter: brightness(0) invert(1);
-    opacity: 0.85;
-}
-
-.section-label {
-    display: inline-block;
-    font-size: 0.78rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: rgba(220, 220, 220, 0.6);
-    margin-bottom: 1rem;
-}
-
-.feature-card-cta {
     display: inline-block;
     text-decoration: none;
-    text-align: center;
-    width: fit-content;
-    margin-top: 1.25rem;
-}
-
-/* Bloques de medios de pago */
-.comercializacion-finance {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-.payment-block {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.75rem;
-    padding: 1.75rem 1.5rem;
-}
-
-@media (min-width: 768px) {
-    .payment-block {
-        padding: 2rem 2.25rem;
-    }
-}
-
-.payment-block-title {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: rgba(220, 220, 220, 0.7);
-    margin-bottom: 1.5rem;
+    margin-top: 0;
+    padding: 1rem 1.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: var(--color-text-on-surface);
     font-weight: 600;
-}
-
-.payment-logos {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.85rem;
-}
-
-.payment-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: 1rem 0.75rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    text-align: center;
-    min-height: 100px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    min-width: 180px;
+    text-align: center;
 }
 
-.payment-logo:hover {
+.cta-button:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.18);
-}
-
-.payment-logo svg {
-    width: 28px;
-    height: 28px;
-    stroke-width: 1.5;
+    border-color: rgba(255, 255, 255, 0.22);
     color: var(--color-text-on-surface);
 }
 
-.payment-logo span:last-child {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-text-variant);
+/* Override: hero image no tiene aspect-ratio fijo */
+.comercializacion-page img {
+    display: block;
 }
 
-.payment-logo-text {
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    color: #fff;
-    background: linear-gradient(135deg, #00b6ff, #0073ff);
-    padding: 0.35rem 0.7rem;
-    border-radius: 0.45rem;
-}
-
-.payment-disclaimer {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    line-height: 1.7;
-    text-align: center;
-    margin: 0;
-    padding: 0 1rem;
-}
-
-/* Variante de finance-intro */
-.comercializacion-finance .finance-intro h2 {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: var(--color-text-on-surface);
-    letter-spacing: -0.03em;
-    text-transform: none;
-    margin-bottom: 0.85rem;
-}
-
-.comercializacion-finance .finance-intro p {
-    max-width: 48rem;
-    color: var(--color-text-variant);
-    line-height: 1.8;
+.hero-image {
+    border-radius: 0;
+    aspect-ratio: auto;
+    object-fit: contain;
 }

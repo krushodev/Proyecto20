@@ -24,6 +24,14 @@
         <i data-lucide="shield"></i>
         <span>Gestión de Roles</span>
       </a>
+      <a href="{{ route('ventas.index') }}" class="admin-card">
+        <i data-lucide="receipt"></i>
+        <span>Ventas</span>
+      </a>
+      <a href="{{ route('contactos.index') }}" class="admin-card">
+        <i data-lucide="mail"></i>
+        <span>Consultas</span>
+      </a>
     </div>
 
   </div>

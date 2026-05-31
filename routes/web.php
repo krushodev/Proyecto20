@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminVentaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ProductoController;
@@ -82,4 +83,7 @@ Route::middleware(['auth', 'check.rol:admin'])
 
         Route::resource('productos', ProductoController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+        Route::resource('ventas', AdminVentaController::class)
+            ->only(['index', 'show']);
     });

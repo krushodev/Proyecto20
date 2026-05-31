@@ -6,6 +6,7 @@ use App\Http\Requests\AgregarAlCarritoRequest;
 use App\Services\CarritoService;
 use App\Services\VentaService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CarritoController extends Controller
@@ -57,6 +58,21 @@ class CarritoController extends Controller
         } catch (\RuntimeException $e) {
             return back()->withErrors(['carrito' => $e->getMessage()]);
         }
+    }
+
+    public function vaciar(): RedirectResponse
+    {
+        $this->carritoService->vaciarCarrito();
+
+        return redirect()->route('carrito')
+            ->with('success', 'Carrito vaciado correctamente.');
+    }
+
+    public function misCompras(): View
+    {
+        $compras = $this->ventaService->obtenerComprasDeUsuario(Auth::id());
+
+        return view('paginas.mis-compras', compact('compras'));
     }
 
     public function detalleCompra(): View

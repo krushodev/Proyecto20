@@ -119,6 +119,15 @@
           <button type="submit" class="btn-primary-vittorio">Confirmar Compra</button>
         </form>
 
+        <form action="{{ route('carrito.vaciar') }}" method="POST" class="cart-clear-form"
+              onsubmit="return confirm('¿Vaciar el carrito? Esta acción no se puede deshacer.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn-clear-vittorio">
+            <i data-lucide="trash"></i> Vaciar Carrito
+          </button>
+        </form>
+
         <a href="{{ route('catalogo') }}" class="cart-continue-link">← Seguir comprando</a>
       </aside>
 
@@ -180,6 +189,29 @@
 .cart-payment-option-body small {
   font-size: .72rem;
   color: rgba(255,255,255,.45);
+}
+.cart-clear-form { margin-top: .5rem; }
+.btn-clear-vittorio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  width: 100%;
+  padding: .65rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(255,107,107,.35);
+  border-radius: 6px;
+  color: rgba(255,107,107,.85);
+  font-size: .8rem;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.btn-clear-vittorio i { width: 14px; height: 14px; }
+.btn-clear-vittorio:hover {
+  border-color: #ff6b6b;
+  background: rgba(255,107,107,.08);
+  color: #ff6b6b;
 }
 </style>
 @endpush

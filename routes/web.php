@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminContactoController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVentaController;
 use App\Http\Controllers\AuthController;
@@ -86,4 +87,7 @@ Route::middleware(['auth', 'check.rol:admin'])
 
         Route::resource('ventas', AdminVentaController::class)
             ->only(['index', 'show']);
+
+        Route::get('contactos', [AdminContactoController::class, 'index'])->name('contactos.index');
+        Route::patch('contactos/{id}/leido', [AdminContactoController::class, 'marcarLeido'])->name('contactos.leido');
     });

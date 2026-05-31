@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVentaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RolController;
@@ -56,6 +57,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 */
 
 Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
+    Route::get('/mi-perfil',  [PerfilController::class, 'mostrar'])->name('mi-perfil');
+    Route::put('/mi-perfil',  [PerfilController::class, 'actualizar'])->name('mi-perfil.actualizar');
+
     Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
     Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
@@ -75,6 +79,9 @@ Route::middleware(['auth', 'check.rol:admin'])
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.panel');
+
+        Route::get('perfil',  [PerfilController::class, 'mostrarAdmin'])->name('admin.perfil');
+        Route::put('perfil',  [PerfilController::class, 'actualizarAdmin'])->name('admin.perfil.actualizar');
 
         Route::resource('usuarios', UsuarioController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);

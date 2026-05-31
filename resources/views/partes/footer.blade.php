@@ -10,7 +10,7 @@
 <footer class="footer-vittorio">
   <div class="footer-container">
     <div class="footer-brand-section">
-      <img src="{{ asset('assets/logo.png') }}" alt="Vittorio" class="footer-logo" />
+      <img src="https://pub-914a132c1006414e85aff75afd7c51d6.r2.dev/assets/logo.png" alt="Vittorio" class="footer-logo" />
       <p class="footer-brand-description">Manufactura La Plata · Argentina</p>
     </div>
 

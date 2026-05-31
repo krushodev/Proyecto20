@@ -12,8 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'check.rol'  => \App\Http\Middleware\CheckRol::class,
-            'es.cliente' => \App\Http\Middleware\EsCliente::class,
+            'check.rol' => \App\Http\Middleware\CheckRol::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

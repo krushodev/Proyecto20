@@ -2,14 +2,21 @@
 
 namespace App\Services;
 
+use App\Mail\ContactoRecibidoMail;
 use App\Models\Contacto;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class ContactoService
 {
     public function guardar(array $datos): Contacto
     {
-        return Contacto::create($datos);
+        $contacto = Contacto::create($datos);
+
+        Mail::to(config('mail.admin_address'))
+            ->queue(new ContactoRecibidoMail($contacto));
+
+        return $contacto;
     }
 
     public function obtenerTodas(): Collection

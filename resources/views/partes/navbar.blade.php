@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">
   <div class="container-fluid navbar-container">
     <a href="{{ $esAdmin ? route('admin.panel') : url('/') }}" class="navbar-brand">
-      <img src="{{ asset('assets/logo.png') }}" alt="Vittorio" class="navbar-logo" />
+      <img src="https://pub-914a132c1006414e85aff75afd7c51d6.r2.dev/assets/logo.png" alt="Vittorio" class="navbar-logo" />
     </a>
 
     <div class="navbar-actions order-lg-3">
@@ -106,7 +106,7 @@
 <div class="offcanvas offcanvas-end navbar-offcanvas" tabindex="-1" id="vittorioOffcanvas" aria-labelledby="vittorioOffcanvasLabel">
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="vittorioOffcanvasLabel">
-      <img src="{{ asset('assets/logo.png') }}" alt="Vittorio" class="offcanvas-logo" />
+      <img src="https://pub-914a132c1006414e85aff75afd7c51d6.r2.dev/assets/logo.png" alt="Vittorio" class="offcanvas-logo" />
     </h2>
     <button type="button" class="btn-close-offcanvas" data-bs-dismiss="offcanvas" aria-label="Cerrar">
       <i data-lucide="x"></i>

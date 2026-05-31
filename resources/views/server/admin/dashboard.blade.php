@@ -12,17 +12,17 @@
     </div>
 
     <div class="admin-grid">
-      <a href="{{ url('/admin/usuarios') }}" class="admin-card">
+      <a href="{{ route('productos.index') }}" class="admin-card">
+        <i data-lucide="watch"></i>
+        <span>Gestión de Productos</span>
+      </a>
+      <a href="{{ route('usuarios.index') }}" class="admin-card">
         <i data-lucide="users"></i>
         <span>Gestión de Usuarios</span>
       </a>
-      <a href="{{ url('/admin/roles') }}" class="admin-card">
+      <a href="{{ route('roles.index') }}" class="admin-card">
         <i data-lucide="shield"></i>
         <span>Gestión de Roles</span>
-      </a>
-      <a href="{{ url('/catalogo') }}" class="admin-card">
-        <i data-lucide="watch"></i>
-        <span>Ver Catálogo</span>
       </a>
     </div>
 

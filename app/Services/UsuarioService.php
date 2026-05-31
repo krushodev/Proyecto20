@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class UsuarioService
 {
+    public function crear(array $datos): Usuario
+    {
+        return DB::transaction(function () use ($datos) {
+            return Usuario::create($datos);
+        });
+    }
+
     public function obtenerTodos(): Collection
     {
         return Usuario::with('rol')->get();

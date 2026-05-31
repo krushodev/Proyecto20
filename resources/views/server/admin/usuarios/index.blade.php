@@ -11,9 +11,14 @@
         <h1 class="admin-title">Usuarios</h1>
         <p class="admin-subtitle">{{ $usuarios->count() }} usuarios registrados</p>
       </div>
-      <a href="{{ route('admin.panel') }}" class="admin-back">
-        <i data-lucide="arrow-left"></i> Volver al panel
-      </a>
+      <div style="display:flex;gap:.75rem;align-items:center">
+        <a href="{{ route('usuarios.create') }}" class="admin-btn-new">
+          <i data-lucide="plus"></i> Nuevo Usuario
+        </a>
+        <a href="{{ route('admin.panel') }}" class="admin-back">
+          <i data-lucide="arrow-left"></i> Volver al panel
+        </a>
+      </div>
     </div>
 
     <div class="admin-table-wrapper">
@@ -58,6 +63,9 @@
 .admin-back { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
 .admin-back:hover { color: #fff; }
 .admin-back i { width: 14px; height: 14px; }
+.admin-btn-new { display: flex; align-items: center; gap: .4rem; padding: .45rem .9rem; font-size: .8rem; font-weight: 600; color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 5px; text-decoration: none; transition: all .2s; white-space: nowrap; }
+.admin-btn-new:hover { background: rgba(255,255,255,.08); border-color: #fff; color: #fff; }
+.admin-btn-new i { width: 14px; height: 14px; }
 .admin-table-wrapper { overflow-x: auto; }
 .admin-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
 .admin-table th { text-align: left; padding: 0.75rem 1rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.08); }

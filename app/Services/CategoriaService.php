@@ -6,6 +6,11 @@ use App\Models\Categoria;
 
 class CategoriaService
 {
+    public function obtenerTodas(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Categoria::orderBy('nombre')->get();
+    }
+
     public function obtenerActivasConProductos(): \Illuminate\Database\Eloquent\Collection
     {
         return Categoria::with([

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
@@ -71,8 +72,11 @@ Route::middleware(['auth', 'check.rol:admin'])
         Route::get('/', [AdminController::class, 'index'])->name('admin.panel');
 
         Route::resource('usuarios', UsuarioController::class)
-            ->only(['index', 'edit', 'update', 'destroy']);
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
         Route::resource('roles', RolController::class)
             ->only(['index', 'store', 'destroy']);
+
+        Route::resource('productos', ProductoController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     });

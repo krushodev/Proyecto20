@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ActualizarUsuarioRequest;
+use App\Http\Requests\CrearUsuarioRequest;
 use App\Models\Usuario;
 use App\Services\UsuarioService;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +18,20 @@ class UsuarioController extends Controller
         $usuarios = $this->usuarioService->obtenerTodos();
 
         return view('server.admin.usuarios.index', compact('usuarios'));
+    }
+
+    public function create(): View
+    {
+        $roles = $this->usuarioService->obtenerRoles();
+
+        return view('server.admin.usuarios.create', compact('roles'));
+    }
+
+    public function store(CrearUsuarioRequest $request): RedirectResponse
+    {
+        $this->usuarioService->crear($request->validated());
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
     }
 
     public function edit(Usuario $usuario): View

@@ -10,6 +10,10 @@
       <p class="login-subtitle">Ingresá a tu cuenta Vittorio</p>
     </div>
 
+    @if (session('status'))
+      <div class="alert-success-vittorio">{{ session('status') }}</div>
+    @endif
+
     @if (session('error'))
       <div class="alert-error">{{ session('error') }}</div>
     @endif
@@ -57,7 +61,7 @@
           <span class="checkmark"></span>
           <span class="checkbox-label">Recordarme</span>
         </label>
-        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        <a href="{{ route('password.request') }}" class="forgot-link">¿Olvidaste tu contraseña?</a>
       </div>
 
       <button type="submit" class="btn-login">Iniciar Sesión</button>

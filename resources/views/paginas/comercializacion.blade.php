@@ -10,11 +10,13 @@
 
 @section ('content')
   <div class="comercializacion-page">
+
+    {{-- Hero --}}
     <section class="comercializacion-hero" aria-label="Comercialización Vittorio">
       <div class="hero-copy">
         <p class="section-label">Logística & Pagos</p>
-        <h1>Comercialización de <br /><span class="title-accent">Precisión.</span></h1>
-        <p>Cada pieza Vittorio se despacha bajo estrictos protocolos de seguridad y se ofrece con múltiples medios de pago locales e internacionales para que la experiencia sea tan cuidada como el reloj que recibirás.</p>
+        <h1>Comprá con <br /><span class="title-accent">Confianza.</span></h1>
+        <p>Cada reloj Vittorio se despacha bajo estrictos protocolos de seguridad. Te ofrecemos medios de pago locales confiables y un proceso de compra claro, pensado para que tu experiencia sea tan cuidada como el reloj que recibirás.</p>
       </div>
       <div class="hero-media">
         <img
@@ -26,8 +28,93 @@
       </div>
     </section>
 
+    {{-- Proceso de compra --}}
+    <section class="comercializacion-proceso" aria-label="Cómo comprar">
+      <header class="section-heading">
+        <p class="section-label">Paso a paso</p>
+        <h2>¿Cómo funciona?</h2>
+      </header>
+      <ol class="proceso-steps">
+        <li class="proceso-step">
+          <span class="step-number">01</span>
+          <div class="step-body">
+            <h3>Elegí tu reloj</h3>
+            <p>Explorá el catálogo, revisá las especificaciones y agregá la pieza al carrito.</p>
+          </div>
+        </li>
+        <li class="proceso-step">
+          <span class="step-number">02</span>
+          <div class="step-body">
+            <h3>Confirmá el pedido</h3>
+            <p>Revisá tu carrito y hacé clic en <em>Confirmar Compra</em>. Recibirás tu número de pedido.</p>
+          </div>
+        </li>
+        <li class="proceso-step">
+          <span class="step-number">03</span>
+          <div class="step-body">
+            <h3>Realizá el pago</h3>
+            <p>Transferí a nuestro CBU o pagá desde Mercado Pago con el importe exacto de tu pedido.</p>
+          </div>
+        </li>
+        <li class="proceso-step">
+          <span class="step-number">04</span>
+          <div class="step-body">
+            <h3>Enviá el comprobante</h3>
+            <p>Mandá el comprobante a <strong>pagos@vittorio.com.ar</strong> indicando tu número de pedido. Confirmamos en menos de 24 h.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    {{-- Medios de pago --}}
+    <section class="comercializacion-finance" aria-label="Medios de pago">
+      <header class="finance-intro">
+        <p class="section-label">Medios de pago</p>
+        <h2>Pagá como prefieras.</h2>
+        <p>Operamos con dos medios de pago seguros y de acreditación inmediata para clientes en Argentina.</p>
+      </header>
+
+      <div class="payment-block">
+        <ul class="payment-logos payment-logos--duo">
+          <li class="payment-logo">
+            <i data-lucide="landmark"></i>
+            <span>Transferencia / CBU</span>
+            <small>Acreditación inmediata</small>
+          </li>
+          <li class="payment-logo">
+            <img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" />
+            <span>Mercado Pago</span>
+            <small>Débito · Crédito · Cuenta</small>
+          </li>
+        </ul>
+      </div>
+
+      <div class="payment-bank-details">
+        <h3 class="payment-bank-title">
+          <i data-lucide="landmark"></i>
+          Datos para transferencia bancaria
+        </h3>
+        <ul class="payment-bank-list">
+          <li><span>Banco</span><strong>Banco Provincia de Buenos Aires</strong></li>
+          <li><span>Titular</span><strong>Vittorio Relojería S.R.L.</strong></li>
+          <li><span>CBU</span><strong>0140318201386183660100</strong></li>
+          <li><span>Alias</span><strong>VITTORIO.RELOJES.ARS</strong></li>
+        </ul>
+        <p class="payment-bank-note">
+          <i data-lucide="info"></i>
+          Una vez realizada la transferencia, enviá el comprobante a <strong>pagos@vittorio.com.ar</strong> con tu número de pedido.
+        </p>
+      </div>
+
+      <p class="payment-disclaimer">Todas las transacciones se procesan bajo cifrado AES-256 y certificación PCI-DSS. Los precios están expresados en Pesos Argentinos (ARS).</p>
+    </section>
+
+    {{-- Entrega --}}
     <section class="comercializacion-features" aria-label="Logística de envío">
-      <header class="section-heading"><h2>Entrega Global</h2></header>
+      <header class="section-heading">
+        <p class="section-label">Envío</p>
+        <h2>Entrega en todo el país.</h2>
+      </header>
       <div class="feature-grid">
         <article class="feature-card">
           <span>Envío nacional</span>
@@ -45,58 +132,25 @@
           <a href="{{ url('/contacto') }}" class="cta-button feature-card-cta">Solicitar Concierge</a>
         </article>
         <article class="feature-card">
-          <span>Envío internacional</span>
-          <h3>Mundo · 5–10 días</h3>
-          <p>Operamos con DHL Express y FedEx Priority. Cobertura a más de 80 países con seguro a valor declarado y trámite aduanero asistido.</p>
+          <span>Interior del país</span>
+          <h3>Provincias · 48–72 h</h3>
+          <p>Cobertura a todas las provincias con operadores de confianza, embalaje especial y número de seguimiento desde el momento del despacho.</p>
           <ul>
-            <li>Tracking satelital 24/7</li>
-            <li>Asesoría aduanera incluida</li>
+            <li>Seguro a valor declarado</li>
+            <li>Tracking en tiempo real</li>
           </ul>
         </article>
       </div>
     </section>
 
-    <section class="comercializacion-finance" aria-label="Medios de pago">
-      <header class="finance-intro">
-        <p class="section-label">Medios de pago</p>
-        <h2>Pagá como prefieras.</h2>
-        <p>Como tienda argentina con clientes en todo el mundo, integramos pagos locales e internacionales bajo protocolos encriptados y verificación bancaria instantánea.</p>
-      </header>
-
-      <div class="payment-block">
-        <h3 class="payment-block-title">Argentina</h3>
-        <ul class="payment-logos">
-          <li class="payment-logo" title="Mercado Pago"><img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" /><span>Mercado Pago</span></li>
-          <li class="payment-logo" title="MODO"><span class="payment-logo-text">MODO</span><span>MODO</span></li>
-          <li class="payment-logo" title="Transferencia bancaria CBU/CVU"><i data-lucide="landmark"></i><span>Transferencia / CBU</span></li>
-          <li class="payment-logo" title="Pago en efectivo en sucursal"><i data-lucide="banknote"></i><span>Rapipago / Pago Fácil</span></li>
-          <li class="payment-logo" title="Cuotas sin interés"><i data-lucide="calendar-clock"></i><span>Hasta 12 cuotas</span></li>
-        </ul>
-      </div>
-
-      <div class="payment-block">
-        <h3 class="payment-block-title">Internacional</h3>
-        <ul class="payment-logos">
-          <li class="payment-logo" title="Visa"><img src="https://cdn.simpleicons.org/visa/ffffff" alt="Visa" /><span>Visa</span></li>
-          <li class="payment-logo" title="Mastercard"><img src="https://cdn.simpleicons.org/mastercard/ffffff" alt="Mastercard" /><span>Mastercard</span></li>
-          <li class="payment-logo" title="American Express"><img src="https://cdn.simpleicons.org/americanexpress/ffffff" alt="American Express" /><span>Amex</span></li>
-          <li class="payment-logo" title="PayPal"><img src="https://cdn.simpleicons.org/paypal/ffffff" alt="PayPal" /><span>PayPal</span></li>
-          <li class="payment-logo" title="Stripe"><img src="https://cdn.simpleicons.org/stripe/ffffff" alt="Stripe" /><span>Stripe</span></li>
-          <li class="payment-logo" title="Google Pay"><img src="https://cdn.simpleicons.org/googlepay/ffffff" alt="Google Pay" /><span>Google Pay</span></li>
-          <li class="payment-logo" title="Apple Pay"><img src="https://cdn.simpleicons.org/applepay/ffffff" alt="Apple Pay" /><span>Apple Pay</span></li>
-          <li class="payment-logo" title="Wire Transfer"><i data-lucide="globe"></i><span>Wire Transfer</span></li>
-        </ul>
-      </div>
-
-      <p class="payment-disclaimer">Todas las transacciones se procesan bajo cifrado AES-256 y certificación PCI-DSS. Los precios están expresados en Pesos Argentinos (ARS).</p>
-    </section>
-
+    {{-- CTA --}}
     <section class="comercializacion-cta">
       <div class="cta-copy">
-        <h2>Transparencia garantizada.</h2>
-        <p>Descargá nuestro Protocolo de Comercialización en PDF con detalle de costos, plazos, IVA, aduanas y cumplimiento fiscal local e internacional.</p>
+        <h2>¿Tenés alguna duda?</h2>
+        <p>Si necesitás asistencia con tu compra, el proceso de pago o el seguimiento de tu pedido, contactanos directamente.</p>
       </div>
-      <a href="#" class="cta-button">Descargar Protocolo</a>
+      <a href="{{ url('/contacto') }}" class="cta-button">Contactar</a>
     </section>
+
   </div>
 @endsection

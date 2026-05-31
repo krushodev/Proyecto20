@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
-use App\Models\Producto;
+use App\Services\CategoriaService;
+use App\Services\ProductoService;
 use Illuminate\View\View;
 
 class PublicController extends Controller
 {
+    public function __construct(
+        private readonly CategoriaService $categoriaService,
+        private readonly ProductoService $productoService,
+    ) {}
+
     public function inicio(): View
     {
         return view('paginas.inicio');
@@ -15,12 +20,7 @@ class PublicController extends Controller
 
     public function catalogo(): View
     {
-        $categorias = Categoria::with([
-            'productos' => fn ($q) => $q->where('activo', true)->orderBy('nombre'),
-        ])
-            ->where('activo', true)
-            ->orderBy('nombre')
-            ->get();
+        $categorias = $this->categoriaService->obtenerActivasConProductos();
 
         return view('paginas.catalogo', compact('categorias'));
     }
@@ -47,10 +47,7 @@ class PublicController extends Controller
 
     public function detalleProducto(string $slug): View
     {
-        $producto = Producto::with('categoria')
-            ->where('slug', $slug)
-            ->where('activo', true)
-            ->firstOrFail();
+        $producto = $this->productoService->obtenerPorSlug($slug);
 
         return view('paginas.detalle-producto', compact('producto'));
     }

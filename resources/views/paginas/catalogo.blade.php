@@ -45,7 +45,7 @@
               </a>
               <div class="product-card-info">
                 <h3 class="product-card-name">{{ $producto->nombre }}</h3>
-                <p class="product-card-price" data-price-usd="{{ $producto->precio }}">US$ {{ number_format($producto->precio, 0, ',', '.') }} USD</p>
+                <p class="product-card-price">$ {{ number_format($producto->precio, 0, ',', '.') }} ARS</p>
               </div>
             </article>
           @endforeach

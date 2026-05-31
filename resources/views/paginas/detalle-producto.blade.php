@@ -27,7 +27,7 @@
             <div class="detail-copy">
               <p class="detail-eyebrow">{{ $producto->categoria->nombre }} · Vittorio</p>
               <h1 class="detail-title">{{ $producto->nombre }}</h1>
-              <p class="detail-price" data-price-usd="{{ $producto->precio }}">US$ {{ number_format($producto->precio, 0, ',', '.') }} USD</p>
+              <p class="detail-price">$ {{ number_format($producto->precio, 0, ',', '.') }} ARS</p>
               <p class="detail-description">{{ $producto->descripcion }}</p>
 
               <div class="detail-specs">

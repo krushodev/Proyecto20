@@ -52,14 +52,14 @@
             <div class="cart-item-info">
               <h3 class="cart-item-name">{{ $detalle->producto->nombre }}</h3>
               <p class="cart-item-meta">
-                US$ {{ number_format($detalle->precio_unitario, 0, ',', '.') }}
+                $ {{ number_format($detalle->precio_unitario, 0, ',', '.') }} ARS
                 <span class="cart-item-sep">×</span>
                 {{ $detalle->cantidad }}
               </p>
             </div>
 
-            <p class="cart-item-subtotal" data-price-usd="{{ $detalle->subtotal }}">
-              US$ {{ number_format($detalle->subtotal, 0, ',', '.') }}
+            <p class="cart-item-subtotal">
+              $ {{ number_format($detalle->subtotal, 0, ',', '.') }} ARS
             </p>
 
             <form action="{{ route('carrito.eliminar', $detalle->id) }}" method="POST" class="cart-item-remove">
@@ -79,12 +79,39 @@
 
         <div class="cart-summary-row">
           <span>{{ $carrito->detalles->count() }} {{ $carrito->detalles->count() === 1 ? 'artículo' : 'artículos' }}</span>
-          <span data-price-usd="{{ $carrito->total }}">US$ {{ number_format($carrito->total, 0, ',', '.') }}</span>
+          <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
         </div>
         <div class="cart-summary-divider"></div>
         <div class="cart-summary-row cart-summary-total">
           <span>Total</span>
-          <span data-price-usd="{{ $carrito->total }}">US$ {{ number_format($carrito->total, 0, ',', '.') }}</span>
+          <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
+        </div>
+
+        {{-- Método de pago --}}
+        <div class="cart-payment-section">
+          <h3 class="cart-payment-title">Método de pago</h3>
+
+          <label class="cart-payment-option">
+            <input type="radio" name="payment_method" value="transferencia" checked />
+            <span class="cart-payment-option-body">
+              <i data-lucide="landmark"></i>
+              <span>
+                <strong>Transferencia bancaria</strong>
+                <small>CBU / CVU · Acreditación inmediata</small>
+              </span>
+            </span>
+          </label>
+
+          <label class="cart-payment-option">
+            <input type="radio" name="payment_method" value="mercadopago" />
+            <span class="cart-payment-option-body">
+              <img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" class="cart-payment-logo" />
+              <span>
+                <strong>Mercado Pago</strong>
+                <small>Débito, crédito o dinero en cuenta</small>
+              </span>
+            </span>
+          </label>
         </div>
 
         <form action="{{ route('carrito.confirmar') }}" method="POST" class="cart-confirm-form">
@@ -100,3 +127,59 @@
 
 </section>
 @endsection
+
+@push('styles')
+<style>
+.cart-payment-section {
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.cart-payment-title {
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: .25rem;
+}
+.cart-payment-option {
+  display: block;
+  cursor: pointer;
+}
+.cart-payment-option input[type="radio"] { display: none; }
+.cart-payment-option-body {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .85rem 1rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  transition: border-color .2s, background .2s;
+}
+.cart-payment-option input:checked + .cart-payment-option-body {
+  border-color: rgba(255,255,255,.5);
+  background: rgba(255,255,255,.05);
+}
+.cart-payment-option-body i,
+.cart-payment-logo {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  opacity: .85;
+}
+.cart-payment-option-body span {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+.cart-payment-option-body strong {
+  font-size: .85rem;
+  font-weight: 600;
+}
+.cart-payment-option-body small {
+  font-size: .72rem;
+  color: rgba(255,255,255,.45);
+}
+</style>
+@endpush

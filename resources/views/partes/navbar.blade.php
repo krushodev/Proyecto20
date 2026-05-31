@@ -17,25 +17,6 @@
 
     <div class="navbar-actions order-lg-3">
 
-      {{-- Selector de divisa --}}
-      <div class="dropdown navbar-currency">
-        <button
-          class="navbar-icon-btn dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          aria-label="Seleccionar divisa"
-        >
-          <span data-currency-label>USD</span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end navbar-currency-menu">
-          <li><button type="button" class="dropdown-item" data-currency="USD">USD · Dólar</button></li>
-          <li><button type="button" class="dropdown-item" data-currency="ARS">ARS · Peso Argentino</button></li>
-          <li><button type="button" class="dropdown-item" data-currency="EUR">EUR · Euro</button></li>
-          <li><button type="button" class="dropdown-item" data-currency="BRL">BRL · Real</button></li>
-        </ul>
-      </div>
-
       {{-- Búsqueda --}}
       <button class="navbar-icon-btn" aria-label="Buscar" type="button">
         <i data-lucide="search"></i>

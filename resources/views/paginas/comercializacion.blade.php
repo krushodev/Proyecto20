@@ -88,17 +88,7 @@
         </ul>
       </div>
 
-      <div class="payment-block">
-        <h3 class="payment-block-title">Criptomonedas</h3>
-        <ul class="payment-logos">
-          <li class="payment-logo" title="Bitcoin"><img src="https://cdn.simpleicons.org/bitcoin/ffffff" alt="Bitcoin" /><span>Bitcoin</span></li>
-          <li class="payment-logo" title="Ethereum"><img src="https://cdn.simpleicons.org/ethereum/ffffff" alt="Ethereum" /><span>Ethereum</span></li>
-          <li class="payment-logo" title="USDT"><img src="https://cdn.simpleicons.org/tether/ffffff" alt="USDT Tether" /><span>USDT</span></li>
-          <li class="payment-logo" title="USDC"><i data-lucide="circle-dollar-sign"></i><span>USDC</span></li>
-        </ul>
-      </div>
-
-      <p class="payment-disclaimer">Todas las transacciones se procesan bajo cifrado AES-256 y certificación PCI-DSS. Las cotizaciones internacionales utilizan referencia diaria del mercado.</p>
+      <p class="payment-disclaimer">Todas las transacciones se procesan bajo cifrado AES-256 y certificación PCI-DSS. Los precios están expresados en Pesos Argentinos (ARS).</p>
     </section>
 
     <section class="comercializacion-cta">

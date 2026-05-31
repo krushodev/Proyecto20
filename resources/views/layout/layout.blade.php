@@ -26,7 +26,6 @@
   <script>
     lucide.createIcons();
   </script>
-  @include ('partes.currency-script')
   @stack ('scripts')
 </body>
 </html>

@@ -20,6 +20,7 @@ Route::get('/catalogo',              [PublicController::class, 'catalogo'])->nam
 Route::get('/nosotros',              [PublicController::class, 'nosotros']);
 Route::get('/comercializacion',      [PublicController::class, 'comercializacion']);
 Route::get('/contacto',              [PublicController::class, 'contacto'])->name('contacto');
+Route::post('/contacto',             [PublicController::class, 'enviarContacto'])->name('contacto.enviar');
 Route::get('/terminos-y-condiciones',[PublicController::class, 'terminosYCondiciones']);
 Route::get('/detalle-producto/{slug}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
 

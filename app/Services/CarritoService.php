@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\GenerarYEnviarFacturaJob;
 use App\Models\Producto;
 use App\Models\VentaCabecera;
 use App\Models\VentaDetalle;
@@ -92,7 +93,11 @@ class CarritoService
                 'fecha_venta' => now(),
             ]);
 
-            return $carrito->fresh();
+            $venta = $carrito->fresh();
+
+            GenerarYEnviarFacturaJob::dispatch($venta->id);
+
+            return $venta;
         });
     }
 

@@ -57,7 +57,6 @@
           <span class="checkmark"></span>
           <span class="checkbox-label">Recordarme</span>
         </label>
-        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
       </div>
 
       <button type="submit" class="btn-login">Iniciar Sesión</button>

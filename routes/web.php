@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RolController;
@@ -46,6 +47,23 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+/*
+|--------------------------------------------------------------------------
+| Perfil de usuario (requiere autenticación)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [PerfilController::class, 'ver'])->name('perfil.ver');
+    Route::get('/perfil/editar', [PerfilController::class, 'editar'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.editar');
+
+    Route::put('/perfil', [PerfilController::class, 'actualizar'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.actualizar');
+});
 
 /*
 |--------------------------------------------------------------------------

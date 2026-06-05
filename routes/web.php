@@ -59,6 +59,23 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
+| Perfil de usuario (requiere autenticación)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [PerfilController::class, 'ver'])->name('perfil.ver');
+    Route::get('/perfil/editar', [PerfilController::class, 'editar'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.editar');
+
+    Route::put('/perfil', [PerfilController::class, 'actualizar'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.actualizar');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Carrito de compras (requiere autenticación)
 |--------------------------------------------------------------------------
 */

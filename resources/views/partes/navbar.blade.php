@@ -38,23 +38,46 @@
           <i data-lucide="user"></i>
         </a>
       @else
-        <div class="dropdown">
+        <div class="navbar-user-dropdown">
           <button
-            class="navbar-icon-btn dropdown-toggle"
+            class="navbar-user-avatar-btn"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             aria-label="Mi cuenta"
+            title="{{ auth()->user()->nombre }}"
           >
-            <i data-lucide="user"></i>
+            <div class="navbar-user-avatar">
+              {{ strtoupper(substr(auth()->user()->nombre, 0, 1)) }}
+            </div>
           </button>
           <ul class="dropdown-menu dropdown-menu-end navbar-user-menu">
-            <li class="navbar-user-name">{{ auth()->user()->nombre }}</li>
+            <li class="navbar-user-header">
+              <div class="navbar-user-avatar-large">
+                {{ strtoupper(substr(auth()->user()->nombre, 0, 1)) }}
+              </div>
+              <div class="navbar-user-info">
+                <span class="navbar-user-name-text">{{ auth()->user()->nombre }}</span>
+                <span class="navbar-user-email-text">{{ auth()->user()->email }}</span>
+              </div>
+            </li>
+            
+            <li><hr class="dropdown-divider"></li>
+            
+            @unless($esAdmin)
+              <li>
+                <a class="navbar-user-menu-item navbar-user-menu-perfil" href="{{ route('perfil.ver') }}">
+                  <i data-lucide="user"></i>
+                  <span>Ver Perfil</span>
+                </a>
+              </li>
+            @endunless
 
             @if($esAdmin)
               <li>
-                <a class="dropdown-item" href="{{ route('admin.panel') }}">
-                  <i data-lucide="layout-dashboard"></i> Panel Admin
+                <a class="navbar-user-menu-item navbar-user-menu-admin" href="{{ route('admin.panel') }}">
+                  <i data-lucide="layout-dashboard"></i>
+                  <span>Panel Admin</span>
                 </a>
               </li>
               <li>
@@ -74,13 +97,15 @@
                 </a>
               </li>
             @endif
-
+            
             <li><hr class="dropdown-divider"></li>
+            
             <li>
-              <form action="{{ route('logout') }}" method="POST">
+              <form action="{{ route('logout') }}" method="POST" class="w-100">
                 @csrf
-                <button type="submit" class="dropdown-item navbar-logout-btn">
-                  <i data-lucide="log-out"></i> Cerrar Sesión
+                <button type="submit" class="navbar-user-menu-item navbar-user-menu-logout">
+                  <i data-lucide="log-out"></i>
+                  <span>Cerrar Sesión</span>
                 </button>
               </form>
             </li>

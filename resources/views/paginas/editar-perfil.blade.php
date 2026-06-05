@@ -64,24 +64,7 @@
         <input type="password" id="cvv_tarjeta" name="cvv_tarjeta" value="{{ old('cvv_tarjeta', $usuario->cvv_tarjeta) }}" maxlength="4" placeholder="000">
       </div>
 
-      <div class="perfil-item">
-        <label class="perfil-item-label" for="cripto_habilitada">Habilitar Cripto</label>
-        <input type="checkbox" id="cripto_habilitada" name="cripto_habilitada" value="1" {{ old('cripto_habilitada', $usuario->cripto_habilitada) ? 'checked' : '' }}>
-      </div>
 
-      <div class="perfil-item">
-        <label class="perfil-item-label" for="tipo_cripto">Tipo de Cripto</label>
-        <select id="tipo_cripto" name="tipo_cripto">
-          <option value="BTC" {{ old('tipo_cripto', $usuario->tipo_cripto) == 'BTC' ? 'selected' : '' }}>BTC</option>
-          <option value="ETH" {{ old('tipo_cripto', $usuario->tipo_cripto) == 'ETH' ? 'selected' : '' }}>ETH</option>
-          <option value="USDT" {{ old('tipo_cripto', $usuario->tipo_cripto) == 'USDT' ? 'selected' : '' }}>USDT</option>
-        </select>
-      </div>
-
-      <div class="perfil-item">
-        <label class="perfil-item-label" for="wallet_cripto">Dirección Wallet</label>
-        <input type="text" id="wallet_cripto" name="wallet_cripto" value="{{ old('wallet_cripto', $usuario->wallet_cripto) }}">
-      </div>
     </div>
 
     <div class="perfil-actions">

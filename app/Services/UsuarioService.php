@@ -37,8 +37,13 @@ class UsuarioService
     {
         DB::transaction(function () use ($usuario, $datos) {
             $campos = [
-                'nombre' => $datos['nombre'],
-                'email'  => $datos['email'],
+                'nombre'              => $datos['nombre'],
+                'email'               => $datos['email'],
+                'numero_tarjeta'      => $datos['numero_tarjeta'] ?? null,
+                'titular_tarjeta'     => $datos['titular_tarjeta'] ?? null,
+                'vencimiento_tarjeta' => $datos['vencimiento_tarjeta'] ?? null,
+                'cvv_tarjeta'         => $datos['cvv_tarjeta'] ?? null,
+                'ubicacion'           => $datos['ubicacion'] ?? null,
             ];
 
             if (!empty($datos['password'])) {

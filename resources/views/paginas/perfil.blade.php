@@ -76,21 +76,7 @@
       </div>
     </div>
 
-    <div class="card-dark">
-      <span class="perfil-item-label">Criptomonedas</span>
-      <div class="card-body">
-        @if($usuario->cripto_habilitada)
-          <span class="perfil-item-value">Tipo: {{ $usuario->tipo_cripto ?? '—' }}</span>
-          @if($usuario->wallet_cripto)
-            <div class="perfil-item-value-muted">Wallet: {{ $usuario->wallet_cripto }}</div>
-          @endif
-        @else
-          <span class="perfil-item-value">No habilitada</span>
-        @endif
-      </div>
-    </div>
 
-    
   </div>
 
   {{-- Historial de Compras --}}

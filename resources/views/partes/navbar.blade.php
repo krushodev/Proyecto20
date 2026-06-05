@@ -92,7 +92,7 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="{{ route('mi-perfil') }}">
+                <a class="dropdown-item" href="{{ route('perfil.ver') }}">
                   <i data-lucide="settings"></i> Mi Perfil
                 </a>
               </li>
@@ -187,7 +187,7 @@
             <i data-lucide="package"></i>
             <span>Mis Compras</span>
           </a>
-          <a href="{{ route('mi-perfil') }}" class="offcanvas-cta">
+          <a href="{{ route('perfil.ver') }}" class="offcanvas-cta">
             <i data-lucide="settings"></i>
             <span>Mi Perfil</span>
           </a>

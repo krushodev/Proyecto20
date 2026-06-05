@@ -81,9 +81,6 @@ Route::middleware('auth')->group(function () {
 */
 
 Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
-    Route::get('/mi-perfil',  [PerfilController::class, 'mostrar'])->name('mi-perfil');
-    Route::put('/mi-perfil',  [PerfilController::class, 'actualizar'])->name('mi-perfil.actualizar');
-
     Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
     Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');

@@ -27,9 +27,6 @@ class Usuario extends Authenticatable implements CanResetPasswordContract
         'titular_tarjeta',
         'vencimiento_tarjeta',
         'cvv_tarjeta',
-        'cripto_habilitada',
-        'wallet_cripto',
-        'tipo_cripto',
         'ubicacion',
     ];
 

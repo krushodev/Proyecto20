@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -16,7 +16,7 @@ class RolController extends Controller
     {
         $roles = $this->rolService->obtenerTodos();
 
-        return view('server.admin.roles.index', compact('roles'));
+        return view('backend.admin.roles.index', compact('roles'));
     }
 
     public function store(CrearRolRequest $request): RedirectResponse

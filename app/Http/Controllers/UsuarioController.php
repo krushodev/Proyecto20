@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -17,14 +17,14 @@ class UsuarioController extends Controller
     {
         $usuarios = $this->usuarioService->obtenerTodos();
 
-        return view('server.admin.usuarios.index', compact('usuarios'));
+        return view('backend.admin.usuarios.index', compact('usuarios'));
     }
 
     public function create(): View
     {
         $roles = $this->usuarioService->obtenerRoles();
 
-        return view('server.admin.usuarios.create', compact('roles'));
+        return view('backend.admin.usuarios.create', compact('roles'));
     }
 
     public function store(CrearUsuarioRequest $request): RedirectResponse
@@ -38,7 +38,7 @@ class UsuarioController extends Controller
     {
         $roles = $this->usuarioService->obtenerRoles();
 
-        return view('server.admin.usuarios.edit', compact('usuario', 'roles'));
+        return view('backend.admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
     public function update(ActualizarUsuarioRequest $request, Usuario $usuario): RedirectResponse

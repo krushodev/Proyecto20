@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -11,7 +11,7 @@ class ForgotPasswordController extends Controller
 {
     public function mostrar(): View
     {
-        return view('server.usuarios.forgot-password');
+        return view('backend.usuarios.forgot-password');
     }
 
     public function enviar(Request $request): RedirectResponse

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -15,7 +15,7 @@ class AdminVentaController extends Controller
     {
         $ventas = $this->ventaService->obtenerTodas();
 
-        return view('server.admin.ventas.index', compact('ventas'));
+        return view('backend.admin.ventas.index', compact('ventas'));
     }
 
     public function show(int $id): View
@@ -24,6 +24,6 @@ class AdminVentaController extends Controller
 
         abort_if($venta === null, 404);
 
-        return view('server.admin.ventas.show', compact('venta'));
+        return view('backend.admin.ventas.show', compact('venta'));
     }
 }

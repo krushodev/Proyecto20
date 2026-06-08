@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -16,7 +16,7 @@ class AdminContactoController extends Controller
     {
         $contactos = $this->contactoService->obtenerTodas();
 
-        return view('server.admin.contactos.index', compact('contactos'));
+        return view('backend.admin.contactos.index', compact('contactos'));
     }
 
     public function marcarLeido(int $id): RedirectResponse

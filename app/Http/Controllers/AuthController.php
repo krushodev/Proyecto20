@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -16,12 +16,12 @@ class AuthController extends Controller
 
     public function mostrarLogin(): View
     {
-        return view('server.usuarios.login');
+        return view('backend.usuarios.login');
     }
 
     public function mostrarRegistro(): View
     {
-        return view('server.usuarios.registro');
+        return view('backend.usuarios.registro');
     }
 
     public function autenticar(LoginRequest $request): RedirectResponse

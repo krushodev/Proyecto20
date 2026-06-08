@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -39,7 +39,7 @@ class PerfilController extends Controller
     {
         $usuario = Auth::user();
 
-        return view('server.admin.perfil.index', compact('usuario'));
+        return view('backend.admin.perfil.index', compact('usuario'));
     }
 
     public function actualizarAdmin(ActualizarPerfilRequest $request): RedirectResponse

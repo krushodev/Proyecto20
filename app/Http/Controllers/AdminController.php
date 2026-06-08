@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -8,6 +8,6 @@ class AdminController extends Controller
 {
     public function index(): View
     {
-        return view('server.admin.dashboard');
+        return view('backend.admin.dashboard');
     }
 }

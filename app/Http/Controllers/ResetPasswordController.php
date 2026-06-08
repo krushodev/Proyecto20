@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -13,7 +13,7 @@ class ResetPasswordController extends Controller
 {
     public function mostrar(string $token): View
     {
-        return view('server.usuarios.reset-password', ['token' => $token]);
+        return view('backend.usuarios.reset-password', ['token' => $token]);
     }
 
     public function resetear(Request $request): RedirectResponse

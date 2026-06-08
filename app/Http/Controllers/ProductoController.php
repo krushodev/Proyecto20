@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -21,14 +21,14 @@ class ProductoController extends Controller
     {
         $productos = $this->productoService->obtenerTodos();
 
-        return view('server.admin.productos.index', compact('productos'));
+        return view('backend.admin.productos.index', compact('productos'));
     }
 
     public function create(): View
     {
         $categorias = $this->categoriaService->obtenerTodas();
 
-        return view('server.admin.productos.create', compact('categorias'));
+        return view('backend.admin.productos.create', compact('categorias'));
     }
 
     public function store(CrearProductoRequest $request): RedirectResponse
@@ -42,7 +42,7 @@ class ProductoController extends Controller
     {
         $categorias = $this->categoriaService->obtenerTodas();
 
-        return view('server.admin.productos.edit', compact('producto', 'categorias'));
+        return view('backend.admin.productos.edit', compact('producto', 'categorias'));
     }
 
     public function update(ActualizarProductoRequest $request, Producto $producto): RedirectResponse

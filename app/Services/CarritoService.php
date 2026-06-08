@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
-use App\Jobs\GenerarYEnviarFacturaJob;
+use App\Mail\FacturaCompraMail;
 use App\Models\Producto;
 use App\Models\VentaCabecera;
 use App\Models\VentaDetalle;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CarritoService
 {
@@ -109,9 +111,13 @@ class CarritoService
                 'estado_pago' => 'aprobado',
             ], $datosExtra));
 
-            $venta = $carrito->fresh();
+            $venta = $carrito->fresh(['usuario', 'detalles.producto']);
 
-            GenerarYEnviarFacturaJob::dispatch($venta->id);
+            $pdf = Pdf::loadView('facturas.factura', compact('venta'))
+                ->setPaper('a4', 'portrait');
+
+            Mail::to($venta->usuario->email)
+                ->send(new FacturaCompraMail($venta, $pdf->output()));
 
             return $venta;
         });

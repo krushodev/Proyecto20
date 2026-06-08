@@ -79,49 +79,6 @@
 
   </div>
 
-  {{-- Historial de Compras --}}
-  <div class="perfil-section">
-    <h2>Historial de Compras</h2>
-    
-    @if($usuario->ventas->count() > 0)
-      <div class="ventas-table-wrap">
-        <table class="ventas-table">
-          <thead>
-            <tr>
-              <th>Número</th>
-              <th>Fecha</th>
-              <th style="text-align: right;">Total</th>
-              <th style="text-align: center;">Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($usuario->ventas as $venta)
-              <tr>
-                <td>#{{ $venta->id }}</td>
-                <td>{{ $venta->created_at->format('d/m/Y') }}</td>
-                <td style="text-align: right;">${{ number_format($venta->total, 2, ',', '.') }}</td>
-                <td style="text-align: center;"><span class="badge badge-success">Completada</span></td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-    @else
-      <div class="empty-state">
-        <svg class="empty-state-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        <p>No tienes compras registradas aún</p>
-        <a href="{{ route('catalogo') }}" class="btn btn-primary">
-          <i data-lucide="shopping-bag"></i>
-          <span>Explorar Catálogo</span>
-        </a>
-      </div>
-    @endif
-  </div>
-
   {{-- Acciones Finales: solo botón de cerrar sesión --}}
   <div class="perfil-actions perfil-actions-centered" style="margin-top: 12px;">
     <form action="{{ route('logout') }}" method="POST" class="perfil-logout-form">

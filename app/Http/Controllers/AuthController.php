@@ -53,8 +53,6 @@ class AuthController extends Controller
     {
         $usuario = $this->authService->registrarUsuario($request->validated());
 
-        Auth::login($usuario);
-
         $this->carritoService->transferirCarritoSesionADB($usuario->id);
 
         return redirect('/');

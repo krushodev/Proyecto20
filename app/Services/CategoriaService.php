@@ -14,7 +14,8 @@ class CategoriaService
     public function obtenerActivasConProductos(): \Illuminate\Database\Eloquent\Collection
     {
         return Categoria::with([
-            'productos' => fn ($q) => $q->where('activo', true)->orderBy('nombre'),
+            'productos'          => fn ($q) => $q->where('activo', true)->orderBy('nombre'),
+            'productos.imagenes' => fn ($q) => $q->orderBy('orden'),
         ])
             ->where('activo', true)
             ->orderBy('nombre')

@@ -102,6 +102,7 @@ Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
 Route::middleware(['auth', 'check.rol:!admin'])->prefix('checkout')->group(function () {
     Route::get('/envio',         [CheckoutController::class, 'envio'])->name('checkout.envio');
     Route::post('/envio',        [CheckoutController::class, 'guardarEnvio'])->name('checkout.envio.guardar');
+    Route::get('/costo-envio',   [CheckoutController::class, 'costoEnvio'])->name('checkout.costo-envio');
     Route::get('/pago',          [CheckoutController::class, 'pago'])->name('checkout.pago');
     Route::post('/pago',         [CheckoutController::class, 'procesarPago'])->name('checkout.pago.procesar');
     Route::get('/confirmacion',  [CheckoutController::class, 'confirmacion'])->name('checkout.confirmacion');

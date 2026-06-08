@@ -26,24 +26,16 @@
       <div id="productCarousel" class="carousel slide pd-carousel" data-bs-ride="false">
 
         <div class="carousel-inner">
-          @if($producto->imagen_lifestyle)
-            <div class="carousel-item active">
-              <img src="{{ $producto->imagen_lifestyle }}"
+          @foreach($producto->imagenes as $loop->iteration => $imagen)
+            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+              <img src="{{ $imagen->url }}"
                    class="pd-carousel-img"
-                   alt="{{ $producto->nombre }} — lifestyle" />
+                   alt="{{ $producto->nombre }} — {{ $imagen->tipo }}" />
             </div>
-          @endif
-
-          @if($producto->imagen_studio)
-            <div class="carousel-item {{ $producto->imagen_lifestyle ? '' : 'active' }}">
-              <img src="{{ $producto->imagen_studio }}"
-                   class="pd-carousel-img"
-                   alt="{{ $producto->nombre }} — studio" />
-            </div>
-          @endif
+          @endforeach
         </div>
 
-        @if($producto->imagen_lifestyle && $producto->imagen_studio)
+        @if($producto->imagenes->count() > 1)
           <button class="carousel-control-prev pd-carousel-ctrl" type="button"
                   data-bs-target="#productCarousel" data-bs-slide="prev">
             <i data-lucide="chevron-left"></i>
@@ -56,14 +48,17 @@
       </div>
 
       {{-- Thumbnails de navegación --}}
-      @if($producto->imagen_lifestyle && $producto->imagen_studio)
+      @if($producto->imagenes->count() > 1)
         <div class="pd-thumbs">
-          <button type="button" class="pd-thumb active" data-bs-target="#productCarousel" data-bs-slide-to="0" aria-label="Ver lifestyle">
-            <img src="{{ $producto->imagen_lifestyle }}" alt="Lifestyle" />
-          </button>
-          <button type="button" class="pd-thumb" data-bs-target="#productCarousel" data-bs-slide-to="1" aria-label="Ver studio">
-            <img src="{{ $producto->imagen_studio }}" alt="Studio" />
-          </button>
+          @foreach($producto->imagenes as $i => $imagen)
+            <button type="button"
+                    class="pd-thumb {{ $loop->first ? 'active' : '' }}"
+                    data-bs-target="#productCarousel"
+                    data-bs-slide-to="{{ $i }}"
+                    aria-label="Ver {{ $imagen->tipo }}">
+              <img src="{{ $imagen->url }}" alt="{{ ucfirst($imagen->tipo) }}" />
+            </button>
+          @endforeach
         </div>
       @endif
 

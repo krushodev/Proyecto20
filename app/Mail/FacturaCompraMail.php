@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use App\Models\VentaCabecera;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
@@ -12,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 class FacturaCompraMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     public function __construct(
         public readonly VentaCabecera $venta,

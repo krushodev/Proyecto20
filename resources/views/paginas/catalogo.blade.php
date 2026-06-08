@@ -26,21 +26,29 @@
 
         <div class="catalog-product-grid">
           @foreach($categoria->productos as $producto)
+            @php
+              $imgLifestyle = $producto->imagenes->where('tipo', 'lifestyle')->first();
+              $imgStudio    = $producto->imagenes->where('tipo', 'studio')->first();
+            @endphp
             <article class="product-card">
               <a href="{{ route('detalle-producto', $producto->slug) }}" class="product-card-image-link" aria-label="Ver detalles de {{ $producto->nombre }}">
                 <div class="product-card-image-wrapper">
-                  <img
-                    src="{{ $producto->imagen_lifestyle }}"
-                    alt="{{ $producto->nombre }}"
-                    class="product-card-image product-card-image-lifestyle"
-                    loading="lazy"
-                  />
-                  <img
-                    src="{{ $producto->imagen_studio }}"
-                    alt="{{ $producto->nombre }} en estudio"
-                    class="product-card-image product-card-image-studio"
-                    loading="lazy"
-                  />
+                  @if($imgLifestyle)
+                    <img
+                      src="{{ $imgLifestyle->url }}"
+                      alt="{{ $producto->nombre }}"
+                      class="product-card-image product-card-image-lifestyle"
+                      loading="lazy"
+                    />
+                  @endif
+                  @if($imgStudio)
+                    <img
+                      src="{{ $imgStudio->url }}"
+                      alt="{{ $producto->nombre }} en estudio"
+                      class="product-card-image product-card-image-studio"
+                      loading="lazy"
+                    />
+                  @endif
                 </div>
               </a>
               <div class="product-card-info">

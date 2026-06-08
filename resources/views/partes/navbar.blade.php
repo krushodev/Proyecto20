@@ -3,7 +3,7 @@
   COMPONENTE: navbar.blade.php
   PROPÓSITO: Barra de navegación principal
   DESCRIPCIÓN: Navegación adaptativa según rol:
-  - @guest       → menú público + enlace a login
+  - @guest       → menú público + carrito (guest) + enlace a login
   - rol cliente  → menú público + carrito + cuenta
   - rol admin    → solo logo + enlace a Panel Admin + logout
   ============================================================
@@ -19,17 +19,10 @@
     <div class="navbar-actions order-lg-3">
 
       @if(!$esAdmin)
-        {{-- Búsqueda (solo tienda) --}}
-        <button class="navbar-icon-btn" aria-label="Buscar" type="button">
-          <i data-lucide="search"></i>
-        </button>
-
-        {{-- Carrito (solo clientes autenticados) --}}
-        @auth
-          <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Mi carrito">
-            <i data-lucide="shopping-cart"></i>
-          </a>
-        @endauth
+        {{-- Carrito: visible para guests y clientes autenticados --}}
+        <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Mi carrito">
+          <i data-lucide="shopping-cart"></i>
+        </a>
       @endif
 
       {{-- Cuenta: condicional por estado y rol --}}
@@ -52,6 +45,8 @@
             </div>
           </button>
           <ul class="dropdown-menu dropdown-menu-end navbar-user-menu">
+
+            {{-- Encabezado con nombre y email --}}
             <li class="navbar-user-header">
               <div class="navbar-user-avatar-large">
                 {{ strtoupper(substr(auth()->user()->nombre, 0, 1)) }}
@@ -61,45 +56,39 @@
                 <span class="navbar-user-email-text">{{ auth()->user()->email }}</span>
               </div>
             </li>
-            
-            <li><hr class="dropdown-divider"></li>
-            
-            @unless($esAdmin)
-              <li>
-                <a class="navbar-user-menu-item navbar-user-menu-perfil" href="{{ route('perfil.ver') }}">
-                  <i data-lucide="user"></i>
-                  <span>Ver Perfil</span>
-                </a>
-              </li>
-            @endunless
+
+            <li><hr class="navbar-divider"></li>
 
             @if($esAdmin)
               <li>
-                <a class="navbar-user-menu-item navbar-user-menu-admin" href="{{ route('admin.panel') }}">
+                <a class="navbar-user-menu-item" href="{{ route('admin.panel') }}">
                   <i data-lucide="layout-dashboard"></i>
                   <span>Panel Admin</span>
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="{{ route('admin.perfil') }}">
-                  <i data-lucide="settings"></i> Mi Perfil
+                <a class="navbar-user-menu-item" href="{{ route('admin.perfil') }}">
+                  <i data-lucide="settings"></i>
+                  <span>Mi Perfil</span>
                 </a>
               </li>
             @else
               <li>
-                <a class="dropdown-item" href="{{ route('mis-compras') }}">
-                  <i data-lucide="package"></i> Mis Compras
+                <a class="navbar-user-menu-item" href="{{ route('mis-compras') }}">
+                  <i data-lucide="package"></i>
+                  <span>Mis Compras</span>
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="{{ route('perfil.ver') }}">
-                  <i data-lucide="settings"></i> Mi Perfil
+                <a class="navbar-user-menu-item" href="{{ route('perfil.ver') }}">
+                  <i data-lucide="settings"></i>
+                  <span>Mi Perfil</span>
                 </a>
               </li>
             @endif
-            
-            <li><hr class="dropdown-divider"></li>
-            
+
+            <li><hr class="navbar-divider"></li>
+
             <li>
               <form action="{{ route('logout') }}" method="POST" class="w-100">
                 @csrf
@@ -168,6 +157,10 @@
 
     <div class="offcanvas-footer">
       @guest
+        <a href="{{ route('carrito') }}" class="offcanvas-cta">
+          <i data-lucide="shopping-cart"></i>
+          <span>Mi Carrito</span>
+        </a>
         <a href="{{ route('login') }}" class="offcanvas-cta">
           <i data-lucide="user"></i>
           <span>Iniciar sesión</span>
@@ -183,6 +176,10 @@
             <span>Mi Perfil</span>
           </a>
         @else
+          <a href="{{ route('carrito') }}" class="offcanvas-cta">
+            <i data-lucide="shopping-cart"></i>
+            <span>Mi Carrito</span>
+          </a>
           <a href="{{ route('mis-compras') }}" class="offcanvas-cta">
             <i data-lucide="package"></i>
             <span>Mis Compras</span>
@@ -207,31 +204,100 @@
 
 @push('styles')
 <style>
-.navbar-user-name {
-  padding: 0.4rem 1rem 0.2rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+/* ── Dropdown: tema oscuro consistente ───────────────────────────────── */
+.navbar-user-menu {
+  min-width: 220px;
+  padding: .5rem 0;
+  background: #111;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.6);
 }
-.navbar-user-menu { min-width: 180px; }
-.navbar-user-menu .dropdown-item {
+
+/* Encabezado del dropdown */
+.navbar-user-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
+  gap: .75rem;
+  padding: .85rem 1rem;
 }
-.navbar-user-menu .dropdown-item i { width: 15px; height: 15px; }
-.navbar-logout-btn {
+.navbar-user-avatar-large {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .85rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.navbar-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+  overflow: hidden;
+}
+.navbar-user-name-text {
+  font-size: .82rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.navbar-user-email-text {
+  font-size: .7rem;
+  color: rgba(255,255,255,.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Divisor */
+.navbar-divider {
+  margin: .3rem 0;
+  border-color: rgba(255,255,255,.08);
+}
+
+/* Ítems del dropdown */
+.navbar-user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
   width: 100%;
+  padding: .6rem 1rem;
+  font-size: .83rem;
+  color: rgba(255,255,255,.75);
   background: none;
   border: none;
   cursor: pointer;
-  text-align: left;
-  color: #ff6b6b;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+  letter-spacing: .01em;
 }
-.navbar-logout-btn:hover { color: #ff6b6b; background-color: rgba(255,107,107,0.08); }
+.navbar-user-menu-item:hover {
+  background: rgba(255,255,255,.06);
+  color: #fff;
+}
+.navbar-user-menu-item i {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: rgba(255,255,255,.4);
+}
+.navbar-user-menu-item:hover i { color: rgba(255,255,255,.7); }
+
+/* Logout */
+.navbar-user-menu-logout { color: rgba(255,107,107,.8); }
+.navbar-user-menu-logout:hover { background: rgba(255,107,107,.08); color: #ff6b6b; }
+.navbar-user-menu-logout i { color: rgba(255,107,107,.5); }
+.navbar-user-menu-logout:hover i { color: #ff6b6b; }
+
+/* Offcanvas logout */
 .offcanvas-logout-btn {
   width: 100%;
   background: none;

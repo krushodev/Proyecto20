@@ -14,7 +14,14 @@ class CarritoController extends Controller
     public function __construct(
         private readonly CarritoService $carritoService,
         private readonly VentaService $ventaService,
-    ) {}
+    ) {
+        $this->middleware(function ($request, $next) {
+            if (auth()->check() && auth()->user()->rol?->nombre === 'admin') {
+                return redirect()->route('admin.panel');
+            }
+            return $next($request);
+        })->only(['index', 'agregar', 'eliminar', 'vaciar']);
+    }
 
     public function index(): View
     {

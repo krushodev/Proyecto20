@@ -26,7 +26,7 @@
       <div id="productCarousel" class="carousel slide pd-carousel" data-bs-ride="false">
 
         <div class="carousel-inner">
-          @foreach($producto->imagenes as $loop->iteration => $imagen)
+          @foreach($producto->imagenes as $imagen)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
               <img src="{{ $imagen->url }}"
                    class="pd-carousel-img"

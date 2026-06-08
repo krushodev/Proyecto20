@@ -18,12 +18,12 @@ class VentaService
 
     public function obtenerPorId(int $id): ?VentaCabecera
     {
-        return VentaCabecera::with('detalles.producto')->find($id);
+        return VentaCabecera::with('detalles.producto.imagenes')->find($id);
     }
 
     public function obtenerComprasDeUsuario(int $userId): Collection
     {
-        return VentaCabecera::with('detalles.producto')
+        return VentaCabecera::with('detalles.producto.imagenes')
             ->where('user_id', $userId)
             ->where('estado', 'confirmado')
             ->orderByDesc('fecha_venta')

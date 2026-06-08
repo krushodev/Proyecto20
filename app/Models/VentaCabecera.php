@@ -12,9 +12,11 @@ class VentaCabecera extends Model
 
     protected $fillable = [
         'user_id',
+        'user_direccion_id',
         'fecha_venta',
         'estado',
         'total',
+        'costo_envio',
         'nombre_destinatario',
         'calle',
         'numero',
@@ -26,13 +28,19 @@ class VentaCabecera extends Model
     ];
 
     protected $casts = [
-        'fecha_venta' => 'datetime',
-        'total'       => 'decimal:2',
+        'fecha_venta'  => 'datetime',
+        'total'        => 'decimal:2',
+        'costo_envio'  => 'decimal:2',
     ];
 
     public function usuario(): BelongsTo
     {
         return $this->belongsTo(Usuario::class, 'user_id');
+    }
+
+    public function direccion(): BelongsTo
+    {
+        return $this->belongsTo(UserDireccion::class, 'user_direccion_id');
     }
 
     public function detalles(): HasMany

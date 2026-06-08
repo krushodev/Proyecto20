@@ -54,6 +54,11 @@ class Usuario extends Authenticatable implements CanResetPasswordContract
         return $this->hasMany(VentaCabecera::class, 'user_id');
     }
 
+    public function direcciones(): HasMany
+    {
+        return $this->hasMany(UserDireccion::class, 'user_id')->orderBy('alias');
+    }
+
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));

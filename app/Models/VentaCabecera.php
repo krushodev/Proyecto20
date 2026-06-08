@@ -15,6 +15,13 @@ class VentaCabecera extends Model
         'fecha_venta',
         'estado',
         'total',
+        'nombre_destinatario',
+        'calle',
+        'numero',
+        'ciudad',
+        'provincia',
+        'codigo_postal',
+        'metodo_pago',
     ];
 
     protected $casts = [

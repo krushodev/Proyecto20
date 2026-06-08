@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class CarritoService
 {
+    // ─── Carrito autenticado (DB) ──────────────────────────────────────────
+
     public function obtenerCarrito(): VentaCabecera
     {
         return VentaCabecera::firstOrCreate([
@@ -69,19 +71,15 @@ class CarritoService
     {
         DB::transaction(function () use ($detalleId) {
             $carrito = $this->obtenerCarrito();
-
-            // findOrFail scoped to this cart enforces ownership automatically
             $detalle = $carrito->detalles()->findOrFail($detalleId);
-
             $detalle->delete();
-
             $this->recalcularTotal($carrito);
         });
     }
 
-    public function confirmarCompra(): VentaCabecera
+    public function confirmarCompra(array $datosExtra = []): VentaCabecera
     {
-        return DB::transaction(function () {
+        return DB::transaction(function () use ($datosExtra) {
             $carrito = $this->obtenerCarrito();
 
             $detalles = $carrito->detalles()->with('producto')->get();
@@ -104,10 +102,10 @@ class CarritoService
                 $producto->decrement('stock', $detalle->cantidad);
             }
 
-            $carrito->update([
+            $carrito->update(array_merge([
                 'estado'      => 'confirmado',
                 'fecha_venta' => now(),
-            ]);
+            ], $datosExtra));
 
             $venta = $carrito->fresh();
 
@@ -126,10 +124,114 @@ class CarritoService
         });
     }
 
+    // ─── Carrito guest (session) ───────────────────────────────────────────
+
+    public function obtenerCarritoGuest(): array
+    {
+        return session('carrito_guest', ['items' => [], 'total' => 0]);
+    }
+
+    public function agregarProductoGuest(array $datos): void
+    {
+        $producto = Producto::findOrFail($datos['producto_id']);
+        $cantidad = (int) $datos['cantidad'];
+
+        $carrito = $this->obtenerCarritoGuest();
+        $items   = $carrito['items'];
+
+        $idx = collect($items)->search(fn($i) => $i['producto_id'] === $producto->id);
+
+        if ($idx !== false) {
+            $nuevaCantidad = $items[$idx]['cantidad'] + $cantidad;
+            if ($producto->stock < $nuevaCantidad) {
+                throw new \RuntimeException(
+                    "Stock insuficiente para '{$producto->nombre}'. Disponible: {$producto->stock}."
+                );
+            }
+            $items[$idx]['cantidad'] = $nuevaCantidad;
+            $items[$idx]['subtotal'] = $nuevaCantidad * $items[$idx]['precio_unitario'];
+        } else {
+            if ($producto->stock < $cantidad) {
+                throw new \RuntimeException(
+                    "Stock insuficiente para '{$producto->nombre}'. Disponible: {$producto->stock}."
+                );
+            }
+            $items[] = [
+                'producto_id'     => $producto->id,
+                'nombre'          => $producto->nombre,
+                'precio_unitario' => (float) $producto->precio,
+                'cantidad'        => $cantidad,
+                'subtotal'        => $cantidad * (float) $producto->precio,
+                'imagen_studio'   => $producto->imagen_studio,
+            ];
+        }
+
+        $total = array_sum(array_column($items, 'subtotal'));
+        session()->put('carrito_guest', ['items' => $items, 'total' => $total]);
+    }
+
+    public function eliminarProductoGuest(int $productoId): void
+    {
+        $carrito = $this->obtenerCarritoGuest();
+        $items   = array_values(array_filter($carrito['items'], fn($i) => $i['producto_id'] !== $productoId));
+        $total   = array_sum(array_column($items, 'subtotal'));
+        session()->put('carrito_guest', ['items' => $items, 'total' => $total]);
+    }
+
+    public function vaciarCarritoGuest(): void
+    {
+        session()->forget('carrito_guest');
+    }
+
+    public function transferirCarritoSesionADB(int $userId): void
+    {
+        $guestCart = session('carrito_guest');
+
+        if (!$guestCart || empty($guestCart['items'])) {
+            return;
+        }
+
+        DB::transaction(function () use ($userId, $guestCart) {
+            $carrito = VentaCabecera::firstOrCreate([
+                'user_id' => $userId,
+                'estado'  => 'carrito',
+            ]);
+
+            foreach ($guestCart['items'] as $item) {
+                $producto = Producto::find($item['producto_id']);
+                if (!$producto) {
+                    continue;
+                }
+
+                $existente = $carrito->detalles()->where('producto_id', $item['producto_id'])->first();
+
+                if ($existente) {
+                    $nuevaCantidad = $existente->cantidad + $item['cantidad'];
+                    $existente->update([
+                        'cantidad' => $nuevaCantidad,
+                        'subtotal' => $nuevaCantidad * $existente->precio_unitario,
+                    ]);
+                } else {
+                    $carrito->detalles()->create([
+                        'producto_id'     => $item['producto_id'],
+                        'cantidad'        => $item['cantidad'],
+                        'precio_unitario' => $item['precio_unitario'],
+                        'subtotal'        => $item['subtotal'],
+                    ]);
+                }
+            }
+
+            $this->recalcularTotal($carrito);
+        });
+
+        session()->forget('carrito_guest');
+    }
+
+    // ─── Privado ───────────────────────────────────────────────────────────
+
     private function recalcularTotal(VentaCabecera $carrito): void
     {
         $total = $carrito->detalles()->sum('subtotal');
-
         $carrito->update(['total' => $total]);
     }
 }

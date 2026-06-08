@@ -18,19 +18,26 @@ class CarritoController extends Controller
 
     public function index(): View
     {
-        $carrito = $this->carritoService->obtenerCarrito();
-        $carrito->load('detalles.producto');
+        if (Auth::check()) {
+            $carrito = $this->carritoService->obtenerCarrito();
+            $carrito->load('detalles.producto.imagenes');
+            return view('paginas.carrito', ['carrito' => $carrito, 'guestCart' => null]);
+        }
 
-        return view('paginas.carrito', compact('carrito'));
+        $guestCart = $this->carritoService->obtenerCarritoGuest();
+        return view('paginas.carrito', ['carrito' => null, 'guestCart' => $guestCart]);
     }
 
     public function agregar(AgregarAlCarritoRequest $request): RedirectResponse
     {
         try {
-            $this->carritoService->agregarProducto($request->validated());
+            if (Auth::check()) {
+                $this->carritoService->agregarProducto($request->validated());
+            } else {
+                $this->carritoService->agregarProductoGuest($request->validated());
+            }
 
-            return redirect()->route('carrito')
-                ->with('success', 'Producto agregado al carrito.');
+            return redirect()->route('carrito')->with('success', 'Producto agregado al carrito.');
         } catch (\RuntimeException $e) {
             return back()->withErrors(['stock' => $e->getMessage()]);
         }
@@ -39,13 +46,27 @@ class CarritoController extends Controller
     public function eliminar(int $detalle): RedirectResponse
     {
         try {
-            $this->carritoService->eliminarProducto($detalle);
+            if (Auth::check()) {
+                $this->carritoService->eliminarProducto($detalle);
+            } else {
+                $this->carritoService->eliminarProductoGuest($detalle);
+            }
 
-            return redirect()->route('carrito')
-                ->with('success', 'Producto eliminado del carrito.');
+            return redirect()->route('carrito')->with('success', 'Producto eliminado del carrito.');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException) {
             abort(404);
         }
+    }
+
+    public function vaciar(): RedirectResponse
+    {
+        if (Auth::check()) {
+            $this->carritoService->vaciarCarrito();
+        } else {
+            $this->carritoService->vaciarCarritoGuest();
+        }
+
+        return redirect()->route('carrito')->with('success', 'Carrito vaciado correctamente.');
     }
 
     public function confirmar(): RedirectResponse
@@ -58,14 +79,6 @@ class CarritoController extends Controller
         } catch (\RuntimeException $e) {
             return back()->withErrors(['carrito' => $e->getMessage()]);
         }
-    }
-
-    public function vaciar(): RedirectResponse
-    {
-        $this->carritoService->vaciarCarrito();
-
-        return redirect()->route('carrito')
-            ->with('success', 'Carrito vaciado correctamente.');
     }
 
     public function misCompras(): View

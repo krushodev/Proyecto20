@@ -1,7 +1,7 @@
 {{--
   ============================================================
   VISTA: carrito.blade.php
-  PROPÓSITO: Carrito de compras del usuario autenticado
+  PROPÓSITO: Carrito de compras (autenticado o invitado)
   ============================================================
 --}}
 @extends('layout.layout')
@@ -12,7 +12,9 @@
 <section class="cart-main">
 
   <header class="cart-header">
-    <p class="cart-eyebrow">{{ auth()->user()->nombre }}</p>
+    @auth
+      <p class="cart-eyebrow">{{ auth()->user()->nombre }}</p>
+    @endauth
     <h1 class="cart-title">Mi Carrito</h1>
     <div class="catalog-header-divider"></div>
   </header>
@@ -28,168 +30,177 @@
     <div class="cart-alert cart-alert-error">{{ $errors->first('carrito') }}</div>
   @endif
 
-  @if($carrito->detalles->isEmpty())
+  @auth
+    {{-- ── Carrito autenticado (DB) ── --}}
+    @if($carrito->detalles->isEmpty())
+      <div class="cart-empty">
+        <i data-lucide="shopping-cart" class="cart-empty-icon"></i>
+        <p class="cart-empty-text">Tu carrito está vacío.</p>
+        <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
+      </div>
+    @else
+      <div class="cart-layout">
 
-    {{-- Estado vacío --}}
-    <div class="cart-empty">
-      <i data-lucide="shopping-cart" class="cart-empty-icon"></i>
-      <p class="cart-empty-text">Tu carrito está vacío.</p>
-      <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
-    </div>
+        <div class="cart-items">
+          @foreach($carrito->detalles as $detalle)
+            <div class="cart-item">
+              <div class="cart-item-image">
+                <img src="{{ $detalle->producto->imagen_studio }}" alt="{{ $detalle->producto->nombre }}" loading="lazy" />
+              </div>
+              <div class="cart-item-info">
+                <h3 class="cart-item-name">{{ $detalle->producto->nombre }}</h3>
+                <p class="cart-item-meta">
+                  $ {{ number_format($detalle->precio_unitario, 0, ',', '.') }} ARS
+                  <span class="cart-item-sep">×</span>
+                  {{ $detalle->cantidad }}
+                </p>
+              </div>
+              <p class="cart-item-subtotal">$ {{ number_format($detalle->subtotal, 0, ',', '.') }} ARS</p>
+              <form action="{{ route('carrito.eliminar', $detalle->id) }}" method="POST" class="cart-item-remove">
+                @csrf @method('DELETE')
+                <button type="submit" class="btn-icon-vittorio" aria-label="Eliminar {{ $detalle->producto->nombre }}">
+                  <i data-lucide="trash-2"></i>
+                </button>
+              </form>
+            </div>
+          @endforeach
+        </div>
+
+        <aside class="cart-summary">
+          <h2 class="cart-summary-title">Resumen</h2>
+          <div class="cart-summary-row">
+            <span>{{ $carrito->detalles->count() }} {{ $carrito->detalles->count() === 1 ? 'artículo' : 'artículos' }}</span>
+            <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
+          </div>
+          <div class="cart-summary-divider"></div>
+          <div class="cart-summary-row cart-summary-total">
+            <span>Total</span>
+            <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
+          </div>
+
+          <a href="{{ route('checkout.envio') }}" class="btn-primary-vittorio" style="display:block;text-align:center;margin-top:1.25rem;">
+            Proceder al pago
+          </a>
+
+          <form action="{{ route('carrito.vaciar') }}" method="POST" class="cart-clear-form"
+                onsubmit="return confirm('¿Vaciar el carrito? Esta acción no se puede deshacer.')">
+            @csrf @method('DELETE')
+            <button type="submit" class="btn-clear-vittorio">
+              <i data-lucide="trash"></i> Vaciar Carrito
+            </button>
+          </form>
+
+          <a href="{{ route('catalogo') }}" class="cart-continue-link">← Seguir comprando</a>
+        </aside>
+      </div>
+    @endif
 
   @else
-
-    <div class="cart-layout">
-
-      {{-- Lista de ítems --}}
-      <div class="cart-items">
-        @foreach($carrito->detalles as $detalle)
-          <div class="cart-item">
-            <div class="cart-item-image">
-              <img src="{{ $detalle->producto->imagen_studio }}" alt="{{ $detalle->producto->nombre }}" loading="lazy" />
-            </div>
-
-            <div class="cart-item-info">
-              <h3 class="cart-item-name">{{ $detalle->producto->nombre }}</h3>
-              <p class="cart-item-meta">
-                $ {{ number_format($detalle->precio_unitario, 0, ',', '.') }} ARS
-                <span class="cart-item-sep">×</span>
-                {{ $detalle->cantidad }}
-              </p>
-            </div>
-
-            <p class="cart-item-subtotal">
-              $ {{ number_format($detalle->subtotal, 0, ',', '.') }} ARS
-            </p>
-
-            <form action="{{ route('carrito.eliminar', $detalle->id) }}" method="POST" class="cart-item-remove">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="btn-icon-vittorio" aria-label="Eliminar {{ $detalle->producto->nombre }}">
-                <i data-lucide="trash-2"></i>
-              </button>
-            </form>
-          </div>
-        @endforeach
+    {{-- ── Carrito guest (session) ── --}}
+    @if(empty($guestCart['items']))
+      <div class="cart-empty">
+        <i data-lucide="shopping-cart" class="cart-empty-icon"></i>
+        <p class="cart-empty-text">Tu carrito está vacío.</p>
+        <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
       </div>
+    @else
+      <div class="cart-layout">
 
-      {{-- Resumen y confirmación --}}
-      <aside class="cart-summary">
-        <h2 class="cart-summary-title">Resumen</h2>
-
-        <div class="cart-summary-row">
-          <span>{{ $carrito->detalles->count() }} {{ $carrito->detalles->count() === 1 ? 'artículo' : 'artículos' }}</span>
-          <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
-        </div>
-        <div class="cart-summary-divider"></div>
-        <div class="cart-summary-row cart-summary-total">
-          <span>Total</span>
-          <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
-        </div>
-
-        {{-- Método de pago --}}
-        <div class="cart-payment-section">
-          <h3 class="cart-payment-title">Método de pago</h3>
-
-          <label class="cart-payment-option">
-            <input type="radio" name="payment_method" value="transferencia" checked />
-            <span class="cart-payment-option-body">
-              <i data-lucide="landmark"></i>
-              <span>
-                <strong>Transferencia bancaria</strong>
-                <small>CBU / CVU · Acreditación inmediata</small>
-              </span>
-            </span>
-          </label>
-
-          <label class="cart-payment-option">
-            <input type="radio" name="payment_method" value="mercadopago" />
-            <span class="cart-payment-option-body">
-              <img src="https://cdn.simpleicons.org/mercadopago/ffffff" alt="Mercado Pago" class="cart-payment-logo" />
-              <span>
-                <strong>Mercado Pago</strong>
-                <small>Débito, crédito o dinero en cuenta</small>
-              </span>
-            </span>
-          </label>
+        <div class="cart-items">
+          @foreach($guestCart['items'] as $item)
+            <div class="cart-item">
+              <div class="cart-item-image">
+                @if($item['imagen_studio'])
+                  <img src="{{ $item['imagen_studio'] }}" alt="{{ $item['nombre'] }}" loading="lazy" />
+                @endif
+              </div>
+              <div class="cart-item-info">
+                <h3 class="cart-item-name">{{ $item['nombre'] }}</h3>
+                <p class="cart-item-meta">
+                  $ {{ number_format($item['precio_unitario'], 0, ',', '.') }} ARS
+                  <span class="cart-item-sep">×</span>
+                  {{ $item['cantidad'] }}
+                </p>
+              </div>
+              <p class="cart-item-subtotal">$ {{ number_format($item['subtotal'], 0, ',', '.') }} ARS</p>
+              <form action="{{ route('carrito.eliminar', $item['producto_id']) }}" method="POST" class="cart-item-remove">
+                @csrf @method('DELETE')
+                <button type="submit" class="btn-icon-vittorio" aria-label="Eliminar {{ $item['nombre'] }}">
+                  <i data-lucide="trash-2"></i>
+                </button>
+              </form>
+            </div>
+          @endforeach
         </div>
 
-        <form action="{{ route('carrito.confirmar') }}" method="POST" class="cart-confirm-form">
-          @csrf
-          <button type="submit" class="btn-primary-vittorio">Confirmar Compra</button>
-        </form>
+        <aside class="cart-summary">
+          <h2 class="cart-summary-title">Resumen</h2>
+          <div class="cart-summary-row">
+            <span>{{ count($guestCart['items']) }} {{ count($guestCart['items']) === 1 ? 'artículo' : 'artículos' }}</span>
+            <span>$ {{ number_format($guestCart['total'], 0, ',', '.') }} ARS</span>
+          </div>
+          <div class="cart-summary-divider"></div>
+          <div class="cart-summary-row cart-summary-total">
+            <span>Total</span>
+            <span>$ {{ number_format($guestCart['total'], 0, ',', '.') }} ARS</span>
+          </div>
 
-        <form action="{{ route('carrito.vaciar') }}" method="POST" class="cart-clear-form"
-              onsubmit="return confirm('¿Vaciar el carrito? Esta acción no se puede deshacer.')">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn-clear-vittorio">
-            <i data-lucide="trash"></i> Vaciar Carrito
-          </button>
-        </form>
+          <div class="cart-guest-cta">
+            <p class="cart-guest-text">
+              <i data-lucide="info"></i>
+              Iniciá sesión para completar tu compra. Tu carrito se guardará automáticamente.
+            </p>
+            <a href="{{ route('login') }}" class="btn-primary-vittorio" style="display:block;text-align:center;">
+              Iniciar sesión para comprar
+            </a>
+            <a href="{{ route('registro') }}" class="cart-register-link">¿No tenés cuenta? Registrate gratis</a>
+          </div>
 
-        <a href="{{ route('catalogo') }}" class="cart-continue-link">← Seguir comprando</a>
-      </aside>
+          <form action="{{ route('carrito.vaciar') }}" method="POST" class="cart-clear-form"
+                onsubmit="return confirm('¿Vaciar el carrito? Esta acción no se puede deshacer.')">
+            @csrf @method('DELETE')
+            <button type="submit" class="btn-clear-vittorio">
+              <i data-lucide="trash"></i> Vaciar Carrito
+            </button>
+          </form>
 
-    </div>
-  @endif
+          <a href="{{ route('catalogo') }}" class="cart-continue-link">← Seguir comprando</a>
+        </aside>
+      </div>
+    @endif
+  @endauth
 
 </section>
 @endsection
 
 @push('styles')
 <style>
-.cart-payment-section {
-  margin: 1.25rem 0;
+.cart-guest-cta {
   display: flex;
   flex-direction: column;
   gap: .75rem;
-}
-.cart-payment-title {
-  font-size: .7rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.4);
-  margin-bottom: .25rem;
-}
-.cart-payment-option {
-  display: block;
-  cursor: pointer;
-}
-.cart-payment-option input[type="radio"] { display: none; }
-.cart-payment-option-body {
-  display: flex;
-  align-items: center;
-  gap: .85rem;
-  padding: .85rem 1rem;
+  padding: 1rem;
   border: 1px solid rgba(255,255,255,.1);
-  border-radius: 6px;
-  transition: border-color .2s, background .2s;
+  border-radius: 8px;
+  margin-top: 1.25rem;
 }
-.cart-payment-option input:checked + .cart-payment-option-body {
-  border-color: rgba(255,255,255,.5);
-  background: rgba(255,255,255,.05);
-}
-.cart-payment-option-body i,
-.cart-payment-logo {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  opacity: .85;
-}
-.cart-payment-option-body span {
+.cart-guest-text {
   display: flex;
-  flex-direction: column;
-  gap: .15rem;
+  align-items: flex-start;
+  gap: .5rem;
+  font-size: .8rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.5;
 }
-.cart-payment-option-body strong {
-  font-size: .85rem;
-  font-weight: 600;
+.cart-guest-text i { width: 14px; height: 14px; flex-shrink: 0; margin-top: .1rem; }
+.cart-register-link {
+  font-size: .78rem;
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  text-decoration: none;
+  transition: color .2s;
 }
-.cart-payment-option-body small {
-  font-size: .72rem;
-  color: rgba(255,255,255,.45);
-}
+.cart-register-link:hover { color: #fff; }
 .cart-clear-form { margin-top: .5rem; }
 .btn-clear-vittorio {
   display: flex;

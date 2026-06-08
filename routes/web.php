@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVentaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
@@ -76,18 +77,34 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Carrito de compras (requiere autenticación)
+| Carrito de compras (acceso público — guests usan sesión)
 |--------------------------------------------------------------------------
 */
 
+Route::get('/carrito',                       [CarritoController::class, 'index'])->name('carrito');
+Route::post('/carrito/agregar',              [CarritoController::class, 'agregar'])->name('carrito.agregar');
+Route::delete('/carrito/eliminar/{detalle}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+Route::delete('/carrito/vaciar',             [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
+
+// Rutas del carrito que requieren autenticación
 Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
-    Route::get('/carrito',                          [CarritoController::class, 'index'])->name('carrito');
-    Route::post('/carrito/agregar',                 [CarritoController::class, 'agregar'])->name('carrito.agregar');
-    Route::delete('/carrito/eliminar/{detalle}',    [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
-    Route::delete('/carrito/vaciar',                [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
-    Route::post('/carrito/confirmar',               [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
-    Route::get('/detalle-compra',                   [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
-    Route::get('/mis-compras',                      [CarritoController::class, 'misCompras'])->name('mis-compras');
+    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    Route::get('/detalle-compra',     [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
+    Route::get('/mis-compras',        [CarritoController::class, 'misCompras'])->name('mis-compras');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Flujo de Checkout (requiere autenticación)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'check.rol:!admin'])->prefix('checkout')->group(function () {
+    Route::get('/envio',         [CheckoutController::class, 'envio'])->name('checkout.envio');
+    Route::post('/envio',        [CheckoutController::class, 'guardarEnvio'])->name('checkout.envio.guardar');
+    Route::get('/pago',          [CheckoutController::class, 'pago'])->name('checkout.pago');
+    Route::post('/pago',         [CheckoutController::class, 'procesarPago'])->name('checkout.pago.procesar');
+    Route::get('/confirmacion',  [CheckoutController::class, 'confirmacion'])->name('checkout.confirmacion');
 });
 
 /*

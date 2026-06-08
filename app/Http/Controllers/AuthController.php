@@ -1,10 +1,11 @@
-﻿<?php
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistroRequest;
 use App\Services\AuthService;
+use App\Services\CarritoService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,10 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function __construct(private AuthService $authService) {}
+    public function __construct(
+        private AuthService $authService,
+        private CarritoService $carritoService,
+    ) {}
 
     public function mostrarLogin(): View
     {
@@ -28,6 +32,8 @@ class AuthController extends Controller
     {
         if ($this->authService->autenticarUsuario($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
+
+            $this->carritoService->transferirCarritoSesionADB(Auth::id());
 
             $rol = Auth::user()->rol?->nombre;
 
@@ -45,7 +51,11 @@ class AuthController extends Controller
 
     public function registrar(RegistroRequest $request): RedirectResponse
     {
-        $this->authService->registrarUsuario($request->validated());
+        $usuario = $this->authService->registrarUsuario($request->validated());
+
+        Auth::login($usuario);
+
+        $this->carritoService->transferirCarritoSesionADB($usuario->id);
 
         return redirect('/');
     }

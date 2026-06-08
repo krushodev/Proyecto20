@@ -6,22 +6,32 @@ use App\Http\Requests\AgregarAlCarritoRequest;
 use App\Services\CarritoService;
 use App\Services\VentaService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CarritoController extends Controller
+class CarritoController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(
+                middleware: function ($request, $next) {
+                    if (auth()->check() && auth()->user()->rol?->nombre === 'admin') {
+                        return redirect()->route('admin.panel');
+                    }
+                    return $next($request);
+                },
+                only: ['index', 'agregar', 'eliminar', 'vaciar'],
+            ),
+        ];
+    }
+
     public function __construct(
         private readonly CarritoService $carritoService,
         private readonly VentaService $ventaService,
-    ) {
-        $this->middleware(function ($request, $next) {
-            if (auth()->check() && auth()->user()->rol?->nombre === 'admin') {
-                return redirect()->route('admin.panel');
-            }
-            return $next($request);
-        })->only(['index', 'agregar', 'eliminar', 'vaciar']);
-    }
+    ) {}
 
     public function index(): View
     {

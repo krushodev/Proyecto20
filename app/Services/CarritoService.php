@@ -84,8 +84,24 @@ class CarritoService
         return DB::transaction(function () {
             $carrito = $this->obtenerCarrito();
 
-            if ($carrito->detalles()->count() === 0) {
+            $detalles = $carrito->detalles()->with('producto')->get();
+
+            if ($detalles->isEmpty()) {
                 throw new \RuntimeException('No se puede confirmar un carrito vacío.');
+            }
+
+            foreach ($detalles as $detalle) {
+                $producto = Producto::where('id', $detalle->producto_id)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($producto->stock < $detalle->cantidad) {
+                    throw new \RuntimeException(
+                        "Stock insuficiente para '{$producto->nombre}'. Disponible: {$producto->stock}, solicitado: {$detalle->cantidad}."
+                    );
+                }
+
+                $producto->decrement('stock', $detalle->cantidad);
             }
 
             $carrito->update([

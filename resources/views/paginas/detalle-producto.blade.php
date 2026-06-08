@@ -108,52 +108,45 @@
 
       {{-- Acciones --}}
       <div class="pd-actions">
-        @auth
-          @if($producto->stock > 0)
+        @if($producto->stock > 0)
 
-            <p class="pd-stock-label">
-              <i data-lucide="package"></i>
-              {{ $producto->stock }} {{ $producto->stock === 1 ? 'unidad disponible' : 'unidades disponibles' }}
-            </p>
+          <p class="pd-stock-label">
+            <i data-lucide="package"></i>
+            {{ $producto->stock }} {{ $producto->stock === 1 ? 'unidad disponible' : 'unidades disponibles' }}
+          </p>
 
-            <form action="{{ route('carrito.agregar') }}" method="POST" class="pd-add-form">
-              @csrf
-              <input type="hidden" name="producto_id" value="{{ $producto->id }}" />
+          <form action="{{ route('carrito.agregar') }}" method="POST" class="pd-add-form">
+            @csrf
+            <input type="hidden" name="producto_id" value="{{ $producto->id }}" />
 
-              {{-- Stepper +/− --}}
-              <div class="pd-stepper">
-                <button type="button" class="pd-stepper-btn" id="qty-minus" aria-label="Disminuir cantidad">
-                  <i data-lucide="minus"></i>
-                </button>
-                <span class="pd-stepper-display" id="qty-display" aria-live="polite">1</span>
-                <button type="button" class="pd-stepper-btn" id="qty-plus" aria-label="Aumentar cantidad">
-                  <i data-lucide="plus"></i>
-                </button>
-                <input type="hidden" name="cantidad" id="qty-input" value="1" />
-              </div>
-
-              @if($errors->has('stock'))
-                <p class="form-error">{{ $errors->first('stock') }}</p>
-              @endif
-
-              <button type="submit" class="btn-primary-vittorio pd-add-btn">
-                <i data-lucide="shopping-cart"></i>
-                Agregar al carrito
+            {{-- Stepper +/− --}}
+            <div class="pd-stepper">
+              <button type="button" class="pd-stepper-btn" id="qty-minus" aria-label="Disminuir cantidad">
+                <i data-lucide="minus"></i>
               </button>
-            </form>
+              <span class="pd-stepper-display" id="qty-display" aria-live="polite">1</span>
+              <button type="button" class="pd-stepper-btn" id="qty-plus" aria-label="Aumentar cantidad">
+                <i data-lucide="plus"></i>
+              </button>
+              <input type="hidden" name="cantidad" id="qty-input" value="1" />
+            </div>
 
-          @else
-            <p class="pd-out-of-stock">
-              <i data-lucide="x-circle"></i>
-              Sin stock disponible
-            </p>
-          @endif
+            @if($errors->has('stock'))
+              <p class="form-error">{{ $errors->first('stock') }}</p>
+            @endif
+
+            <button type="submit" class="btn-primary-vittorio pd-add-btn">
+              <i data-lucide="shopping-cart"></i>
+              Agregar al carrito
+            </button>
+          </form>
+
         @else
-          <a href="{{ route('login') }}" class="btn-primary-vittorio pd-add-btn">
-            <i data-lucide="user"></i>
-            Iniciar sesión para comprar
-          </a>
-        @endauth
+          <p class="pd-out-of-stock">
+            <i data-lucide="x-circle"></i>
+            Sin stock disponible
+          </p>
+        @endif
       </div>
 
     </div>

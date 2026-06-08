@@ -7,13 +7,13 @@ use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\MercadoPagoConfig;
 
 /**
- * Calcula el costo de envío en base a zonas de CP.
- * Origen: CP 3400 — Corrientes Capital.
+ * Calcula el costo de envío por zonas desde La Plata (CP 1900), Argentina.
  *
  * Zonas:
- *   A – Misma provincia (Corrientes):  CP 3400–3499  → $2.500
- *   B – NEA / NOA cercano:             CP 30xx–38xx  → $5.000
- *   C – Resto del país                              → $8.500
+ *   A – CABA y Gran Buenos Aires (CP 1000–1999)           → $2.500
+ *   B – Centro: Bs. As. interior, Córdoba, Santa Fe,
+ *       Entre Ríos, La Pampa, Mendoza, San Luis (2000–5999) → $5.000
+ *   C – Lejos: Patagonia, NOA, NEA, Cuyo norte (resto)   → $8.500
  */
 class CheckoutService
 {
@@ -21,32 +21,33 @@ class CheckoutService
     public const COSTO_ZONA_B = 5000.00;
     public const COSTO_ZONA_C = 8500.00;
 
-    public const CP_ORIGEN = '3400';
+    public const CP_ORIGEN = '1900'; // La Plata, Buenos Aires
 
     public function calcularCostoEnvio(string $cp): float
     {
         $num = (int) preg_replace('/\D/', '', $cp);
 
-        // Zona A: Corrientes provincia (3400–3499)
-        if ($num >= 3400 && $num <= 3499) {
+        // Zona A: CABA y Gran Buenos Aires (1000–1999)
+        if ($num >= 1000 && $num <= 1999) {
             return self::COSTO_ZONA_A;
         }
 
-        // Zona B: NEA / NEA ampliado (3000–3899)
-        if ($num >= 3000 && $num <= 3899) {
+        // Zona B: interior de Bs. As., Córdoba, Santa Fe, Entre Ríos,
+        //         La Pampa, Mendoza, San Luis (2000–5999)
+        if ($num >= 2000 && $num <= 5999) {
             return self::COSTO_ZONA_B;
         }
 
-        // Zona C: Resto del país
+        // Zona C: Patagonia, NOA, NEA y resto del país
         return self::COSTO_ZONA_C;
     }
 
     public function zonaDescripcion(string $cp): string
     {
         return match ($this->calcularCostoEnvio($cp)) {
-            self::COSTO_ZONA_A => 'Zona A — Corrientes Capital y provincia',
-            self::COSTO_ZONA_B => 'Zona B — NEA (Chaco, Misiones, Formosa, Entre Ríos)',
-            default            => 'Zona C — Resto del país',
+            self::COSTO_ZONA_A => 'Zona A — CABA y Gran Buenos Aires',
+            self::COSTO_ZONA_B => 'Zona B — Centro del país (Córdoba, Santa Fe, interior Bs. As.)',
+            default            => 'Zona C — Patagonia, NOA y NEA',
         };
     }
 

@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\VentaCabecera;
+use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\MercadoPagoConfig;
+
 /**
  * Calcula el costo de envío en base a zonas de CP.
  * Origen: CP 3400 — Corrientes Capital.
@@ -44,5 +48,39 @@ class CheckoutService
             self::COSTO_ZONA_B => 'Zona B — NEA (Chaco, Misiones, Formosa, Entre Ríos)',
             default            => 'Zona C — Resto del país',
         };
+    }
+
+    /**
+     * Crea una preferencia de pago en MercadoPago Sandbox y devuelve la init_point.
+     * El back_url siempre apunta a checkout.confirmacion para que el flujo retorne.
+     */
+    public function crearPreferenciaMercadoPago(VentaCabecera $carrito, string $backUrl): string
+    {
+        MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
+        MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
+
+        $items = $carrito->detalles->map(fn($d) => [
+            'id'          => (string) $d->producto_id,
+            'title'       => $d->producto->nombre,
+            'quantity'    => $d->cantidad,
+            'unit_price'  => (float) $d->precio_unitario,
+            'currency_id' => 'ARS',
+        ])->values()->toArray();
+
+        $client = new PreferenceClient();
+
+        $preference = $client->create([
+            'items'       => $items,
+            'back_urls'   => [
+                'success' => $backUrl,
+                'failure' => $backUrl,
+                'pending' => $backUrl,
+            ],
+            'auto_return' => 'approved',
+            'statement_descriptor' => 'Vittorio Relojes',
+            'external_reference'   => (string) $carrito->id,
+        ]);
+
+        return $preference->init_point;
     }
 }

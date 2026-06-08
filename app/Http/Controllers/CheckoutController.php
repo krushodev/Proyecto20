@@ -123,6 +123,11 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.envio');
         }
 
+        // MercadoPago: crear preferencia y redirigir al checkout de MP
+        if ($request->metodo_pago === 'mercadopago') {
+            return $this->redirigirMercadoPago($envio);
+        }
+
         try {
             $venta = $this->carritoService->confirmarCompra([
                 'user_direccion_id'   => $envio['direccion_id'],
@@ -145,10 +150,34 @@ class CheckoutController extends Controller
         }
     }
 
+    private function redirigirMercadoPago(array $envio): RedirectResponse
+    {
+        $carrito = $this->carritoService->obtenerCarrito();
+        $carrito->load('detalles.producto');
+
+        // Guardar metodo_pago en sesión para que confirmarCompra lo use al volver
+        session()->put('checkout_envio', array_merge($envio, ['metodo_pago' => 'mercadopago']));
+
+        try {
+            $initPoint = $this->checkoutService->crearPreferenciaMercadoPago(
+                $carrito,
+                route('checkout.confirmacion')
+            );
+            return redirect()->away($initPoint);
+        } catch (\Throwable $e) {
+            return back()->withErrors(['pago' => 'No se pudo conectar con MercadoPago. Intentá otro método.']);
+        }
+    }
+
     // ─── Paso 3: Confirmación ──────────────────────────────────────────────
 
-    public function confirmacion(): View|RedirectResponse
+    public function confirmacion(Request $request): View|RedirectResponse
     {
+        // Retorno desde MercadoPago (back_url)
+        if ($request->has('external_reference') && $request->has('status')) {
+            return $this->procesarRetornoMercadoPago($request);
+        }
+
         $ventaId = session('venta_confirmada_id');
 
         if (!$ventaId) {
@@ -162,5 +191,49 @@ class CheckoutController extends Controller
         }
 
         return view('checkout.confirmacion', compact('venta'));
+    }
+
+    private function procesarRetornoMercadoPago(Request $request): View|RedirectResponse
+    {
+        $carritoId = (int) $request->query('external_reference');
+        $status    = $request->query('status');
+
+        $envio = session('checkout_envio');
+        if (!$envio || !$carritoId) {
+            return redirect()->route('mis-compras');
+        }
+
+        $carrito = \App\Models\VentaCabecera::find($carritoId);
+
+        if (!$carrito || $carrito->user_id !== Auth::id() || $carrito->estado !== 'carrito') {
+            return redirect()->route('mis-compras');
+        }
+
+        if ($status !== 'approved') {
+            return redirect()->route('checkout.pago')
+                ->withErrors(['pago' => 'El pago no fue aprobado. Estado: ' . $status]);
+        }
+
+        try {
+            $venta = $this->carritoService->confirmarCompra([
+                'user_direccion_id'   => $envio['direccion_id'],
+                'nombre_destinatario' => Auth::user()->nombre,
+                'calle'               => $envio['calle'],
+                'numero'              => $envio['numero'],
+                'ciudad'              => $envio['ciudad'],
+                'provincia'           => $envio['provincia'],
+                'codigo_postal'       => $envio['cp'],
+                'costo_envio'         => $envio['costo_envio'],
+                'metodo_pago'         => 'mercadopago',
+            ]);
+
+            session()->forget('checkout_envio');
+
+            $venta->load('detalles.producto.imagenes');
+
+            return view('checkout.confirmacion', compact('venta'));
+        } catch (\RuntimeException $e) {
+            return redirect()->route('checkout.pago')->withErrors(['pago' => $e->getMessage()]);
+        }
     }
 }

@@ -145,15 +145,20 @@
             <span>$ {{ number_format($guestCart['total'], 0, ',', '.') }} ARS</span>
           </div>
 
+          {{-- Al hacer clic, Laravel guarda la URL con intended() y redirige
+               al login; tras autenticarse el usuario vuelve al checkout. --}}
+          <a href="{{ route('checkout.envio') }}"
+             class="btn-primary-vittorio"
+             style="display:block;text-align:center;margin-top:1.25rem;">
+            Proceder al pago
+          </a>
+
           <div class="cart-guest-cta">
             <p class="cart-guest-text">
               <i data-lucide="info"></i>
-              Iniciá sesión para completar tu compra. Tu carrito se guardará automáticamente.
+              Tu carrito se guardará al iniciar sesión o crear una cuenta.
             </p>
-            <a href="{{ route('login') }}" class="btn-primary-vittorio" style="display:block;text-align:center;">
-              Iniciar sesión para comprar
-            </a>
-            <a href="{{ route('registro') }}" class="cart-register-link">¿No tenés cuenta? Registrate gratis</a>
+            <a href="{{ route('registro') }}" class="cart-register-link">¿No tenés cuenta? Registrate gratis →</a>
           </div>
 
           <form action="{{ route('carrito.vaciar') }}" method="POST" class="cart-clear-form"

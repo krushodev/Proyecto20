@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class CarritoService
 {
+    private const SESSION_KEY = 'carrito';
+
     // ─── Carrito autenticado (DB) ──────────────────────────────────────────
 
     public function obtenerCarrito(): VentaCabecera
@@ -80,8 +82,7 @@ class CarritoService
     public function confirmarCompra(array $datosExtra = []): VentaCabecera
     {
         return DB::transaction(function () use ($datosExtra) {
-            $carrito = $this->obtenerCarrito();
-
+            $carrito  = $this->obtenerCarrito();
             $detalles = $carrito->detalles()->with('producto')->get();
 
             if ($detalles->isEmpty()) {
@@ -105,6 +106,7 @@ class CarritoService
             $carrito->update(array_merge([
                 'estado'      => 'confirmado',
                 'fecha_venta' => now(),
+                'estado_pago' => 'aprobado',
             ], $datosExtra));
 
             $venta = $carrito->fresh();
@@ -128,7 +130,7 @@ class CarritoService
 
     public function obtenerCarritoGuest(): array
     {
-        return session('carrito_guest', ['items' => [], 'total' => 0]);
+        return session(self::SESSION_KEY, ['items' => [], 'total' => 0]);
     }
 
     public function agregarProductoGuest(array $datos): void
@@ -167,7 +169,7 @@ class CarritoService
         }
 
         $total = array_sum(array_column($items, 'subtotal'));
-        session()->put('carrito_guest', ['items' => $items, 'total' => $total]);
+        session()->put(self::SESSION_KEY, ['items' => $items, 'total' => $total]);
     }
 
     public function eliminarProductoGuest(int $productoId): void
@@ -175,17 +177,17 @@ class CarritoService
         $carrito = $this->obtenerCarritoGuest();
         $items   = array_values(array_filter($carrito['items'], fn($i) => $i['producto_id'] !== $productoId));
         $total   = array_sum(array_column($items, 'subtotal'));
-        session()->put('carrito_guest', ['items' => $items, 'total' => $total]);
+        session()->put(self::SESSION_KEY, ['items' => $items, 'total' => $total]);
     }
 
     public function vaciarCarritoGuest(): void
     {
-        session()->forget('carrito_guest');
+        session()->forget(self::SESSION_KEY);
     }
 
     public function transferirCarritoSesionADB(int $userId): void
     {
-        $guestCart = session('carrito_guest');
+        $guestCart = session(self::SESSION_KEY);
 
         if (!$guestCart || empty($guestCart['items'])) {
             return;
@@ -203,7 +205,9 @@ class CarritoService
                     continue;
                 }
 
-                $existente = $carrito->detalles()->where('producto_id', $item['producto_id'])->first();
+                $existente = $carrito->detalles()
+                    ->where('producto_id', $item['producto_id'])
+                    ->first();
 
                 if ($existente) {
                     $nuevaCantidad = $existente->cantidad + $item['cantidad'];
@@ -224,7 +228,7 @@ class CarritoService
             $this->recalcularTotal($carrito);
         });
 
-        session()->forget('carrito_guest');
+        session()->forget(self::SESSION_KEY);
     }
 
     // ─── Privado ───────────────────────────────────────────────────────────

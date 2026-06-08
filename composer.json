@@ -13,6 +13,7 @@
         "barryvdh/laravel-dompdf": "*",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
+        "mercadopago/dx-php": "*",
         "resend/resend-laravel": "*"
     },
     "require-dev": {

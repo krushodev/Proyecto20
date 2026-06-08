@@ -22,6 +22,7 @@ class VentaCabecera extends Model
         'provincia',
         'codigo_postal',
         'metodo_pago',
+        'estado_pago',
     ];
 
     protected $casts = [

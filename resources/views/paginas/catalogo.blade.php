@@ -11,10 +11,23 @@
 @section ('content')
   <section class="catalog-main">
     <header class="catalog-header">
-      <p class="catalog-header-eyebrow">Manufactura Argentina · 1999</p>
-      <h1 class="catalog-header-title">Colección <span class="title-accent">2026</span></h1>
-      <div class="catalog-header-divider"></div>
-      <p class="catalog-header-description">Modelos propios diseñados y ensamblados en nuestro taller argentino. Cada pieza es un manifiesto de precisión, durabilidad y diseño monocromático atemporal.</p>
+      <div class="catalog-header-left">
+        <p class="catalog-header-eyebrow">Manufactura Argentina · 1999</p>
+        <h1 class="catalog-header-title">Colección <span class="title-accent">2026</span></h1>
+        <div class="catalog-header-divider"></div>
+        <p class="catalog-header-description">Modelos propios diseñados y ensamblados en nuestro taller argentino. Cada pieza es un manifiesto de precisión, durabilidad y diseño monocromático atemporal.</p>
+      </div>
+
+      <div class="catalog-header-right">
+        <form action="{{ route('catalogo') }}" method="GET" class="catalog-filter-form" aria-label="Filtro por línea">
+          <select id="linea" name="linea" class="catalog-filter-select" onchange="this.form.submit()">
+            <option value="" {{ empty($lineaSlug) ? 'selected' : '' }}>Todas las líneas</option>
+            @foreach($lineas as $linea)
+              <option value="{{ $linea->slug }}" {{ $lineaSlug === $linea->slug ? 'selected' : '' }}>{{ $linea->nombre }}</option>
+            @endforeach
+          </select>
+        </form>
+      </div>
     </header>
 
     @forelse($categorias as $categoria)
@@ -65,4 +78,23 @@
       </p>
     @endforelse
   </section>
-@endsection
+
+@push('styles')
+<style>
+.catalog-main { margin-top: 8rem; }
+.catalog-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.catalog-header-left { max-width: calc(100% - 260px); }
+.catalog-header-right { min-width:220px; display:flex; justify-content:flex-end; }
+.catalog-filter-form { margin: 0; }
+.catalog-filter-select {
+  width: 220px;
+  padding: 0.75rem 1rem;
+  background: #121212;
+  color: #f8f8f8;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  appearance: none;
+}
+.catalog-filter-select:focus { outline: none; box-shadow: 0 0 0 4px rgba(245,158,11,0.08); }
+</style>
+@endpush

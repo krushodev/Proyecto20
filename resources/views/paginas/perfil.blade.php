@@ -16,7 +16,7 @@
   <div class="perfil-header">
     <h1>Mi Perfil</h1>
     <div class="perfil-header-actions">
-      <a href="{{ route('perfil.editar') }}" class="btn btn-primary">
+      <a href="{{ route('perfil.editar') }}" class="btn btn-perfil-editar">
         <i data-lucide="edit"></i>
         <span>Editar Perfil</span>
       </a>
@@ -90,4 +90,36 @@
     </form>
   </div>
 </div>
-@endsection
+
+@push('styles')
+<style>
+.perfil-container {
+  margin-top: 7rem;
+}
+.perfil-avatar-large {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 50%;
+  background: radial-gradient(circle at top left, #2d2d2d 0%, #1f1f1f 45%, #111111 100%);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+}
+.perfil-header-actions .btn-perfil-editar {
+  background-color: #2d2d2d;
+  color: #fff;
+  border-color: #2d2d2d;
+}
+.perfil-header-actions .btn-perfil-editar:hover,
+.perfil-header-actions .btn-perfil-editar:focus {
+  background-color: #1f1f1f;
+  border-color: #1f1f1f;
+  color: #fff;
+}
+</style>
+@endpush

@@ -8,17 +8,18 @@
   - rol admin    → solo logo + enlace a Panel Admin + logout
   ============================================================
 --}}
-@php($esAdmin = auth()->check() && auth()->user()->rol?->nombre === 'admin')
+@php($esAdminUser = auth()->check() && auth()->user()->rol?->nombre === 'admin')
+@php($esAdminArea = $esAdminUser && Request::is('admin*'))
 
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">
   <div class="container-fluid navbar-container">
-    <a href="{{ $esAdmin ? route('admin.panel') : url('/') }}" class="navbar-brand">
+    <a href="{{ $esAdminArea ? route('admin.panel') : url('/') }}" class="navbar-brand">
       <img src="https://pub-914a132c1006414e85aff75afd7c51d6.r2.dev/assets/logo.png" alt="Vittorio" class="navbar-logo" />
     </a>
 
     <div class="navbar-actions order-lg-3">
 
-      @if(!$esAdmin)
+      @if(!$esAdminUser)
         {{-- Carrito: visible para guests y clientes autenticados --}}
         <a href="{{ route('carrito') }}" class="navbar-icon-btn" aria-label="Mi carrito">
           <i data-lucide="shopping-cart"></i>
@@ -59,7 +60,7 @@
 
             <li><hr class="navbar-divider"></li>
 
-            @if($esAdmin)
+            @if($esAdminUser)
               <li>
                 <a class="navbar-user-menu-item" href="{{ route('admin.panel') }}">
                   <i data-lucide="layout-dashboard"></i>
@@ -117,7 +118,7 @@
 
     {{-- Menú de navegación desktop --}}
     <div class="navbar-menu collapse navbar-collapse order-lg-2" id="vittorioMenu">
-      @if($esAdmin)
+      @if($esAdminArea)
         <a href="{{ route('admin.panel') }}" class="navbar-link {{ Request::is('admin*') ? 'active' : '' }}">
           <i data-lucide="layout-dashboard" style="width:14px;height:14px;margin-right:.3rem;"></i>Panel Admin
         </a>
@@ -144,7 +145,7 @@
   </div>
   <div class="offcanvas-body">
     <nav class="offcanvas-nav" aria-label="Menú móvil">
-      @if($esAdmin)
+      @if($esAdminArea)
         <a href="{{ route('admin.panel') }}" class="offcanvas-link {{ Request::is('admin*') ? 'active' : '' }}">Panel Admin</a>
       @else
         <a href="{{ url('/') }}"                 class="offcanvas-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
@@ -166,7 +167,7 @@
           <span>Iniciar sesión</span>
         </a>
       @else
-        @if($esAdmin)
+        @if($esAdminUser)
           <a href="{{ route('admin.panel') }}" class="offcanvas-cta">
             <i data-lucide="layout-dashboard"></i>
             <span>Panel Admin</span>

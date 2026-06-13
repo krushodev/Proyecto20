@@ -7,6 +7,7 @@ use App\Services\CategoriaService;
 use App\Services\ContactoService;
 use App\Services\ProductoService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PublicController extends Controller
@@ -22,11 +23,13 @@ class PublicController extends Controller
         return view('paginas.inicio');
     }
 
-    public function catalogo(): View
+    public function catalogo(Request $request): View
     {
-        $categorias = $this->categoriaService->obtenerActivasConProductos();
+        $lineaSlug = $request->query('linea');
+        $lineas = $this->categoriaService->obtenerActivas();
+        $categorias = $this->categoriaService->obtenerActivasConProductos($lineaSlug);
 
-        return view('paginas.catalogo', compact('categorias'));
+        return view('paginas.catalogo', compact('categorias', 'lineas', 'lineaSlug'));
     }
 
     public function nosotros(): View

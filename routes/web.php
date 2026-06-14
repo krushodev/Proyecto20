@@ -17,18 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Rutas públicas
+| Rutas públicas (admin redirigido a su panel)
 |--------------------------------------------------------------------------
 */
 
-Route::get('/',                      [PublicController::class, 'inicio'])->name('home');
-Route::get('/catalogo',              [PublicController::class, 'catalogo'])->name('catalogo');
-Route::get('/nosotros',              [PublicController::class, 'nosotros']);
-Route::get('/comercializacion',      [PublicController::class, 'comercializacion']);
-Route::get('/contacto',              [PublicController::class, 'contacto'])->name('contacto');
-Route::post('/contacto',             [PublicController::class, 'enviarContacto'])->name('contacto.enviar');
-Route::get('/terminos-y-condiciones',[PublicController::class, 'terminosYCondiciones']);
-Route::get('/detalle-producto/{slug}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
+Route::middleware('check.rol:!admin')->group(function () {
+    Route::get('/',                        [PublicController::class, 'inicio'])->name('home');
+    Route::get('/catalogo',                [PublicController::class, 'catalogo'])->name('catalogo');
+    Route::get('/nosotros',                [PublicController::class, 'nosotros']);
+    Route::get('/comercializacion',        [PublicController::class, 'comercializacion']);
+    Route::get('/contacto',                [PublicController::class, 'contacto'])->name('contacto');
+    Route::post('/contacto',               [PublicController::class, 'enviarContacto'])->name('contacto.enviar');
+    Route::get('/terminos-y-condiciones',  [PublicController::class, 'terminosYCondiciones']);
+    Route::get('/detalle-producto/{slug}', [PublicController::class, 'detalleProducto'])->name('detalle-producto');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -88,9 +90,10 @@ Route::delete('/carrito/vaciar',             [CarritoController::class, 'vaciar'
 
 // Rutas del carrito que requieren autenticación
 Route::middleware(['auth', 'check.rol:!admin'])->group(function () {
-    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
-    Route::get('/detalle-compra',     [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
-    Route::get('/mis-compras',        [CarritoController::class, 'misCompras'])->name('mis-compras');
+    Route::post('/carrito/confirmar',         [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    Route::get('/detalle-compra',             [CarritoController::class, 'detalleCompra'])->name('detalle-compra');
+    Route::get('/mis-compras',                [CarritoController::class, 'misCompras'])->name('mis-compras');
+    Route::get('/compras/{id}/factura',       [CarritoController::class, 'descargarFactura'])->name('compras.factura');
 });
 
 /*

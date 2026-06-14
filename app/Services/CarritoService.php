@@ -9,6 +9,7 @@ use App\Models\VentaDetalle;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CarritoService
@@ -83,7 +84,7 @@ class CarritoService
 
     public function confirmarCompra(array $datosExtra = []): VentaCabecera
     {
-        return DB::transaction(function () use ($datosExtra) {
+        $venta = DB::transaction(function () use ($datosExtra) {
             $carrito  = $this->obtenerCarrito();
             $detalles = $carrito->detalles()->with('producto')->get();
 
@@ -111,16 +112,24 @@ class CarritoService
                 'estado_pago' => 'aprobado',
             ], $datosExtra));
 
-            $venta = $carrito->fresh(['usuario', 'detalles.producto']);
+            return $carrito->fresh(['usuario', 'detalles.producto']);
+        });
 
+        try {
             $pdf = Pdf::loadView('facturas.factura', compact('venta'))
                 ->setPaper('a4', 'portrait');
 
             Mail::to($venta->usuario->email)
                 ->send(new FacturaCompraMail($venta, $pdf->output()));
+        } catch (\Throwable $e) {
+            Log::error('Error al enviar factura por correo', [
+                'venta_id' => $venta->id,
+                'email'    => $venta->usuario->email,
+                'error'    => $e->getMessage(),
+            ]);
+        }
 
-            return $venta;
-        });
+        return $venta;
     }
 
     public function vaciarCarrito(): void

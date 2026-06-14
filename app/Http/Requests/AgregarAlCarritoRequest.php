@@ -14,7 +14,7 @@ class AgregarAlCarritoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'producto_id' => ['required', 'integer', 'exists:productos,id'],
+            'producto_id' => ['required', 'integer', 'exists:productos,id,deleted_at,NULL'],
             'cantidad'    => ['required', 'integer', 'min:1'],
         ];
     }
@@ -22,7 +22,7 @@ class AgregarAlCarritoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'producto_id.exists' => 'El producto seleccionado no existe.',
+            'producto_id.exists' => 'El producto seleccionado no está disponible.',
             'cantidad.min'       => 'La cantidad mínima es 1.',
         ];
     }

@@ -13,8 +13,7 @@
         "barryvdh/laravel-dompdf": "*",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
-        "mercadopago/dx-php": "*",
-        "resend/resend-laravel": "*"
+        "mercadopago/dx-php": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

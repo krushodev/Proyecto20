@@ -159,10 +159,14 @@
 
   </div>
 
-  {{-- Nota de factura --}}
+  {{-- Nota de factura + descarga directa --}}
   <div class="confirmacion-factura-nota">
-    <i data-lucide="mail" style="width:14px;height:14px;"></i>
-    <span>La factura de tu compra está siendo generada y se enviará a tu correo en unos minutos.</span>
+    <i data-lucide="mail" style="width:14px;height:14px;flex-shrink:0;"></i>
+    <span>La factura fue enviada a tu correo. Si no la recibiste, podés descargarla directamente.</span>
+    <a href="{{ route('compras.factura', $venta->id) }}" class="btn-factura-download">
+      <i data-lucide="download" style="width:13px;height:13px;"></i>
+      Descargar Factura
+    </a>
   </div>
 
   {{-- Acciones --}}
@@ -275,11 +279,19 @@
 
 /* ── Nota factura ────────────────────────────────────────────────────── */
 .confirmacion-factura-nota {
-  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  display: flex; align-items: center; justify-content: center; gap: .6rem; flex-wrap: wrap;
   font-size: .78rem; color: rgba(255,255,255,.35); margin-bottom: 2rem;
   padding: .85rem 1.25rem; border: 1px solid rgba(255,255,255,.06); border-radius: 8px;
   background: rgba(255,255,255,.02);
 }
+.btn-factura-download {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .8rem; border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
+  color: rgba(255,255,255,.7); font-size: .75rem; font-weight: 600; letter-spacing: .04em;
+  text-decoration: none; white-space: nowrap;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.btn-factura-download:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.05); }
 
 /* ── Acciones ────────────────────────────────────────────────────────── */
 .confirmacion-actions { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }

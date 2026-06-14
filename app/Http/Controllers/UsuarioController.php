@@ -7,6 +7,7 @@ use App\Http\Requests\CrearUsuarioRequest;
 use App\Models\Usuario;
 use App\Services\UsuarioService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class UsuarioController extends Controller
@@ -50,6 +51,10 @@ class UsuarioController extends Controller
 
     public function destroy(Usuario $usuario): RedirectResponse
     {
+        if ($usuario->id === Auth::id()) {
+            return back()->withErrors(['delete' => 'No podés eliminarte a vos mismo.']);
+        }
+
         $this->usuarioService->eliminar($usuario);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');

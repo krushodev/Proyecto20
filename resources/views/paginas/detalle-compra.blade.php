@@ -99,6 +99,10 @@
     </div>
 
     <div class="dc-actions">
+      <a href="{{ route('compras.factura', $venta->id) }}" class="btn-outline-vittorio">
+        <i data-lucide="download" style="width:14px;height:14px;"></i>
+        Descargar Factura
+      </a>
       <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Seguir Comprando</a>
     </div>
 

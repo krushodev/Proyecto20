@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AgregarAlCarritoRequest;
 use App\Services\CarritoService;
 use App\Services\VentaService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -114,5 +116,21 @@ class CarritoController extends Controller implements HasMiddleware
             : null;
 
         return view('paginas.detalle-compra', compact('venta'));
+    }
+
+    public function descargarFactura(int $id): Response
+    {
+        $venta = $this->ventaService->obtenerPorId($id);
+
+        if (!$venta || $venta->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $pdf = Pdf::loadView('facturas.factura', compact('venta'))
+            ->setPaper('a4', 'portrait');
+
+        $filename = 'factura-' . str_pad($venta->id, 8, '0', STR_PAD_LEFT) . '.pdf';
+
+        return $pdf->download($filename);
     }
 }

@@ -11,10 +11,6 @@
         <h1 class="admin-title">Panel de Administración</h1>
         <p class="admin-subtitle">Bienvenido, {{ auth()->user()->nombre }}</p>
       </div>
-      <a href="{{ route('home') }}" class="admin-return">
-        <i data-lucide="home"></i>
-        <span>Ir al inicio</span>
-      </a>
     </div>
 
     <div class="admin-grid">
@@ -61,19 +57,5 @@
 }
 .admin-card:hover { border-color: rgba(255,255,255,0.25); color: #fff; transform: translateY(-2px); }
 .admin-card i { width: 32px; height: 32px; }
-.admin-return {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  color: rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-.admin-return:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); color: #fff; }
-.admin-return i { width: 16px; height: 16px; }
 </style>
 @endpush

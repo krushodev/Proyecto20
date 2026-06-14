@@ -33,10 +33,6 @@
     <div class="catalog-header-divider"></div>
   </header>
 
-  @if($errors->has('pago'))
-    <div class="cart-alert cart-alert-error">{{ $errors->first('pago') }}</div>
-  @endif
-
   <div class="pago-layout">
 
     {{-- ── Columna izquierda: métodos ──────────────────────────────── --}}
@@ -217,6 +213,7 @@
               <span class="mp-badge"><i data-lucide="repeat" style="width:12px;height:12px;"></i> Cuotas disponibles</span>
             </div>
           </div>
+
         </div>
 
         {{-- Acciones --}}
@@ -519,6 +516,49 @@
   }
 
   if (window.lucide) lucide.createIcons();
+
+  /* ── Abrir Mercado Pago en nueva pestaña ───────────────────────── */
+  var formPago = document.getElementById('form-pago');
+  if (formPago) {
+    formPago.addEventListener('submit', function (e) {
+      var seleccionado = document.querySelector('.metodo-radio:checked');
+      if (!seleccionado || seleccionado.value !== 'mercadopago') return; // deja funcionar normal para otros métodos
+
+      e.preventDefault();
+
+      // Abrir pestaña SINCRÓNICAMENTE dentro del evento (evita el bloqueador de popups)
+      var mpTab = window.open('', '_blank');
+      if (mpTab) {
+        mpTab.document.write(
+          '<html><head><title>Redirigiendo...</title></head>' +
+          '<body style="margin:0;background:#009ee3;display:flex;align-items:center;justify-content:center;height:100vh;">' +
+          '<p style="color:#fff;font-family:sans-serif;font-size:1.1rem;letter-spacing:.04em;">Conectando con Mercado Pago&hellip;</p>' +
+          '</body></html>'
+        );
+      }
+
+      var formData = new FormData(formPago);
+
+      fetch(formPago.action, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+        body: formData,
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.url) {
+            if (mpTab) { mpTab.location.href = data.url; }
+          } else {
+            if (mpTab) { mpTab.close(); }
+            alert(data.error || 'No se pudo obtener la URL de MercadoPago.');
+          }
+        })
+        .catch(function () {
+          if (mpTab) { mpTab.close(); }
+          alert('Error de conexión. Intentá de nuevo.');
+        });
+    });
+  }
 })();
 </script>
 @endpush

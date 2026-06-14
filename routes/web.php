@@ -67,7 +67,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/perfil', [PerfilController::class, 'ver'])->name('perfil.ver');
+    Route::get('/perfil', [PerfilController::class, 'ver'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.ver');
     Route::get('/perfil/editar', [PerfilController::class, 'editar'])
         ->middleware('check.rol:!admin')
         ->name('perfil.editar');

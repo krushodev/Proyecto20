@@ -33,16 +33,6 @@
     <div class="catalog-header-divider"></div>
   </header>
 
-  @if($errors->any())
-    <div class="cart-alert cart-alert-error">
-      <ul style="margin:0;padding-left:1.2rem;">
-        @foreach($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
-
   <form action="{{ route('checkout.envio.guardar') }}" method="POST" class="checkout-form" id="form-envio">
     @csrf
 

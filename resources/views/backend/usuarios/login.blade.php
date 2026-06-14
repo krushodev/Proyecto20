@@ -10,14 +10,6 @@
       <p class="login-subtitle">Ingresá a tu cuenta Vittorio</p>
     </div>
 
-    @if (session('status'))
-      <div class="alert-success-vittorio">{{ session('status') }}</div>
-    @endif
-
-    @if (session('error'))
-      <div class="alert-error">{{ session('error') }}</div>
-    @endif
-
     <form class="login-form" action="{{ url('/login') }}" method="POST">
       @csrf
 

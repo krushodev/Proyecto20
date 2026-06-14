@@ -131,10 +131,6 @@
               <input type="hidden" name="cantidad" id="qty-input" value="1" />
             </div>
 
-            @if($errors->has('stock'))
-              <p class="form-error">{{ $errors->first('stock') }}</p>
-            @endif
-
             <button type="submit" class="btn-primary-vittorio pd-add-btn">
               <i data-lucide="shopping-cart"></i>
               Agregar al carrito

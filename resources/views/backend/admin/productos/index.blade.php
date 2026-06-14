@@ -21,10 +21,6 @@
       </div>
     </div>
 
-    @if(session('success'))
-      <div class="admin-alert-success">{{ session('success') }}</div>
-    @endif
-
     <div class="admin-table-wrapper">
       <table class="admin-table">
         <thead>

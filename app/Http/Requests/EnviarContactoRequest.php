@@ -17,7 +17,7 @@ class EnviarContactoRequest extends FormRequest
             'nombre'  => ['required', 'string', 'max:100'],
             'email'   => ['required', 'email', 'max:150'],
             'asunto'  => ['required', 'string', 'max:150'],
-            'mensaje' => ['nullable', 'string', 'max:2000'],
+            'mensaje' => ['required', 'string', 'max:2000'],
         ];
     }
 }

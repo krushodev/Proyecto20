@@ -53,6 +53,36 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## Testing de Pagos (Mercado Pago Sandbox)
+
+Para probar el flujo completo de pago con Mercado Pago en entorno local, usá las siguientes credenciales del Sandbox oficial.
+
+### Configuración del `.env`
+
+```env
+MP_ACCESS_TOKEN=TEST-<tu-access-token-de-prueba>
+MP_PUBLIC_KEY=TEST-<tu-public-key-de-prueba>
+```
+
+Obtené tus tokens en [mercadopago.com.ar/developers](https://www.mercadopago.com.ar/developers) → Tus aplicaciones → Credenciales de prueba.
+
+### Usuario de prueba
+
+| Campo       | Valor                        |
+|-------------|------------------------------|
+| Email/User  | `TESTUSER509545247134908191` |
+| Contraseña  | `wPnWdankvc`                 |
+| DNI         | `3473858966`                 |
+
+### Tarjetas de prueba
+
+| Red        | Número               | CVV | Vencimiento |
+|------------|----------------------|-----|-------------|
+| Mastercard | `5031 7557 3453 0604` | 123 | 11/30       |
+| Visa       | `4509 9535 6623 3704` | 123 | 11/30       |
+
+> **Nota:** El helper con estas credenciales también aparece directamente en la vista de pago (`/checkout/pago`) cuando `APP_ENV=local`, para facilitar las pruebas sin consultar este README.
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

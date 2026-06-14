@@ -19,17 +19,6 @@
     <div class="catalog-header-divider"></div>
   </header>
 
-  {{-- Mensajes de feedback --}}
-  @if(session('success'))
-    <div class="cart-alert cart-alert-success">{{ session('success') }}</div>
-  @endif
-  @if($errors->has('stock'))
-    <div class="cart-alert cart-alert-error">{{ $errors->first('stock') }}</div>
-  @endif
-  @if($errors->has('carrito'))
-    <div class="cart-alert cart-alert-error">{{ $errors->first('carrito') }}</div>
-  @endif
-
   @auth
     {{-- ── Carrito autenticado (DB) ── --}}
     @if($carrito->detalles->isEmpty())

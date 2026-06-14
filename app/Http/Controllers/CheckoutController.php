@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use MercadoPago\Exceptions\MPApiException;
 
 class CheckoutController extends Controller
 {
@@ -112,7 +113,7 @@ class CheckoutController extends Controller
         return view('checkout.pago', compact('carrito', 'envio'));
     }
 
-    public function procesarPago(Request $request): RedirectResponse
+    public function procesarPago(Request $request): RedirectResponse|\Illuminate\Http\JsonResponse
     {
         $request->validate([
             'metodo_pago' => ['required', 'in:transferencia,tarjeta,mercadopago'],
@@ -150,12 +151,11 @@ class CheckoutController extends Controller
         }
     }
 
-    private function redirigirMercadoPago(array $envio): RedirectResponse
+    private function redirigirMercadoPago(array $envio): RedirectResponse|\Illuminate\Http\JsonResponse
     {
         $carrito = $this->carritoService->obtenerCarrito();
         $carrito->load('detalles.producto');
 
-        // Guardar metodo_pago en sesión para que confirmarCompra lo use al volver
         session()->put('checkout_envio', array_merge($envio, ['metodo_pago' => 'mercadopago']));
 
         try {
@@ -163,9 +163,43 @@ class CheckoutController extends Controller
                 $carrito,
                 route('checkout.confirmacion')
             );
-            return redirect()->away($initPoint);
+
+            if (empty($initPoint)) {
+                \Log::error('MercadoPago: sandbox_init_point vino vacío', ['carrito_id' => $carrito->id]);
+                $msg = 'MercadoPago no devolvió una URL de pago. Revisá las credenciales en .env.';
+                return request()->ajax()
+                    ? response()->json(['error' => $msg], 502)
+                    : back()->withErrors(['pago' => $msg]);
+            }
+
+            return request()->ajax()
+                ? response()->json(['url' => $initPoint])
+                : redirect()->away($initPoint);
+
+        } catch (MPApiException $e) {
+            \Log::error('MercadoPago: API error', [
+                'status'     => $e->getStatusCode(),
+                'response'   => $e->getApiResponse()->getContent(),
+                'carrito_id' => $carrito->id ?? null,
+            ]);
+            $detalle = app()->environment('local')
+                ? ' [' . $e->getStatusCode() . '] ' . json_encode($e->getApiResponse()->getContent())
+                : '';
+            $msg = 'No se pudo conectar con MercadoPago.' . $detalle;
+            return request()->ajax()
+                ? response()->json(['error' => $msg], 502)
+                : back()->withErrors(['pago' => $msg]);
+
         } catch (\Throwable $e) {
-            return back()->withErrors(['pago' => 'No se pudo conectar con MercadoPago. Intentá otro método.']);
+            \Log::error('MercadoPago: error inesperado', [
+                'message'    => $e->getMessage(),
+                'carrito_id' => $carrito->id ?? null,
+            ]);
+            $detalle = app()->environment('local') ? ' (' . $e->getMessage() . ')' : '';
+            $msg = 'No se pudo conectar con MercadoPago.' . $detalle;
+            return request()->ajax()
+                ? response()->json(['error' => $msg], 502)
+                : back()->withErrors(['pago' => $msg]);
         }
     }
 

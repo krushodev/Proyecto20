@@ -22,10 +22,6 @@
       </a>
     </div>
 
-    @if(session('success'))
-      <div class="admin-alert-success">{{ session('success') }}</div>
-    @endif
-
     @forelse($contactos as $contacto)
       <div class="ac-card {{ $contacto->leido ? 'ac-card--leido' : 'ac-card--nuevo' }}">
 

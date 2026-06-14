@@ -58,7 +58,6 @@ class CheckoutService
     public function crearPreferenciaMercadoPago(VentaCabecera $carrito, string $backUrl): string
     {
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
-        MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
 
         $items = $carrito->detalles->map(fn($d) => [
             'id'          => (string) $d->producto_id,
@@ -70,18 +69,24 @@ class CheckoutService
 
         $client = new PreferenceClient();
 
-        $preference = $client->create([
-            'items'       => $items,
-            'back_urls'   => [
+        $payload = [
+            'items'     => $items,
+            'back_urls' => [
                 'success' => $backUrl,
                 'failure' => $backUrl,
                 'pending' => $backUrl,
             ],
-            'auto_return' => 'approved',
             'statement_descriptor' => 'Vittorio Relojes',
             'external_reference'   => (string) $carrito->id,
-        ]);
+        ];
 
-        return $preference->init_point;
+        // auto_return requiere una back_url pública; se omite en local para evitar el rechazo 400
+        if (!app()->environment('local')) {
+            $payload['auto_return'] = 'approved';
+        }
+
+        $preference = $client->create($payload);
+
+        return $preference->sandbox_init_point;
     }
 }

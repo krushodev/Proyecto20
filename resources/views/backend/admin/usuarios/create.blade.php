@@ -16,10 +16,6 @@
       </a>
     </div>
 
-    @if(session('success'))
-      <div class="admin-alert-success">{{ session('success') }}</div>
-    @endif
-
     <form action="{{ route('usuarios.store') }}" method="POST" class="login-form">
       @csrf
 

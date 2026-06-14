@@ -11,16 +11,6 @@
     </div>
   </div>
 
-  @if($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
-
   <form action="{{ route('perfil.actualizar') }}" method="POST" class="perfil-section">
     @csrf
     @method('PUT')
@@ -76,7 +66,7 @@
     @if (Route::has('password.request'))
       <a href="{{ route('password.request') }}" class="btn-link-vittorio">Recuperar contraseña</a>
     @else
-      <a href="#" class="btn-link-vittorio" onclick="alert('Función de recuperación de contraseña no configurada'); return false;">Recuperar contraseña</a>
+      <a href="#" class="btn-link-vittorio" onclick="Swal.fire({ icon: 'info', title: 'No disponible', text: 'La recuperación de contraseña no está configurada.' }); return false;">Recuperar contraseña</a>
     @endif
 
     <form action="{{ route('logout') }}" method="POST" class="logout-form">

@@ -33,13 +33,6 @@
       <article class="contacto-form-card">
         <h2>Formulario de consulta</h2>
 
-        @if(session('success'))
-          <div class="contacto-alert-success">
-            <i data-lucide="check-circle"></i>
-            <span>{{ session('success') }}</span>
-          </div>
-        @endif
-
         <form action="{{ route('contacto.enviar') }}" method="POST" novalidate>
           @csrf
           <div class="form-row">
@@ -126,19 +119,6 @@
 
 @push('styles')
 <style>
-.contacto-alert-success {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  padding: .85rem 1rem;
-  background: rgba(74,222,128,.08);
-  border: 1px solid rgba(74,222,128,.25);
-  border-radius: 6px;
-  color: #4ade80;
-  font-size: .875rem;
-  margin-bottom: 1.5rem;
-}
-.contacto-alert-success i { width: 16px; height: 16px; flex-shrink: 0; }
 .contacto-field-error {
   display: block;
   margin-top: .3rem;

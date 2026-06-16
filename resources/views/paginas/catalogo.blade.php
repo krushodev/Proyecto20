@@ -20,7 +20,7 @@
 
       <div class="catalog-header-right">
         <form action="{{ route('catalogo') }}" method="GET" class="catalog-filter-form" aria-label="Filtro por línea">
-          <select id="linea" name="linea" class="catalog-filter-select" onchange="this.form.submit()">
+          <select id="linea" name="linea" class="form-input catalog-filter-select" onchange="this.form.submit()">
             <option value="" {{ empty($lineaSlug) ? 'selected' : '' }}>Todas las líneas</option>
             @foreach($lineas as $linea)
               <option value="{{ $linea->slug }}" {{ $lineaSlug === $linea->slug ? 'selected' : '' }}>{{ $linea->nombre }}</option>

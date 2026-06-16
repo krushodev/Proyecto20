@@ -131,6 +131,7 @@ Route::middleware(['auth', 'check.rol:admin'])
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
         Route::resource('roles', RolController::class)
+            ->parameters(['roles' => 'rol'])
             ->only(['index', 'store', 'destroy']);
 
         Route::resource('productos', ProductoController::class)

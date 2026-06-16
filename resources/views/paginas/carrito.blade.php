@@ -67,7 +67,7 @@
             <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
           </div>
 
-          <a href="{{ route('checkout.envio') }}" class="btn-primary-vittorio" style="display:block;text-align:center;margin-top:1.25rem;">
+          <a href="{{ route('checkout.envio') }}" class="btn-primary-vittorio cart-checkout-btn">
             Proceder al pago
           </a>
 
@@ -137,8 +137,7 @@
           {{-- Al hacer clic, Laravel guarda la URL con intended() y redirige
                al login; tras autenticarse el usuario vuelve al checkout. --}}
           <a href="{{ route('checkout.envio') }}"
-             class="btn-primary-vittorio"
-             style="display:block;text-align:center;margin-top:1.25rem;">
+             class="btn-primary-vittorio cart-checkout-btn">
             Proceder al pago
           </a>
 
@@ -166,57 +165,3 @@
 
 </section>
 @endsection
-
-@push('styles')
-<style>
-.cart-guest-cta {
-  display: flex;
-  flex-direction: column;
-  gap: .75rem;
-  padding: 1rem;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  margin-top: 1.25rem;
-}
-.cart-guest-text {
-  display: flex;
-  align-items: flex-start;
-  gap: .5rem;
-  font-size: .8rem;
-  color: rgba(255,255,255,.5);
-  line-height: 1.5;
-}
-.cart-guest-text i { width: 14px; height: 14px; flex-shrink: 0; margin-top: .1rem; }
-.cart-register-link {
-  font-size: .78rem;
-  color: rgba(255,255,255,.4);
-  text-align: center;
-  text-decoration: none;
-  transition: color .2s;
-}
-.cart-register-link:hover { color: #fff; }
-.cart-clear-form { margin-top: .5rem; }
-.btn-clear-vittorio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .4rem;
-  width: 100%;
-  padding: .65rem 1rem;
-  background: transparent;
-  border: 1px solid rgba(255,107,107,.35);
-  border-radius: 6px;
-  color: rgba(255,107,107,.85);
-  font-size: .8rem;
-  letter-spacing: .06em;
-  cursor: pointer;
-  transition: border-color .2s, background .2s, color .2s;
-}
-.btn-clear-vittorio i { width: 14px; height: 14px; }
-.btn-clear-vittorio:hover {
-  border-color: #ff6b6b;
-  background: rgba(255,107,107,.08);
-  color: #ff6b6b;
-}
-</style>
-@endpush

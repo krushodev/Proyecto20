@@ -120,7 +120,7 @@
     <div class="navbar-menu collapse navbar-collapse order-lg-2" id="vittorioMenu">
       @if($esAdminArea)
         <a href="{{ route('admin.panel') }}" class="navbar-link {{ Request::is('admin*') ? 'active' : '' }}">
-          <i data-lucide="layout-dashboard" style="width:14px;height:14px;margin-right:.3rem;"></i>Panel Admin
+          <i data-lucide="layout-dashboard" class="navbar-link-icon"></i>Panel Admin
         </a>
       @else
         <a href="{{ url('/') }}"                 class="navbar-link {{ Request::is('/')               ? 'active' : '' }}">Inicio</a>
@@ -190,7 +190,7 @@
             <span>Mi Perfil</span>
           </a>
         @endif
-        <form action="{{ route('logout') }}" method="POST" style="width:100%">
+        <form action="{{ route('logout') }}" method="POST" class="navbar-logout-form-full">
           @csrf
           <button type="submit" class="offcanvas-cta offcanvas-logout-btn">
             <i data-lucide="log-out"></i>
@@ -202,109 +202,3 @@
     </div>
   </div>
 </div>
-
-@push('styles')
-<style>
-/* ── Dropdown: tema oscuro consistente ───────────────────────────────── */
-.navbar-user-menu {
-  min-width: 220px;
-  padding: .5rem 0;
-  background: #111;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.6);
-}
-
-/* Encabezado del dropdown */
-.navbar-user-header {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  padding: .85rem 1rem;
-}
-.navbar-user-avatar-large {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .85rem;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-}
-.navbar-user-info {
-  display: flex;
-  flex-direction: column;
-  gap: .1rem;
-  overflow: hidden;
-}
-.navbar-user-name-text {
-  font-size: .82rem;
-  font-weight: 600;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.navbar-user-email-text {
-  font-size: .7rem;
-  color: rgba(255,255,255,.4);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Divisor */
-.navbar-divider {
-  margin: .3rem 0;
-  border-color: rgba(255,255,255,.08);
-}
-
-/* Ítems del dropdown */
-.navbar-user-menu-item {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  width: 100%;
-  padding: .6rem 1rem;
-  font-size: .83rem;
-  color: rgba(255,255,255,.75);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .15s, color .15s;
-  letter-spacing: .01em;
-}
-.navbar-user-menu-item:hover {
-  background: rgba(255,255,255,.06);
-  color: #fff;
-}
-.navbar-user-menu-item i {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-  color: rgba(255,255,255,.4);
-}
-.navbar-user-menu-item:hover i { color: rgba(255,255,255,.7); }
-
-/* Logout */
-.navbar-user-menu-logout { color: rgba(255,107,107,.8); }
-.navbar-user-menu-logout:hover { background: rgba(255,107,107,.08); color: #ff6b6b; }
-.navbar-user-menu-logout i { color: rgba(255,107,107,.5); }
-.navbar-user-menu-logout:hover i { color: #ff6b6b; }
-
-/* Offcanvas logout */
-.offcanvas-logout-btn {
-  width: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(255,255,255,0.5);
-}
-</style>
-@endpush

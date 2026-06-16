@@ -116,15 +116,3 @@
     </section>
   </div>
 @endsection
-
-@push('styles')
-<style>
-.contacto-field-error {
-  display: block;
-  margin-top: .3rem;
-  font-size: .78rem;
-  color: #ff6b6b;
-}
-.is-invalid { border-color: rgba(255,107,107,.5) !important; }
-</style>
-@endpush

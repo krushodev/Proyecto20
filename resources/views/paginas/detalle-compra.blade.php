@@ -100,7 +100,7 @@
 
     <div class="dc-actions">
       <a href="{{ route('compras.factura', $venta->id) }}" class="btn-outline-vittorio">
-        <i data-lucide="download" style="width:14px;height:14px;"></i>
+        <i data-lucide="download" class="dc-icon-sm"></i>
         Descargar Factura
       </a>
       <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Seguir Comprando</a>
@@ -118,106 +118,3 @@
 
 </section>
 @endsection
-
-@push('styles')
-<style>
-.dc-payment-info {
-  max-width: 760px;
-  margin: 2.5rem auto 0;
-  padding: 0 1rem;
-}
-.dc-payment-title {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: .4rem;
-}
-.dc-payment-title i { width: 20px; height: 20px; opacity: .7; }
-.dc-payment-subtitle {
-  font-size: .85rem;
-  color: rgba(255,255,255,.45);
-  margin-bottom: 1.5rem;
-}
-.dc-payment-methods {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-@media (max-width: 600px) {
-  .dc-payment-methods { grid-template-columns: 1fr; }
-}
-.dc-payment-method {
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: .85rem;
-}
-.dc-payment-method-header {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
-}
-.dc-payment-method-header i { width: 22px; height: 22px; opacity: .75; }
-.dc-mp-logo { width: 24px; height: 24px; }
-.dc-payment-method-header h3 {
-  font-size: .95rem;
-  font-weight: 600;
-  margin: 0;
-}
-.dc-payment-details {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-.dc-payment-details li {
-  display: flex;
-  justify-content: space-between;
-  font-size: .82rem;
-  gap: .5rem;
-}
-.dc-payment-details li span { color: rgba(255,255,255,.45); }
-.dc-payment-details li strong { font-weight: 600; text-align: right; }
-.dc-payment-method-desc {
-  font-size: .82rem;
-  color: rgba(255,255,255,.55);
-  line-height: 1.55;
-}
-.dc-payment-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  font-size: .82rem;
-  font-weight: 600;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.3);
-  border-radius: 5px;
-  padding: .55rem .9rem;
-  text-decoration: none;
-  transition: background .2s, border-color .2s;
-  align-self: flex-start;
-}
-.dc-payment-cta:hover {
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,255,255,.5);
-  color: #fff;
-}
-.dc-payment-cta i { width: 14px; height: 14px; }
-.dc-payment-note {
-  display: flex;
-  align-items: flex-start;
-  gap: .45rem;
-  font-size: .75rem;
-  color: rgba(255,255,255,.35);
-  line-height: 1.5;
-  margin-top: auto;
-}
-.dc-payment-note i { width: 13px; height: 13px; flex-shrink: 0; margin-top: .15rem; }
-</style>
-@endpush

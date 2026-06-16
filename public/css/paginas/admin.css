@@ -1,0 +1,248 @@
+/* ============================================================
+   ARCHIVO: admin.css
+   PROPÓSITO: Estilos del panel de administración (backend/admin)
+   DESCRIPCIÓN: Hoja compartida por todas las vistas bajo
+   resources/views/backend/admin/* (dashboard, productos, usuarios,
+   roles, ventas, contactos, perfil admin).
+   ============================================================ */
+
+/* ========================================
+   DASHBOARD
+   ======================================== */
+.admin-page { min-height: 100vh; padding: 2rem; background-color: #0a0a0a; }
+.admin-container { max-width: 900px; margin: 0 auto; }
+.admin-header { margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.admin-title { font-size: 1.75rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+.admin-subtitle { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-top: 0.25rem; }
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.admin-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  padding: 2rem 1rem; background-color: #0e0e0e;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  font-size: 0.875rem; font-weight: 500; transition: all 0.3s ease;
+}
+.admin-card:hover { border-color: rgba(255,255,255,0.25); color: #fff; transform: translateY(-2px); }
+.admin-card i { width: 32px; height: 32px; }
+
+/* Variantes de ancho del contenedor según vista */
+.admin-container--md { max-width: 860px; }
+.admin-container--sm { max-width: 520px; }
+
+/* Header con acción a la derecha (volver al panel) */
+.admin-header--with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.admin-back {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.admin-back:hover { color: #fff; }
+.admin-back i { width: 14px; height: 14px; }
+.admin-alert-success {
+  padding: .75rem 1rem;
+  background: rgba(74,222,128,.1);
+  border: 1px solid rgba(74,222,128,.3);
+  border-radius: 6px;
+  color: #4ade80;
+  font-size: .85rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ========================================
+   CONSULTAS / CONTACTOS (ac-*)
+   ======================================== */
+.ac-unread-count { color: #facc15; font-weight: 600; }
+.ac-card {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  transition: border-color .2s;
+}
+.ac-card--nuevo {
+  border-color: rgba(250,204,21,.2);
+  background: rgba(250,204,21,.02);
+}
+.ac-card--leido { background: rgba(255,255,255,.015); }
+.ac-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ac-meta { display: flex; flex-direction: column; gap: .2rem; }
+.ac-nombre { font-size: .9rem; font-weight: 600; color: #fff; }
+.ac-email { font-size: .75rem; color: rgba(255,255,255,.4); font-family: monospace; }
+.ac-card-right { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; }
+.ac-fecha { display: flex; align-items: center; gap: .3rem; font-size: .72rem; color: rgba(255,255,255,.35); }
+.ac-fecha i { width: 12px; height: 12px; }
+.admin-badge { display: inline-block; padding: .2rem .6rem; border-radius: 20px; font-size: .68rem; font-weight: 600; letter-spacing: .05em; white-space: nowrap; }
+.admin-badge-new { background: rgba(250,204,21,.12); color: #facc15; border: 1px solid rgba(250,204,21,.3); }
+.admin-badge-read { background: rgba(255,255,255,.06); color: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.1); }
+.ac-btn-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 5px;
+  color: rgba(255,255,255,.5);
+  cursor: pointer;
+  transition: all .2s;
+}
+.ac-btn-toggle:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+.ac-btn-toggle i { width: 14px; height: 14px; }
+.ac-asunto {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.6);
+  text-transform: uppercase;
+}
+.ac-asunto i { width: 13px; height: 13px; opacity: .5; }
+.ac-mensaje {
+  font-size: .875rem;
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.admin-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  padding: 4rem 1rem;
+  color: rgba(255,255,255,.25);
+  font-size: .9rem;
+}
+.admin-empty-state i { width: 40px; height: 40px; }
+
+/* ========================================
+   PERFIL ADMIN
+   ======================================== */
+.perfil-section-title {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  padding-bottom: .5rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  margin-bottom: .25rem;
+}
+.perfil-section-title--spaced { margin-top: 1.5rem; }
+.perfil-section-hint {
+  font-size: .75rem;
+  color: rgba(255,255,255,.3);
+  margin: 0 0 .5rem;
+}
+.btn-login--spaced { margin-top: .5rem; }
+
+/* Contenedor ancho para tablas (productos, usuarios, ventas) */
+.admin-container--lg { max-width: 1100px; }
+.admin-container--md2 { max-width: 960px; }
+
+/* Grupo de acciones del header (botón nuevo + volver) */
+.admin-header-actions {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+}
+
+.admin-btn-new {
+  display: flex; align-items: center; gap: .4rem; padding: .45rem .9rem;
+  font-size: .8rem; font-weight: 600; color: #fff;
+  border: 1px solid rgba(255,255,255,.3); border-radius: 5px;
+  text-decoration: none; transition: all .2s; white-space: nowrap;
+}
+.admin-btn-new:hover { background: rgba(255,255,255,.08); border-color: #fff; color: #fff; }
+.admin-btn-new i { width: 14px; height: 14px; }
+
+/* ========================================
+   TABLAS (productos, usuarios, ventas, roles)
+   ======================================== */
+.admin-table-wrapper { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.admin-table th { text-align: left; padding: 0.75rem 1rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.admin-table td { padding: 0.875rem 1rem; color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: middle; }
+.admin-table tr:hover td { background-color: rgba(255,255,255,0.02); }
+.admin-product-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; display: block; }
+.admin-no-image { color: rgba(255,255,255,.3); }
+.admin-slug { font-size: .72rem; color: rgba(255,255,255,.35); font-family: monospace; }
+.admin-badge-active { background: rgba(74,222,128,.12); color: #4ade80; border: 1px solid rgba(74,222,128,.25); }
+.admin-badge-inactive { background: rgba(255,107,107,.1); color: #ff6b6b; border: 1px solid rgba(255,107,107,.25); }
+.admin-actions { display: flex; gap: 0.5rem; align-items: center; }
+.admin-btn-edit, .admin-btn-delete { padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid; border-radius: 4px; text-decoration: none; background: none; transition: all 0.2s; }
+.admin-btn-edit { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
+.admin-btn-edit:hover { color: #fff; border-color: #fff; }
+.admin-btn-delete { color: #ff6b6b; border-color: rgba(255,107,107,0.3); }
+.admin-btn-delete:hover { background-color: rgba(255,107,107,0.1); }
+.admin-empty { text-align: center; color: rgba(255,255,255,0.3); padding: 2rem; }
+
+/* Contenedor ancho para formularios */
+.admin-container--form { max-width: 680px; }
+
+/* ========================================
+   FORMULARIOS ADMIN (productos, usuarios)
+   ======================================== */
+.admin-form { display: flex; flex-direction: column; gap: 2rem; }
+.admin-form-section { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; }
+.admin-form-section-title { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: .25rem; }
+.admin-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.admin-checkbox-label { display: flex; align-items: center; gap: .6rem; cursor: pointer; font-size: .875rem; color: rgba(255,255,255,.7); }
+.admin-checkbox-label input[type="checkbox"] { width: 15px; height: 15px; accent-color: #fff; }
+.admin-form-actions { display: flex; gap: 1rem; align-items: center; }
+.admin-btn-cancel { font-size: .875rem; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+.admin-btn-cancel:hover { color: #fff; }
+select.form-input option { background-color: #1a1a1a; color: #fff; }
+textarea.form-input { resize: vertical; min-height: 80px; }
+
+/* Contenedor para vista de roles */
+.admin-container--roles { max-width: 600px; }
+
+/* ========================================
+   ROLES
+   ======================================== */
+.roles-form { margin-bottom: 0.5rem; }
+.roles-input-row { display: flex; gap: 0.75rem; align-items: flex-start; }
+.roles-input-row .form-input { flex: 1; }
+.roles-btn-add { width: auto; padding: 1rem 1.5rem; }
+.admin-table-wrapper--spaced { margin-top: 2rem; }
+
+/* ========================================
+   VENTAS
+   ======================================== */
+.admin-order-id { font-family: monospace; font-size: .8rem; color: rgba(255,255,255,.5); }
+.admin-order-id-title { font-family: monospace; color: rgba(255,255,255,.5); font-weight: 400; }
+.admin-container--ventas-show { max-width: 820px; }
+
+/* Detalle de venta (av-*) */
+.av-section { margin-bottom: 2rem; }
+.av-section-title { display: flex; align-items: center; gap: .5rem; font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 1rem; }
+.av-section-title i { width: 15px; height: 15px; }
+.av-meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.av-meta-item { display: flex; flex-direction: column; gap: .3rem; padding: .85rem 1rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 6px; }
+.av-meta-label { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+.av-meta-value { font-size: .9rem; color: #fff; font-weight: 500; }
+.av-total-row { display: flex; justify-content: flex-end; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; border-top: 1px solid rgba(255,255,255,.1); margin-top: .5rem; }
+.av-total-label { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.av-total-amount { font-size: 1.3rem; font-weight: 700; color: #fff; }

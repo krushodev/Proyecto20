@@ -11,6 +11,7 @@
 @import './componentes/buttons.css';
 @import './componentes/login.css';
 @import './componentes/user-dropdown.css';
+@import './componentes/toasts.css';
 
 /* PÁGINAS */
 @import './paginas/inicio.css';
@@ -24,6 +25,9 @@
 @import './paginas/detalle-compra.css';
 @import './paginas/perfil.css';
 @import './paginas/editarperfil.css';
+@import './paginas/mis-compras.css';
+@import './paginas/admin.css';
+@import './paginas/checkout.css';
 
 /* ========================================
    VITTORIO RELOJES - ESTILOS PRINCIPALES

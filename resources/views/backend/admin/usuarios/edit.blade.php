@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="admin-page">
-  <div class="admin-container" style="max-width:520px">
+  <div class="admin-container admin-container--sm">
 
-    <div class="admin-header">
+    <div class="admin-header admin-header--with-action">
       <div>
         <h1 class="admin-title">Editar Usuario</h1>
         <p class="admin-subtitle">{{ $usuario->email }}</p>
@@ -55,17 +55,3 @@
   </div>
 </div>
 @endsection
-
-@push('styles')
-<style>
-.admin-page { min-height: 100vh; padding: 2rem; background-color: #0a0a0a; }
-.admin-container { margin: 0 auto; }
-.admin-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.admin-title { font-size: 1.75rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
-.admin-subtitle { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-top: 0.25rem; }
-.admin-back { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
-.admin-back:hover { color: #fff; }
-.admin-back i { width: 14px; height: 14px; }
-select.form-input option { background-color: #1a1a1a; color: #fff; }
-</style>
-@endpush

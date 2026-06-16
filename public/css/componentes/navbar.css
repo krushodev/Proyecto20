@@ -334,3 +334,15 @@
     color: var(--color-text-muted);
     margin: 0;
 }
+
+/* Icono "Panel Admin" en el link del navbar desktop */
+.navbar-link-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: .3rem;
+}
+
+/* Formulario de logout a ancho completo (offcanvas móvil) */
+.navbar-logout-form-full {
+    width: 100%;
+}

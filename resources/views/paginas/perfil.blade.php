@@ -78,7 +78,7 @@
   </div>
 
   {{-- Acciones Finales: solo botón de cerrar sesión --}}
-  <div class="perfil-actions perfil-actions-centered" style="margin-top: 12px;">
+  <div class="perfil-actions perfil-actions-centered perfil-actions-spaced">
     <form action="{{ route('logout') }}" method="POST" class="perfil-logout-form">
       @csrf
       <button type="submit" class="btn btn-secondary">
@@ -88,36 +88,4 @@
     </form>
   </div>
 </div>
-
-@push('styles')
-<style>
-.perfil-container {
-  margin-top: 7rem;
-}
-.perfil-avatar-large {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  border-radius: 50%;
-  background: radial-gradient(circle at top left, #2d2d2d 0%, #1f1f1f 45%, #111111 100%);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
-}
-.perfil-header-actions .btn-perfil-editar {
-  background-color: #2d2d2d;
-  color: #fff;
-  border-color: #2d2d2d;
-}
-.perfil-header-actions .btn-perfil-editar:hover,
-.perfil-header-actions .btn-perfil-editar:focus {
-  background-color: #1f1f1f;
-  border-color: #1f1f1f;
-  color: #fff;
-}
-</style>
-@endpush
+@endsection

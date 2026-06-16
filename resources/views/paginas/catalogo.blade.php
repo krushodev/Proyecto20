@@ -73,28 +73,9 @@
         </div>
       </section>
     @empty
-      <p style="text-align:center; color: var(--color-text-muted); padding: 4rem 0;">
+      <p class="catalog-empty-message">
         No hay productos disponibles en este momento.
       </p>
     @endforelse
   </section>
-
-@push('styles')
-<style>
-.catalog-main { margin-top: 8rem; }
-.catalog-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
-.catalog-header-left { max-width: calc(100% - 260px); }
-.catalog-header-right { min-width:220px; display:flex; justify-content:flex-end; }
-.catalog-filter-form { margin: 0; }
-.catalog-filter-select {
-  width: 220px;
-  padding: 0.75rem 1rem;
-  background: #121212;
-  color: #f8f8f8;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px;
-  appearance: none;
-}
-.catalog-filter-select:focus { outline: none; box-shadow: 0 0 0 4px rgba(245,158,11,0.08); }
-</style>
-@endpush
+@endsection

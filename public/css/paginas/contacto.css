@@ -424,3 +424,12 @@
     color: rgba(220, 220, 220, 0.6);
     margin-bottom: 1rem;
 }
+
+/* Errores de validación del formulario */
+.contacto-field-error {
+    display: block;
+    margin-top: .3rem;
+    font-size: .78rem;
+    color: #ff6b6b;
+}
+.is-invalid { border-color: rgba(255,107,107,.5) !important; }

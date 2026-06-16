@@ -1,0 +1,124 @@
+/* ============================================================
+   ARCHIVO: mis-compras.css
+   PROPÓSITO: Estilos de la página de historial de compras
+   ============================================================ */
+
+.mc-main {
+    min-height: 80vh;
+    padding: 7rem 1.5rem 4rem;
+}
+.mc-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.mc-card {
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.mc-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    flex-wrap: wrap;
+}
+.mc-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+.mc-order-id {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+}
+.mc-date {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .75rem;
+    color: rgba(255,255,255,.4);
+}
+.mc-date i { width: 13px; height: 13px; }
+.mc-card-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .1rem;
+}
+.mc-total-label {
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+}
+.mc-total-amount {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+.mc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.mc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .9rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.mc-item:last-child { border-bottom: none; }
+.mc-item-image {
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.05);
+}
+.mc-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mc-item-info { flex: 1; min-width: 0; }
+.mc-item-name {
+    font-size: .875rem;
+    font-weight: 600;
+    margin: 0 0 .2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mc-item-meta {
+    font-size: .75rem;
+    color: rgba(255,255,255,.4);
+    margin: 0;
+}
+.mc-item-subtotal {
+    font-size: .875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin: 0;
+}
+.mc-actions {
+    max-width: 820px;
+    margin: 2rem auto 0;
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 500px) {
+    .mc-card-header { flex-direction: column; align-items: flex-start; }
+    .mc-card-total { align-items: flex-start; }
+}

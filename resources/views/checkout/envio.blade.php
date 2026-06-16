@@ -62,9 +62,9 @@
             <input type="radio" name="direccion_id" value=""
                    class="address-radio"
                    id="radio-nueva" />
-            <span class="address-card-inner" style="align-items:center;justify-content:center;text-align:center;">
-              <i data-lucide="plus-circle" style="width:20px;height:20px;margin-bottom:.4rem;color:rgba(255,255,255,.4);"></i>
-              <span class="address-alias" style="color:rgba(255,255,255,.5);">Nueva dirección</span>
+            <span class="address-card-inner address-card-inner--centered">
+              <i data-lucide="plus-circle" class="address-new-icon"></i>
+              <span class="address-alias address-alias--muted">Nueva dirección</span>
             </span>
           </label>
         </div>
@@ -72,8 +72,7 @@
     @endif
 
     {{-- ── Formulario nueva dirección ────────────────────────── --}}
-    <div class="checkout-card" id="nueva-direccion-section"
-         style="{{ $direcciones->isNotEmpty() ? 'display:none;' : '' }}">
+    <div class="checkout-card {{ $direcciones->isNotEmpty() ? 'is-hidden' : '' }}" id="nueva-direccion-section">
       <h2 class="checkout-card-title">
         {{ $direcciones->isEmpty() ? 'Dirección de entrega' : 'Nueva dirección' }}
       </h2>
@@ -133,7 +132,7 @@
     </div>
 
     {{-- ── Preview costo de envío ─────────────────────────────── --}}
-    <div class="checkout-card shipping-preview" id="shipping-preview" style="display:none;">
+    <div class="checkout-card shipping-preview is-hidden" id="shipping-preview">
       <h2 class="checkout-card-title">Costo de envío estimado</h2>
       <div class="shipping-info">
         <div>
@@ -155,204 +154,6 @@
 
 </section>
 @endsection
-
-@push('styles')
-<style>
-/* ── Layout general ──────────────────────────────────────────────────── */
-.checkout-main {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-}
-
-/* ── Step indicator ──────────────────────────────────────────────────── */
-.checkout-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  margin-bottom: 2rem;
-}
-.checkout-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .25rem;
-  opacity: .35;
-}
-.checkout-step.active { opacity: 1; }
-.checkout-step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .78rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  color: rgba(255,255,255,.6);
-}
-.checkout-step.active .checkout-step-num {
-  border-color: #fff;
-  color: #fff;
-  background: rgba(255,255,255,.08);
-}
-.checkout-step-label { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-.checkout-step.active .checkout-step-label { color: #fff; }
-.checkout-step-divider {
-  width: 40px;
-  height: 1px;
-  background: rgba(255,255,255,.15);
-  margin-bottom: 1.2rem;
-}
-
-/* ── Header ──────────────────────────────────────────────────────────── */
-.checkout-header { text-align: center; margin-bottom: 2rem; }
-.checkout-title { font-size: 1.6rem; font-weight: 700; letter-spacing: .08em; color: #fff; }
-
-/* ── Card ────────────────────────────────────────────────────────────── */
-.checkout-card {
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 12px;
-  padding: 1.75rem;
-  margin-bottom: 1.25rem;
-}
-.checkout-card-title {
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.5);
-  margin-bottom: 1.25rem;
-}
-
-/* ── Address grid ────────────────────────────────────────────────────── */
-.address-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: .75rem;
-}
-.address-card {
-  position: relative;
-  display: flex;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px;
-  padding: 1rem;
-  transition: border-color .2s, background .2s;
-  overflow: hidden;
-  min-height: 100px;
-}
-.address-card:hover { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.03); }
-.address-card.selected { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
-.address-radio { position: absolute; opacity: 0; pointer-events: none; }
-.address-card-inner {
-  display: flex;
-  flex-direction: column;
-  gap: .2rem;
-  flex: 1;
-}
-.address-alias { font-size: .8rem; font-weight: 700; color: #fff; letter-spacing: .04em; }
-.address-line  { font-size: .72rem; color: rgba(255,255,255,.5); line-height: 1.4; }
-.address-cp    { font-size: .68rem; color: rgba(255,255,255,.3); margin-top: .2rem; }
-.address-check-icon {
-  position: absolute;
-  top: .6rem; right: .6rem;
-  width: 16px; height: 16px;
-  color: rgba(255,255,255,.4);
-  opacity: 0;
-  transition: opacity .2s;
-}
-.address-card.selected .address-check-icon { opacity: 1; color: #fff; }
-
-/* ── Form ────────────────────────────────────────────────────────────── */
-.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-@media (max-width: 500px) { .form-grid-2 { grid-template-columns: 1fr; } }
-.form-group { display: flex; flex-direction: column; gap: .35rem; margin-bottom: .75rem; }
-.form-label { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-.form-input {
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  padding: .65rem .9rem;
-  color: #fff;
-  font-size: .88rem;
-  outline: none;
-  transition: border-color .2s;
-}
-.form-input:focus { border-color: rgba(255,255,255,.35); }
-.form-input::placeholder { color: rgba(255,255,255,.2); }
-.form-check {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: .5rem;
-  cursor: pointer;
-}
-.form-check-input {
-  width: 15px; height: 15px;
-  accent-color: #fff;
-  cursor: pointer;
-}
-.form-check-label { font-size: .78rem; color: rgba(255,255,255,.5); }
-
-/* ── Shipping preview ────────────────────────────────────────────────── */
-.shipping-preview .shipping-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.shipping-zone { font-size: .8rem; color: rgba(255,255,255,.6); }
-.shipping-cost { font-size: 1.2rem; font-weight: 700; color: #fff; white-space: nowrap; }
-
-/* ── Actions ─────────────────────────────────────────────────────────── */
-.checkout-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-.btn-outline-vittorio {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .65rem 1.2rem;
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 8px;
-  color: rgba(255,255,255,.6);
-  font-size: .82rem;
-  letter-spacing: .06em;
-  text-decoration: none;
-  transition: border-color .2s, color .2s;
-}
-.btn-outline-vittorio:hover { border-color: rgba(255,255,255,.5); color: #fff; }
-.btn-outline-vittorio i { width: 14px; height: 14px; }
-.btn-primary-vittorio {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .75rem 1.5rem;
-  background: #fff;
-  color: #111;
-  border: none;
-  border-radius: 8px;
-  font-size: .84rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .2s, transform .1s;
-}
-.btn-primary-vittorio:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); }
-.btn-primary-vittorio i { width: 14px; height: 14px; }
-</style>
-@endpush
 
 @push('scripts')
 <script>

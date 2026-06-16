@@ -43,8 +43,6 @@
         <span class="perfil-item-value">{{ $usuario->email }}</span>
       </div>
       
-      {{-- Rol removido por solicitud del usuario --}}
-
       <div class="perfil-item">
         <span class="perfil-item-label">Ubicación</span>
         <span class="perfil-item-value">

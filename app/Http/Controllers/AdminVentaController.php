@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FiltrarVentasRequest;
 use App\Services\VentaService;
 use Illuminate\View\View;
 
@@ -11,11 +12,12 @@ class AdminVentaController extends Controller
         private readonly VentaService $ventaService,
     ) {}
 
-    public function index(): View
+    public function index(FiltrarVentasRequest $request): View
     {
-        $ventas = $this->ventaService->obtenerTodas();
+        $filtros = $request->validated();
+        $ventas  = $this->ventaService->obtenerParaAdmin($filtros);
 
-        return view('backend.admin.ventas.index', compact('ventas'));
+        return view('backend.admin.ventas.index', compact('ventas', 'filtros'));
     }
 
     public function show(int $id): View

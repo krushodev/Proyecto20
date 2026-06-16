@@ -16,6 +16,23 @@ class VentaService
             ->get();
     }
 
+    public function obtenerParaAdmin(array $filtros = []): Collection
+    {
+        $query = VentaCabecera::with('usuario')
+            ->withCount('detalles')
+            ->where('estado', $filtros['estado'] ?? 'confirmado');
+
+        if (!empty($filtros['desde'])) {
+            $query->whereDate('fecha_venta', '>=', $filtros['desde']);
+        }
+
+        if (!empty($filtros['hasta'])) {
+            $query->whereDate('fecha_venta', '<=', $filtros['hasta']);
+        }
+
+        return $query->orderByDesc('fecha_venta')->get();
+    }
+
     public function obtenerPorId(int $id): ?VentaCabecera
     {
         return VentaCabecera::with('detalles.producto.imagenes')->find($id);

@@ -16,6 +16,27 @@
       </a>
     </div>
 
+    <form method="GET" action="{{ route('ventas.index') }}" class="admin-filters">
+      <label>
+        Desde
+        <input type="date" name="desde" value="{{ $filtros['desde'] ?? '' }}">
+      </label>
+      <label>
+        Hasta
+        <input type="date" name="hasta" value="{{ $filtros['hasta'] ?? '' }}">
+      </label>
+      <label>
+        Estado
+        <select name="estado">
+          <option value="">Todos</option>
+          <option value="confirmado" @selected(($filtros['estado'] ?? '') === 'confirmado')>Confirmado</option>
+          <option value="carrito" @selected(($filtros['estado'] ?? '') === 'carrito')>Carrito</option>
+        </select>
+      </label>
+      <button type="submit" class="admin-btn-edit">Filtrar</button>
+      <a href="{{ route('ventas.index') }}" class="admin-back">Limpiar</a>
+    </form>
+
     <div class="admin-table-wrapper">
       <table class="admin-table">
         <thead>

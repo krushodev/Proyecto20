@@ -64,7 +64,7 @@
         />
       </div>
 
-      <button type="submit" class="btn-login">Restablecer contraseña</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Restablecer contraseña</button>
     </form>
 
   </div>

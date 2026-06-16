@@ -31,7 +31,7 @@
         @enderror
       </div>
 
-      <button type="submit" class="btn-login">Enviar enlace</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Enviar enlace</button>
     </form>
 
     <div class="login-footer">

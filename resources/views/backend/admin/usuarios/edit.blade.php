@@ -49,7 +49,7 @@
         @error('rol_id')<span class="form-error">{{ $message }}</span>@enderror
       </div>
 
-      <button type="submit" class="btn-login">Guardar Cambios</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Guardar Cambios</button>
     </form>
 
   </div>

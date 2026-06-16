@@ -125,7 +125,7 @@
       </div>
 
       <div class="admin-form-actions">
-        <button type="submit" class="btn-login">Crear Producto</button>
+        <button type="submit" class="btn-vt btn-vt-primary">Crear Producto</button>
         <a href="{{ route('productos.index') }}" class="admin-btn-cancel">Cancelar</a>
       </div>
     </form>

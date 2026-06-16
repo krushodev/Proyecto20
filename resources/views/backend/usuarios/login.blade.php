@@ -56,7 +56,7 @@
         <a href="{{ route('password.request') }}" class="forgot-link">¿Olvidaste tu contraseña?</a>
       </div>
 
-      <button type="submit" class="btn-login">Iniciar Sesión</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Iniciar Sesión</button>
     </form>
 
     <div class="login-footer">

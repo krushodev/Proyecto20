@@ -58,20 +58,20 @@
     </div>
 
     <div class="perfil-actions">
-      <button type="submit" class="btn-primary-vittorio-sm">Guardar cambios</button>
+      <button type="submit" class="btn-vt btn-vt-primary btn-vt-sm">Guardar cambios</button>
     </div>
   </form>
 
   <div class="perfil-bottom-actions">
     @if (Route::has('password.request'))
-      <a href="{{ route('password.request') }}" class="btn-link-vittorio">Recuperar contraseña</a>
+      <a href="{{ route('password.request') }}" class="btn-vt-link">Recuperar contraseña</a>
     @else
-      <a href="#" class="btn-link-vittorio" onclick="Swal.fire({ icon: 'info', title: 'No disponible', text: 'La recuperación de contraseña no está configurada.' }); return false;">Recuperar contraseña</a>
+      <a href="#" class="btn-vt-link" onclick="Swal.fire({ icon: 'info', title: 'No disponible', text: 'La recuperación de contraseña no está configurada.' }); return false;">Recuperar contraseña</a>
     @endif
 
     <form action="{{ route('logout') }}" method="POST" class="logout-form">
       @csrf
-      <button type="submit" class="btn-primary-vittorio-sm">Cerrar sesión</button>
+      <button type="submit" class="btn-vt btn-vt-primary btn-vt-sm">Cerrar sesión</button>
     </form>
   </div>
 </div>

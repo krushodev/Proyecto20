@@ -99,11 +99,11 @@
     </div>
 
     <div class="dc-actions">
-      <a href="{{ route('compras.factura', $venta->id) }}" class="btn-outline-vittorio">
+      <a href="{{ route('compras.factura', $venta->id) }}" class="btn-vt btn-vt-outline">
         <i data-lucide="download" class="dc-icon-sm"></i>
         Descargar Factura
       </a>
-      <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Seguir Comprando</a>
+      <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-primary">Seguir Comprando</a>
     </div>
 
   @else
@@ -111,7 +111,7 @@
     <div class="dc-empty">
       <i data-lucide="package-open" class="dc-empty-icon"></i>
       <p class="dc-empty-text">No hay ningún pedido reciente.</p>
-      <a href="{{ route('carrito') }}" class="btn-link-vittorio">Ver mi carrito</a>
+      <a href="{{ route('carrito') }}" class="btn-vt-link">Ver mi carrito</a>
     </div>
 
   @endif

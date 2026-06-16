@@ -25,7 +25,7 @@
       <div class="cart-empty">
         <i data-lucide="shopping-cart" class="cart-empty-icon"></i>
         <p class="cart-empty-text">Tu carrito está vacío.</p>
-        <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
+        <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-primary">Explorar Catálogo</a>
       </div>
     @else
       <div class="cart-layout">
@@ -47,7 +47,7 @@
               <p class="cart-item-subtotal">$ {{ number_format($detalle->subtotal, 0, ',', '.') }} ARS</p>
               <form action="{{ route('carrito.eliminar', $detalle->id) }}" method="POST" class="cart-item-remove">
                 @csrf @method('DELETE')
-                <button type="submit" class="btn-icon-vittorio" aria-label="Eliminar {{ $detalle->producto->nombre }}">
+                <button type="submit" class="btn-vt btn-vt-icon" aria-label="Eliminar {{ $detalle->producto->nombre }}">
                   <i data-lucide="trash-2"></i>
                 </button>
               </form>
@@ -67,7 +67,7 @@
             <span>$ {{ number_format($carrito->total, 0, ',', '.') }} ARS</span>
           </div>
 
-          <a href="{{ route('checkout.envio') }}" class="btn-primary-vittorio cart-checkout-btn">
+          <a href="{{ route('checkout.envio') }}" class="btn-vt btn-vt-primary cart-checkout-btn">
             Proceder al pago
           </a>
 
@@ -90,7 +90,7 @@
       <div class="cart-empty">
         <i data-lucide="shopping-cart" class="cart-empty-icon"></i>
         <p class="cart-empty-text">Tu carrito está vacío.</p>
-        <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
+        <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-primary">Explorar Catálogo</a>
       </div>
     @else
       <div class="cart-layout">
@@ -114,7 +114,7 @@
               <p class="cart-item-subtotal">$ {{ number_format($item['subtotal'], 0, ',', '.') }} ARS</p>
               <form action="{{ route('carrito.eliminar', $item['producto_id']) }}" method="POST" class="cart-item-remove">
                 @csrf @method('DELETE')
-                <button type="submit" class="btn-icon-vittorio" aria-label="Eliminar {{ $item['nombre'] }}">
+                <button type="submit" class="btn-vt btn-vt-icon" aria-label="Eliminar {{ $item['nombre'] }}">
                   <i data-lucide="trash-2"></i>
                 </button>
               </form>
@@ -137,7 +137,7 @@
           {{-- Al hacer clic, Laravel guarda la URL con intended() y redirige
                al login; tras autenticarse el usuario vuelve al checkout. --}}
           <a href="{{ route('checkout.envio') }}"
-             class="btn-primary-vittorio cart-checkout-btn">
+             class="btn-vt btn-vt-primary cart-checkout-btn">
             Proceder al pago
           </a>
 

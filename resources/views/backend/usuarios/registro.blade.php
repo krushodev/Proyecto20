@@ -80,7 +80,7 @@
         />
       </div>
 
-      <button type="submit" class="btn-login">Crear Cuenta</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Crear Cuenta</button>
     </form>
 
     <div class="login-footer">

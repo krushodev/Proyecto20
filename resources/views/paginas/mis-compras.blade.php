@@ -22,7 +22,7 @@
     <div class="cart-empty">
       <i data-lucide="package-open" class="cart-empty-icon"></i>
       <p class="cart-empty-text">Todavía no realizaste ninguna compra.</p>
-      <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Explorar Catálogo</a>
+      <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-primary">Explorar Catálogo</a>
     </div>
 
   @else
@@ -73,7 +73,7 @@
     </div>
 
     <div class="mc-actions">
-      <a href="{{ route('catalogo') }}" class="btn-primary-vittorio">Seguir Comprando</a>
+      <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-primary">Seguir Comprando</a>
     </div>
 
   @endif

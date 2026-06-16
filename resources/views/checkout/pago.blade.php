@@ -218,10 +218,10 @@
 
         {{-- Acciones --}}
         <div class="checkout-actions">
-          <a href="{{ route('checkout.envio') }}" class="btn-outline-vittorio">
+          <a href="{{ route('checkout.envio') }}" class="btn-vt btn-vt-outline">
             <i data-lucide="arrow-left"></i> Volver
           </a>
-          <button type="submit" class="btn-primary-vittorio" id="btn-submit">
+          <button type="submit" class="btn-vt btn-vt-primary" id="btn-submit">
             Confirmar compra <i data-lucide="arrow-right"></i>
           </button>
         </div>

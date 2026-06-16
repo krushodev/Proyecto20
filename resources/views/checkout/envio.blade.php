@@ -143,10 +143,10 @@
     </div>
 
     <div class="checkout-actions">
-      <a href="{{ route('carrito') }}" class="btn-outline-vittorio">
+      <a href="{{ route('carrito') }}" class="btn-vt btn-vt-outline">
         <i data-lucide="arrow-left"></i> Volver al carrito
       </a>
-      <button type="submit" class="btn-primary-vittorio">
+      <button type="submit" class="btn-vt btn-vt-primary">
         Continuar al pago <i data-lucide="arrow-right"></i>
       </button>
     </div>

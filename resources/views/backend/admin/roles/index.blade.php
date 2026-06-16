@@ -22,7 +22,7 @@
         <input type="text" name="nombre"
                class="form-input {{ $errors->has('nombre') ? 'is-invalid' : '' }}"
                placeholder="Nombre del rol" value="{{ old('nombre') }}" required />
-        <button type="submit" class="btn-login roles-btn-add">Agregar</button>
+        <button type="submit" class="btn-vt btn-vt-primary roles-btn-add">Agregar</button>
       </div>
       @error('nombre')<span class="form-error">{{ $message }}</span>@enderror
     </form>

@@ -21,7 +21,7 @@
           Manufactura argentina con más de 25 años creando piezas atemporales.
         </p>
         <div class="hero-cta">
-          <a href="{{ url('/catalogo') }}" class="btn-primary-vittorio">Explorar Colección</a>
+          <a href="{{ url('/catalogo') }}" class="btn-vt btn-vt-primary">Explorar Colección</a>
         </div>
       </div>
       <div class="hero-image-wrapper">
@@ -106,7 +106,7 @@
     </div>
     <div class="cta-banner-content">
       <h2 class="cta-banner-title">Sé dueño de tu legado.</h2>
-      <a href="{{ route('contacto') }}" class="btn-outline-vittorio">Reservar Cita Privada</a>
+      <a href="{{ route('contacto') }}" class="btn-vt btn-vt-outline">Reservar Cita Privada</a>
     </div>
   </section>
 

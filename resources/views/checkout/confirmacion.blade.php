@@ -171,11 +171,11 @@
 
   {{-- Acciones --}}
   <div class="confirmacion-actions">
-    <a href="{{ route('mis-compras') }}" class="btn-primary-vittorio">
+    <a href="{{ route('mis-compras') }}" class="btn-vt btn-vt-primary">
       <i data-lucide="package"></i>
       Ver mis compras
     </a>
-    <a href="{{ route('catalogo') }}" class="btn-outline-vittorio">
+    <a href="{{ route('catalogo') }}" class="btn-vt btn-vt-outline">
       Seguir comprando <i data-lucide="arrow-right"></i>
     </a>
   </div>

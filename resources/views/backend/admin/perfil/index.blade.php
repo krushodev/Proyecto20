@@ -58,7 +58,7 @@
                autocomplete="new-password" />
       </div>
 
-      <button type="submit" class="btn-login btn-login--spaced">Guardar Cambios</button>
+      <button type="submit" class="btn-vt btn-vt-primary btn-login--spaced">Guardar Cambios</button>
     </form>
 
   </div>

@@ -12,7 +12,7 @@
 <section class="pd-main">
 
   <div class="pd-back-row">
-    <a href="{{ route('catalogo') }}" class="btn-link-vittorio">
+    <a href="{{ route('catalogo') }}" class="btn-vt-link">
       <i data-lucide="arrow-left"></i> Volver al catálogo
     </a>
   </div>
@@ -131,7 +131,7 @@
               <input type="hidden" name="cantidad" id="qty-input" value="1" />
             </div>
 
-            <button type="submit" class="btn-primary-vittorio pd-add-btn">
+            <button type="submit" class="btn-vt btn-vt-primary pd-add-btn">
               <i data-lucide="shopping-cart"></i>
               Agregar al carrito
             </button>

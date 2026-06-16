@@ -63,7 +63,7 @@
         @error('rol_id')<span class="form-error">{{ $message }}</span>@enderror
       </div>
 
-      <button type="submit" class="btn-login">Crear Usuario</button>
+      <button type="submit" class="btn-vt btn-vt-primary">Crear Usuario</button>
     </form>
 
   </div>

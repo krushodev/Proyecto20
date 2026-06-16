@@ -66,7 +66,7 @@
     @if (Route::has('password.request'))
       <a href="{{ route('password.request') }}" class="btn-vt-link">Recuperar contraseña</a>
     @else
-      <a href="#" class="btn-vt-link" onclick="Swal.fire({ icon: 'info', title: 'No disponible', text: 'La recuperación de contraseña no está configurada.' }); return false;">Recuperar contraseña</a>
+      <a href="#" class="btn-vt-link" onclick="Swal.fire({ icon: 'info', title: 'No disponible', text: 'La recuperación de contraseña no está configurada.', customClass: { popup: 'vt-modal-popup' } }); return false;">Recuperar contraseña</a>
     @endif
 
     <form action="{{ route('logout') }}" method="POST" class="logout-form">

@@ -7,6 +7,161 @@
    ============================================================ */
 
 /* ========================================
+   TOPBAR ADMIN (layout-admin.blade.php)
+   ======================================== */
+
+.admin-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1040;
+  height: 56px;
+  background-color: var(--vt-canvas-night-elevated);
+  border-bottom: 1px solid var(--vt-hairline);
+}
+
+.admin-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.admin-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-topbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.admin-topbar-logo {
+  height: 30px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  display: block;
+}
+
+.admin-topbar-sep {
+  color: var(--vt-hairline-mid);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.admin-topbar-context {
+  color: var(--vt-text-muted);
+  white-space: nowrap;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-topbar-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--vt-hairline-mid);
+  margin: 0 0.25rem;
+}
+
+.admin-topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-topbar-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--vt-radius-pill);
+  background-color: var(--vt-canvas-surface-mid);
+  border: 1px solid var(--vt-hairline-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--vt-fw-semi);
+  color: var(--vt-text-primary);
+  flex-shrink: 0;
+}
+
+.admin-topbar-username {
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-micro);
+  font-weight: var(--vt-fw-medium);
+  color: var(--vt-text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .admin-topbar-username {
+    display: none;
+  }
+}
+
+.admin-topbar-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-micro);
+  font-weight: var(--vt-fw-medium);
+  color: var(--vt-text-muted);
+  text-decoration: none;
+  border-radius: var(--vt-radius-xs);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-topbar-action:hover {
+  color: var(--vt-text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.admin-topbar-action--logout:hover {
+  color: var(--vt-error);
+}
+
+.admin-topbar-action svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.admin-topbar-logout-form {
+  display: contents;
+}
+
+/* layout-admin: main sin footer comercial */
+.layout-admin .admin-main {
+  min-height: 100vh;
+  padding-top: 56px;
+}
+
+/* Anulamos el padding-top global de main para el contexto admin */
+.layout-admin main {
+  padding-top: 0;
+}
+
+/* ========================================
    DASHBOARD
    ======================================== */
 .admin-page { min-height: 100vh; padding: 2rem; background-color: #0a0a0a; }

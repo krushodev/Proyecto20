@@ -14,7 +14,7 @@ class AgregarAlCarritoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'producto_id' => ['required', 'integer', 'exists:productos,id,deleted_at,NULL'],
+            'producto_id' => ['required', 'integer', 'exists:productos,id,deleted_at,NULL,activo,1'],
             'cantidad'    => ['required', 'integer', 'min:1'],
         ];
     }

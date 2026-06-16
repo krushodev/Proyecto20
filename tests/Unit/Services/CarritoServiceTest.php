@@ -88,6 +88,26 @@ it('lanza RuntimeException cuando la cantidad acumulada supera el stock', functi
     ]))->toThrow(\RuntimeException::class, 'Stock insuficiente');
 });
 
+it('permite agregar cuando la cantidad solicitada es exactamente igual al stock disponible', function () {
+    $producto = crearProducto(['stock' => 4]);
+
+    $detalle = $this->service->agregarProducto([
+        'producto_id' => $producto->id,
+        'cantidad'    => 4,
+    ]);
+
+    expect($detalle->cantidad)->toBe(4);
+});
+
+it('lanza RuntimeException al agregar un producto inactivo', function () {
+    $producto = crearProducto(['stock' => 5, 'activo' => false]);
+
+    expect(fn () => $this->service->agregarProducto([
+        'producto_id' => $producto->id,
+        'cantidad'    => 1,
+    ]))->toThrow(\RuntimeException::class, 'ya no está disponible');
+});
+
 it('mensaje de error incluye el nombre del producto y stock disponible', function () {
     $producto = crearProducto(['nombre' => 'Reloj Especial', 'stock' => 1]);
 
@@ -178,6 +198,55 @@ it('lanza RuntimeException si el stock se agota entre agregar y confirmar', func
         ->toThrow(\RuntimeException::class, 'Stock insuficiente');
 });
 
+it('permite confirmar cuando la cantidad en el carrito es exactamente igual al stock', function () {
+    Mail::fake();
+
+    $producto = crearProducto(['precio' => 10000, 'stock' => 3]);
+    $this->service->agregarProducto(['producto_id' => $producto->id, 'cantidad' => 3]);
+
+    $venta = $this->service->confirmarCompra();
+
+    expect($venta->estado)->toBe('confirmado');
+    expect($producto->fresh()->stock)->toBe(0);
+});
+
+it('lanza RuntimeException al confirmar si el producto fue desactivado luego de agregarlo', function () {
+    $producto = crearProducto(['precio' => 10000, 'stock' => 5]);
+    $this->service->agregarProducto(['producto_id' => $producto->id, 'cantidad' => 2]);
+
+    $producto->update(['activo' => false]);
+
+    expect(fn () => $this->service->confirmarCompra())
+        ->toThrow(\RuntimeException::class, 'ya no está disponible');
+});
+
+it('simula concurrencia: dos clientes reservan el ultimo stock pero solo uno confirma la compra', function () {
+    Mail::fake();
+
+    $producto = crearProducto(['precio' => 10000, 'stock' => 1]);
+    $clienteB = crearCliente();
+
+    // Ambos clientes alcanzan a agregar el unico item disponible a sus carritos
+    // (cada carrito es independiente, el stock real recien se descuenta al confirmar).
+    $this->service->agregarProducto(['producto_id' => $producto->id, 'cantidad' => 1]);
+
+    Auth::login($clienteB);
+    $this->service->agregarProducto(['producto_id' => $producto->id, 'cantidad' => 1]);
+
+    // Cliente A confirma primero: lockForUpdate() + decrement deja stock en 0.
+    Auth::login($this->cliente);
+    $ventaA = $this->service->confirmarCompra();
+
+    // Cliente B intenta confirmar despues: la revalidacion de stock en backend
+    // detecta que ya no hay disponibilidad y bloquea la operacion.
+    Auth::login($clienteB);
+    expect(fn () => $this->service->confirmarCompra())
+        ->toThrow(\RuntimeException::class, 'Stock insuficiente');
+
+    expect($ventaA->estado)->toBe('confirmado');
+    expect($producto->fresh()->stock)->toBe(0);
+});
+
 it('retorna la venta confirmada incluso cuando el envio de email falla', function () {
     // El try/catch en confirmarCompra garantiza que un fallo de PDF/email
     // no interrumpe la transaccion de compra.
@@ -255,6 +324,17 @@ it('lanza RuntimeException por stock insuficiente en carrito guest', function ()
         'producto_id' => $producto->id,
         'cantidad'    => 5,
     ]))->toThrow(\RuntimeException::class, 'Stock insuficiente');
+});
+
+it('lanza RuntimeException al agregar un producto inactivo en carrito guest', function () {
+    Auth::logout();
+
+    $producto = crearProducto(['stock' => 5, 'activo' => false]);
+
+    expect(fn () => $this->service->agregarProductoGuest([
+        'producto_id' => $producto->id,
+        'cantidad'    => 1,
+    ]))->toThrow(\RuntimeException::class, 'ya no está disponible');
 });
 
 it('elimina producto del carrito guest por productoId', function () {

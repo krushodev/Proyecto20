@@ -30,6 +30,7 @@ class CarritoService
     {
         return DB::transaction(function () use ($datos) {
             $producto = Producto::findOrFail($datos['producto_id']);
+            $this->verificarProductoDisponible($producto);
             $cantidad = (int) $datos['cantidad'];
 
             $carrito = $this->obtenerCarrito();
@@ -97,6 +98,8 @@ class CarritoService
                     ->lockForUpdate()
                     ->firstOrFail();
 
+                $this->verificarProductoDisponible($producto);
+
                 if ($producto->stock < $detalle->cantidad) {
                     throw new \RuntimeException(
                         "Stock insuficiente para '{$producto->nombre}'. Disponible: {$producto->stock}, solicitado: {$detalle->cantidad}."
@@ -151,6 +154,7 @@ class CarritoService
     public function agregarProductoGuest(array $datos): void
     {
         $producto = Producto::findOrFail($datos['producto_id']);
+        $this->verificarProductoDisponible($producto);
         $cantidad = (int) $datos['cantidad'];
 
         $carrito = $this->obtenerCarritoGuest();
@@ -247,6 +251,15 @@ class CarritoService
     }
 
     // ─── Privado ───────────────────────────────────────────────────────────
+
+    private function verificarProductoDisponible(Producto $producto): void
+    {
+        if (!$producto->activo) {
+            throw new \RuntimeException(
+                "El producto '{$producto->nombre}' ya no está disponible."
+            );
+        }
+    }
 
     private function recalcularTotal(VentaCabecera $carrito): void
     {

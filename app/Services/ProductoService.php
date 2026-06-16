@@ -19,14 +19,14 @@ class ProductoService
     {
         return Producto::with(['categoria', 'imagenes'])
             ->where('slug', $slug)
-            ->where('activo', true)
+            ->activo()
             ->firstOrFail();
     }
 
     public function obtenerActivos(): Collection
     {
         return Producto::with('imagenes')
-            ->where('activo', true)
+            ->activo()
             ->orderBy('nombre')
             ->get();
     }

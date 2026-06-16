@@ -13,7 +13,7 @@ class CategoriaService
 
     public function obtenerActivas(): \Illuminate\Database\Eloquent\Collection
     {
-        return Categoria::where('activo', true)
+        return Categoria::activo()
             ->orderBy('nombre')
             ->get();
     }
@@ -21,11 +21,11 @@ class CategoriaService
     public function obtenerActivasConProductos(string $slug = null): \Illuminate\Database\Eloquent\Collection
     {
         $query = Categoria::with([
-            'productos'          => fn ($q) => $q->where('activo', true)->orderBy('nombre'),
+            'productos'          => fn ($q) => $q->activo()->orderBy('nombre'),
             'productos.imagenes' => fn ($q) => $q->orderBy('orden'),
         ])
-            ->where('activo', true)
-            ->whereHas('productos', fn ($q) => $q->where('activo', true));
+            ->activo()
+            ->whereHas('productos', fn ($q) => $q->activo());
 
         if ($slug) {
             $query = $query->where('slug', $slug);

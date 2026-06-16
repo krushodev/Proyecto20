@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
             SuperAdminSeeder::class,
             UsuariosSeeder::class,
             CatalogoSeeder::class,
-            ProductosDemoSeeder::class,
             CarritoDemoSeeder::class,
             VentasDemoSeeder::class,
+            ContactosDemoSeeder::class,
         ]);
     }
 }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
  * Clientes: cliente1@demo.com  / password
  *           cliente2@demo.com  / password
  *           cliente3@demo.com  / password
- *           ... + clientes aleatorios para volumen
+ *           ... + ~100 clientes aleatorios para volumen
  */
 class UsuariosSeeder extends Seeder
 {
@@ -42,7 +42,7 @@ class UsuariosSeeder extends Seeder
 
         // Volumen adicional de clientes aleatorios para datos más representativos.
         $existentes = Usuario::where('rol_id', $rolCliente->id)->count();
-        $faltantes  = max(0, 10 - $existentes);
+        $faltantes  = max(0, 100 - $existentes);
 
         if ($faltantes > 0) {
             Usuario::factory()

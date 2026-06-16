@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Volumen representativo de compras previas (VentaCabecera 'confirmado' +
- * VentaDetalle), con fechas distribuidas en los últimos meses y variedad
+ * VentaDetalle), con fechas distribuidas en los últimos ~3 años y variedad
  * de métodos de pago, para poder probar los filtros de fecha del panel admin.
  */
 class VentasDemoSeeder extends Seeder
 {
     private const METODOS_PAGO = ['transferencia', 'tarjeta', 'mercadopago'];
+
+    private const CANTIDAD_VENTAS = 500;
 
     public function run(): void
     {
@@ -28,9 +30,9 @@ class VentasDemoSeeder extends Seeder
         }
 
         DB::transaction(function () use ($clientes, $productos) {
-            for ($i = 0; $i < 25; $i++) {
+            for ($i = 0; $i < self::CANTIDAD_VENTAS; $i++) {
                 $cliente    = $clientes->random();
-                $fechaVenta = now()->subDays(rand(0, 180))->subHours(rand(0, 23));
+                $fechaVenta = now()->subDays(rand(0, 3 * 365))->subHours(rand(0, 23));
                 $metodoPago = self::METODOS_PAGO[$i % count(self::METODOS_PAGO)];
 
                 $venta = VentaCabecera::factory()
@@ -45,20 +47,25 @@ class VentasDemoSeeder extends Seeder
 
                 $detalles = $productos->random(min(rand(1, 3), $productos->count()));
                 $total    = 0;
+                $filasDetalle = [];
 
                 foreach ($detalles as $producto) {
                     $cantidad = rand(1, 3);
                     $subtotal = $producto->precio * $cantidad;
                     $total += $subtotal;
 
-                    VentaDetalle::create([
+                    $filasDetalle[] = [
                         'venta_id'        => $venta->id,
                         'producto_id'     => $producto->id,
                         'cantidad'        => $cantidad,
                         'precio_unitario' => $producto->precio,
                         'subtotal'        => $subtotal,
-                    ]);
+                        'created_at'      => $fechaVenta,
+                        'updated_at'      => $fechaVenta,
+                    ];
                 }
+
+                VentaDetalle::insert($filasDetalle);
 
                 $venta->update(['total' => $total]);
             }

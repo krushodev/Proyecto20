@@ -51,12 +51,12 @@ class UsuarioController extends Controller
 
     public function destroy(Usuario $usuario): RedirectResponse
     {
-        if ($usuario->id === Auth::id()) {
-            return back()->withErrors(['delete' => 'No podés eliminarte a vos mismo.']);
+        try {
+            $this->usuarioService->eliminar($usuario, Auth::user());
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
+        } catch (\RuntimeException $e) {
+            return back()->withErrors(['delete' => $e->getMessage()]);
         }
-
-        $this->usuarioService->eliminar($usuario);
-
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
     }
 }

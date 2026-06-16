@@ -54,8 +54,12 @@ class UsuarioService
         });
     }
 
-    public function eliminar(Usuario $usuario): void
+    public function eliminar(Usuario $usuario, Usuario $usuarioAutenticado): void
     {
+        if ($usuario->id === $usuarioAutenticado->id) {
+            throw new \RuntimeException('No podés eliminarte a vos mismo.');
+        }
+
         DB::transaction(function () use ($usuario) {
             $usuario->delete();
         });

@@ -153,23 +153,31 @@ it('pone campos de tarjeta en null si no se proveen', function () {
 // ─── eliminar ─────────────────────────────────────────────────────────────
 
 it('aplica soft delete al usuario en una transaccion', function () {
+    $admin   = crearAdmin();
     $usuario = crearCliente();
     $id      = $usuario->id;
 
-    $this->service->eliminar($usuario);
+    $this->service->eliminar($usuario, $admin);
 
     expect(Usuario::find($id))->toBeNull();
     expect(Usuario::withTrashed()->find($id))->not->toBeNull();
 });
 
-it('el servicio elimina a cualquier usuario sin restriccion propia (la proteccion esta en el controlador)', function () {
-    // UsuarioService::eliminar() no tiene logica de auto-eliminacion.
-    // Esa proteccion vive en UsuarioController::destroy().
-    // Este test documenta ese comportamiento intencional.
-    $usuario = crearAdmin();
-    $id      = $usuario->id;
+it('permite eliminar a otro admin distinto del autenticado', function () {
+    $adminAutenticado = crearAdmin();
+    $otroAdmin        = crearAdmin();
+    $id               = $otroAdmin->id;
 
-    $this->service->eliminar($usuario);
+    $this->service->eliminar($otroAdmin, $adminAutenticado);
 
     expect(Usuario::find($id))->toBeNull();
+});
+
+it('lanza excepcion si el admin intenta eliminarse a si mismo', function () {
+    $admin = crearAdmin();
+
+    expect(fn () => $this->service->eliminar($admin, $admin))
+        ->toThrow(RuntimeException::class, 'No podés eliminarte a vos mismo.');
+
+    expect(Usuario::find($admin->id))->not->toBeNull();
 });

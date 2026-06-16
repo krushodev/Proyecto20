@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\ProductoImagen;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -168,6 +169,28 @@ class CatalogoSeeder extends Seeder
                     ],
                 ],
             ],
+            [
+                'nombre'      => 'Línea Discontinuada',
+                'slug'        => 'linea-discontinuada',
+                'descripcion' => 'Colección retirada del catálogo, conservada solo a fines históricos.',
+                'activo'      => false,
+                'modelos'     => [
+                    [
+                        'nombre'          => 'Vecchio',
+                        'slug'            => 'vecchio',
+                        'precio'          => 7800.00,
+                        'descripcion'     => 'Modelo de catálogo descontinuado, ya no disponible para la venta.',
+                        'imagen_lifestyle' => 'assets/monolito1.png',
+                        'imagen_studio'   => 'assets/monolito2.png',
+                        'caja'            => 'Acero satinado 40mm',
+                        'movimiento'      => 'Cuarzo básico',
+                        'cristal'         => 'Mineral',
+                        'resistencia'     => '3 ATM',
+                        'correa'          => 'Cuero sintético',
+                        'stock'           => 0,
+                    ],
+                ],
+            ],
         ];
 
         foreach ($catalogo as $lineaData) {
@@ -178,19 +201,31 @@ class CatalogoSeeder extends Seeder
                 [
                     'nombre'      => $lineaData['nombre'],
                     'descripcion' => $lineaData['descripcion'],
-                    'activo'      => true,
+                    'activo'      => $lineaData['activo'] ?? true,
                 ]
             );
 
             foreach ($modelos as $modeloData) {
-                $modeloData['categoria_id']    = $categoria->id;
-                $modeloData['activo']          = true;
-                $modeloData['imagen_lifestyle'] = self::R2_BASE . $modeloData['imagen_lifestyle'];
-                $modeloData['imagen_studio']   = self::R2_BASE . $modeloData['imagen_studio'];
+                $imagenLifestyle = self::R2_BASE . $modeloData['imagen_lifestyle'];
+                $imagenStudio    = self::R2_BASE . $modeloData['imagen_studio'];
+                unset($modeloData['imagen_lifestyle'], $modeloData['imagen_studio']);
 
-                Producto::firstOrCreate(
+                $modeloData['categoria_id'] = $categoria->id;
+                $modeloData['activo']       = true;
+
+                $producto = Producto::firstOrCreate(
                     ['slug' => $modeloData['slug']],
                     $modeloData
+                );
+
+                ProductoImagen::firstOrCreate(
+                    ['producto_id' => $producto->id, 'tipo' => 'lifestyle'],
+                    ['url' => $imagenLifestyle, 'orden' => 0]
+                );
+
+                ProductoImagen::firstOrCreate(
+                    ['producto_id' => $producto->id, 'tipo' => 'studio'],
+                    ['url' => $imagenStudio, 'orden' => 1]
                 );
             }
         }

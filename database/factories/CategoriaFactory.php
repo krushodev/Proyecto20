@@ -21,4 +21,9 @@ class CategoriaFactory extends Factory
             'activo'      => true,
         ];
     }
+
+    public function inactiva(): static
+    {
+        return $this->state(['activo' => false]);
+    }
 }

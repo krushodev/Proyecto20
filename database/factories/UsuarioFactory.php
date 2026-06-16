@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Rol;
 use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -23,5 +24,19 @@ class UsuarioFactory extends Factory
             'remember_token'    => Str::random(10),
             'rol_id'            => null,
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn () => [
+            'rol_id' => Rol::firstOrCreate(['nombre' => 'admin'])->id,
+        ]);
+    }
+
+    public function cliente(): static
+    {
+        return $this->state(fn () => [
+            'rol_id' => Rol::firstOrCreate(['nombre' => 'cliente'])->id,
+        ]);
     }
 }

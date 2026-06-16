@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Usuario;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 
 // ─── Login ────────────────────────────────────────────────────────────────
 
@@ -145,4 +149,139 @@ it('desloguea al usuario autenticado y redirige al home', function () {
 
 it('un invitado que intenta hacer logout es redirigido al login', function () {
     $this->post('/logout')->assertRedirect('/login');
+});
+
+// ─── Forgot password ────────────────────────────────────────────────────
+
+it('muestra la pagina de forgot-password a invitados', function () {
+    $this->get('/forgot-password')->assertStatus(200);
+});
+
+it('envia el link de reseteo cuando el email existe', function () {
+    Notification::fake();
+
+    $usuario = crearCliente(['email' => 'existe@example.com']);
+
+    $this->post('/forgot-password', ['email' => 'existe@example.com'])
+        ->assertRedirect();
+
+    Notification::assertSentTo($usuario, ResetPasswordNotification::class);
+});
+
+it('forgot-password con email inexistente devuelve error y no envia notificacion', function () {
+    Notification::fake();
+
+    // El proyecto usa el mensaje default de Laravel, que SÍ revela si el
+    // email no está registrado (passwords.user no fue customizado).
+    $this->post('/forgot-password', ['email' => 'noexiste@example.com'])
+        ->assertSessionHasErrors(['email']);
+
+    Notification::assertNothingSent();
+});
+
+it('forgot-password valida que el email sea requerido', function () {
+    $this->post('/forgot-password', [])->assertSessionHasErrors(['email']);
+});
+
+it('forgot-password valida formato de email', function () {
+    $this->post('/forgot-password', ['email' => 'not-an-email'])
+        ->assertSessionHasErrors(['email']);
+});
+
+// ─── Reset password ─────────────────────────────────────────────────────
+
+it('muestra la pagina de reset-password con un token en la URL', function () {
+    $this->get('/reset-password/algun-token-cualquiera')->assertStatus(200);
+});
+
+it('resetea la password con un token valido y permite loguear con la nueva', function () {
+    $usuario = crearCliente(['email' => 'reset@example.com', 'password' => Hash::make('viejaPass123')]);
+
+    $token = Password::createToken($usuario);
+
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'reset@example.com',
+        'password'              => 'nuevaPass456',
+        'password_confirmation' => 'nuevaPass456',
+    ])->assertRedirect(route('login'));
+
+    $this->post('/login', [
+        'email'    => 'reset@example.com',
+        'password' => 'nuevaPass456',
+    ])->assertRedirect('/');
+
+    $this->assertAuthenticatedAs($usuario->fresh());
+});
+
+it('rechaza reset-password con token invalido', function () {
+    $usuario = crearCliente(['email' => 'tokeninvalido@example.com']);
+
+    $this->post('/reset-password', [
+        'token'                 => 'token-que-no-existe',
+        'email'                 => 'tokeninvalido@example.com',
+        'password'              => 'nuevaPass456',
+        'password_confirmation' => 'nuevaPass456',
+    ])->assertSessionHasErrors(['email']);
+});
+
+it('rechaza reset-password con token expirado', function () {
+    $usuario = crearCliente(['email' => 'expirado@example.com']);
+
+    // expire=60 minutos según config/auth.php: generamos el token y
+    // simulamos que pasó más tiempo del permitido viajando en el tiempo.
+    $token = Password::createToken($usuario);
+
+    $this->travel(61)->minutes();
+
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'expirado@example.com',
+        'password'              => 'nuevaPass456',
+        'password_confirmation' => 'nuevaPass456',
+    ])->assertSessionHasErrors(['email']);
+});
+
+it('reset-password valida password minimo 8 caracteres', function () {
+    $usuario = crearCliente(['email' => 'corta@example.com']);
+    $token   = Password::createToken($usuario);
+
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'corta@example.com',
+        'password'              => 'short',
+        'password_confirmation' => 'short',
+    ])->assertSessionHasErrors(['password']);
+});
+
+it('reset-password valida que password y confirmacion coincidan', function () {
+    $usuario = crearCliente(['email' => 'nocoincide@example.com']);
+    $token   = Password::createToken($usuario);
+
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'nocoincide@example.com',
+        'password'              => 'nuevaPass456',
+        'password_confirmation' => 'diferente789',
+    ])->assertSessionHasErrors(['password']);
+});
+
+it('un token de reset ya usado no puede reutilizarse', function () {
+    $usuario = crearCliente(['email' => 'reusado@example.com']);
+    $token   = Password::createToken($usuario);
+
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'reusado@example.com',
+        'password'              => 'primeraPass1',
+        'password_confirmation' => 'primeraPass1',
+    ])->assertRedirect(route('login'));
+
+    // Intentar reutilizar el mismo token ya consumido
+    $this->post('/reset-password', [
+        'token'                 => $token,
+        'email'                 => 'reusado@example.com',
+        'password'              => 'segundaPass2',
+        'password_confirmation' => 'segundaPass2',
+    ])->assertSessionHasErrors(['email']);
 });

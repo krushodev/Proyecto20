@@ -311,3 +311,84 @@ it('retorno MP sin sesion de envio redirige a mis-compras', function () {
          ->get('/checkout/confirmacion?external_reference=' . $carrito->id . '&status=approved')
          ->assertRedirect(route('mis-compras'));
 });
+
+it('retorno MP con carrito de otro usuario redirige a mis-compras', function () {
+    $c1      = crearCliente();
+    $c2      = crearCliente();
+    $carrito = VentaCabecera::factory()->create(['user_id' => $c1->id, 'estado' => 'carrito']);
+
+    $this->actingAs($c2)
+         ->withSession(['checkout_envio' => [
+             'direccion_id'  => null,
+             'alias'         => 'Casa',
+             'calle'         => 'Calle X',
+             'numero'        => '1',
+             'ciudad'        => 'LP',
+             'provincia'     => 'BA',
+             'cp'            => '1900',
+             'observaciones' => null,
+             'costo_envio'   => 2500.0,
+             'metodo_pago'   => 'mercadopago',
+         ]])
+         ->get('/checkout/confirmacion?external_reference=' . $carrito->id . '&status=approved')
+         ->assertRedirect(route('mis-compras'));
+});
+
+it('retorno MP con carrito ya confirmado (no en estado carrito) redirige a mis-compras', function () {
+    $cliente = crearCliente();
+    $venta   = VentaCabecera::factory()->confirmada()->create(['user_id' => $cliente->id]);
+
+    $this->actingAs($cliente)
+         ->withSession(['checkout_envio' => [
+             'direccion_id'  => null,
+             'alias'         => 'Casa',
+             'calle'         => 'Calle X',
+             'numero'        => '1',
+             'ciudad'        => 'LP',
+             'provincia'     => 'BA',
+             'cp'            => '1900',
+             'observaciones' => null,
+             'costo_envio'   => 2500.0,
+             'metodo_pago'   => 'mercadopago',
+         ]])
+         ->get('/checkout/confirmacion?external_reference=' . $venta->id . '&status=approved')
+         ->assertRedirect(route('mis-compras'));
+});
+
+it('retorno MP con status approved confirma la compra, descuenta stock y muestra confirmacion', function () {
+    Mail::fake();
+
+    $cliente  = crearCliente();
+    $producto = crearProducto(['precio' => 15000, 'stock' => 5]);
+
+    $carrito = VentaCabecera::factory()->create(['user_id' => $cliente->id, 'estado' => 'carrito']);
+    $carrito->detalles()->create([
+        'producto_id'     => $producto->id,
+        'cantidad'        => 2,
+        'precio_unitario' => 15000,
+        'subtotal'        => 30000,
+    ]);
+
+    $this->actingAs($cliente)
+         ->withSession(['checkout_envio' => [
+             'direccion_id'  => null,
+             'alias'         => 'Casa',
+             'calle'         => 'Calle X',
+             'numero'        => '1',
+             'ciudad'        => 'La Plata',
+             'provincia'     => 'Buenos Aires',
+             'cp'            => '1900',
+             'observaciones' => null,
+             'costo_envio'   => 2500.0,
+             'metodo_pago'   => 'mercadopago',
+         ]])
+         ->get('/checkout/confirmacion?external_reference=' . $carrito->id . '&status=approved')
+         ->assertStatus(200);
+
+    $venta = VentaCabecera::where('user_id', $cliente->id)->where('estado', 'confirmado')->first();
+
+    expect($venta)->not->toBeNull();
+    expect($venta->metodo_pago)->toBe('mercadopago');
+    expect($producto->fresh()->stock)->toBe(3);
+    expect(session()->has('checkout_envio'))->toBeFalse();
+});

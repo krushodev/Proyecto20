@@ -1,10 +1,10 @@
 /* ============================================================
    ARCHIVO: login.css
-   PROPÓSITO: Estilos de la página de inicio de sesión
-   DESCRIPCIÓN: Define el diseño del formulario de login
-   incluyendo contenedor, campos de entrada, opciones
-   (recordarme, olvidé contraseña), botón de envío y
-   enlace a registro.
+   PROPÓSITO: Layout de las páginas de autenticación
+   DESCRIPCIÓN: Estilos de posicionamiento y contenedor para
+   login, registro, forgot-password y reset-password.
+   Los estilos de controles (inputs, labels, checkboxes, errores)
+   viven en base/forms.css.
    ============================================================ */
 
 .login-page {
@@ -12,195 +12,73 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 2rem 2rem;
-  background-color: #0a0a0a;
+  padding: 80px 1.5rem 2rem;
+  background-color: var(--vt-canvas-night);
 }
 
 .login-container {
   width: 100%;
   max-width: 420px;
-  padding: 3rem;
-  background-color: #0e0e0e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  padding: 2.5rem;
+  background-color: var(--vt-canvas-night-elevated);
+  border: 1px solid var(--vt-hairline);
+  border-radius: var(--vt-radius-lg);
+  box-shadow: var(--vt-shadow-2);
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .login-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  font-family: var(--vt-font-display);
+  font-size: var(--vt-fs-heading-xl);    /* 28px */
+  font-weight: var(--vt-fw-semi);
+  color: var(--vt-on-dark);
+  letter-spacing: var(--vt-ls-wider);
+  margin-bottom: 0.4rem;
 }
 
 .login-subtitle {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.05em;
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-caption);
+  color: var(--vt-text-muted);
+  letter-spacing: var(--vt-ls-wide);
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.form-input {
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.875rem;
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.checkbox-container input {
-  display: none;
-}
-
-.checkmark {
-  width: 18px;
-  height: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.checkbox-container input:checked + .checkmark {
-  background-color: #ffffff;
-  border-color: #ffffff;
-}
-
-.checkbox-container input:checked + .checkmark::after {
-  content: '✓';
-  color: #000000;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.checkbox-label {
-  font-size: 0.875rem;
-}
-
-.forgot-link {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.forgot-link:hover {
-  color: #ffffff;
-}
-
-.btn-login {
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  color: #000000;
-  border: none;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 0.5rem;
-}
-
-.btn-login:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-1px);
-}
-
-.btn-login:active {
-  transform: translateY(0);
+  gap: 1.25rem;
 }
 
 .login-footer {
-  margin-top: 2rem;
+  margin-top: 1.75rem;
   text-align: center;
 }
 
 .register-text {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-caption);
+  color: var(--vt-text-muted);
 }
 
 .register-link {
-  color: #ffffff;
+  color: var(--vt-text-primary);
+  font-weight: var(--vt-fw-medium);
   text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .register-link:hover {
-  opacity: 0.8;
+  color: var(--vt-on-dark);
 }
 
-/* ── Validación ──────────────────────────────── */
-
-.form-input.is-invalid {
-  border-color: rgba(255, 107, 107, 0.5);
-}
-
-.form-error {
-  font-size: 0.75rem;
-  color: #ff6b6b;
-  letter-spacing: 0.02em;
-}
-
-.alert-error {
-  padding: 0.875rem 1rem;
-  background-color: rgba(255, 107, 107, 0.08);
-  border: 1px solid rgba(255, 107, 107, 0.25);
-  border-radius: 6px;
-  color: #ff6b6b;
-  font-size: 0.875rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+/* Botón de submit a ancho completo en formularios de auth */
+.login-form .btn-vt,
+.login-form .btn-login {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.25rem;
 }

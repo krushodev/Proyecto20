@@ -202,15 +202,7 @@
 }
 .admin-back:hover { color: #fff; }
 .admin-back i { width: 14px; height: 14px; }
-.admin-alert-success {
-  padding: .75rem 1rem;
-  background: rgba(74,222,128,.1);
-  border: 1px solid rgba(74,222,128,.3);
-  border-radius: 6px;
-  color: #4ade80;
-  font-size: .85rem;
-  margin-bottom: 1.5rem;
-}
+/* .admin-alert-success — definición canónica en base/forms.css */
 
 /* ========================================
    CONSULTAS / CONTACTOS (ac-*)

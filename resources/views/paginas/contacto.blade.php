@@ -67,7 +67,7 @@
             @error('mensaje')<span class="contacto-field-error">{{ $message }}</span>@enderror
           </div>
           <div class="form-action">
-            <button type="submit">Enviar mensaje</button>
+            <button type="submit" class="btn-vt btn-vt-primary w-100">Enviar mensaje</button>
           </div>
         </form>
       </article>

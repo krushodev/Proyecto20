@@ -7,6 +7,7 @@
 
 /* BASE — debe importarse primero */
 @import './base/tokens.css';
+@import './base/forms.css';
 
 /* COMPONENTES */
 @import './componentes/navbar.css';

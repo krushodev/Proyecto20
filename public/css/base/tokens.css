@@ -1,0 +1,462 @@
+/* ============================================================
+   ARCHIVO: base/tokens.css
+   PROPÓSITO: Design tokens del sistema visual Vittorio
+   DESCRIPCIÓN: Variables CSS derivadas de DESIGN-shopify.md,
+   adaptadas al dark canvas del proyecto. Debe importarse PRIMERO
+   en app.css. Sobreescribe --bs-* de Bootstrap 5 para que todos
+   los componentes adopten la identidad visual automáticamente.
+   ============================================================ */
+
+/* =========================================
+   1. PALETA DE COLOR
+   ========================================= */
+:root {
+
+  /* ── Canvas ──────────────────────────── */
+  --vt-canvas-night:          #0e0e0e;
+  --vt-canvas-night-elevated: #131313;
+  --vt-canvas-surface-low:    #1c1b1b;
+  --vt-canvas-surface-mid:    #2a2a2a;
+  --vt-canvas-surface-high:   #353535;
+
+  /* ── Texto ───────────────────────────── */
+  --vt-on-dark:        #ffffff;
+  --vt-text-primary:   #dcdcdc;
+  --vt-text-secondary: #c6c6c6;
+  --vt-text-muted:     #71717a;
+  --vt-text-faint:     #52525b;
+
+  /* ── Hairlines ───────────────────────── */
+  --vt-hairline:        rgba(220, 220, 220, 0.08);
+  --vt-hairline-mid:    rgba(220, 220, 220, 0.15);
+  --vt-hairline-strong: rgba(220, 220, 220, 0.30);
+
+  /* ── Shade ladder ────────────────────── */
+  --vt-shade-30: #d4d4d8;
+  --vt-shade-40: #a1a1aa;
+  --vt-shade-50: #71717a;
+  --vt-shade-60: #52525b;
+  --vt-shade-70: #3f3f46;
+
+  /* ── Accent (superficies claras / indicadores) */
+  --vt-aloe:      #c1fbd4;
+  --vt-pistachio: #d4f9e0;
+
+  /* ── Links muted (footer / terciarios) ─ */
+  --vt-link-cool-1: #9dabad;
+  --vt-link-cool-2: #9797a2;
+  --vt-link-cool-3: #bdbdca;
+  --vt-link-mint:   #99b3ad;
+
+  /* ── Estado ──────────────────────────── */
+  --vt-success: #4ade80;
+  --vt-error:   #ff6b6b;
+  --vt-warning: #f59e0b;
+  --vt-info:    #60a5fa;
+
+  /* ── Aliases de compatibilidad ──────────
+     Conservados para no romper los archivos
+     de componentes y páginas existentes.    */
+  --color-bg-primary:         var(--vt-canvas-night);
+  --color-bg-surface:         var(--vt-canvas-night-elevated);
+  --color-bg-surface-low:     var(--vt-canvas-surface-low);
+  --color-bg-surface-high:    var(--vt-canvas-surface-mid);
+  --color-bg-surface-highest: var(--vt-canvas-surface-high);
+  --color-text-primary:       var(--vt-text-primary);
+  --color-text-secondary:     var(--vt-text-secondary);
+  --color-text-on-surface:    var(--vt-text-primary);
+  --color-text-variant:       var(--vt-text-secondary);
+  --color-text-muted:         var(--vt-text-muted);
+  --color-border-primary:     var(--vt-hairline-strong);
+  --color-border-subtle:      var(--vt-hairline);
+}
+
+/* =========================================
+   2. TIPOGRAFÍA
+   ========================================= */
+:root {
+  /* Familias */
+  --vt-font-display: 'Space Grotesk', 'Helvetica', Arial, sans-serif;
+  --vt-font-body:    'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --vt-font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Alias global — mantiene compatibilidad con body { font-family: var(--font-sans) } */
+  --font-sans: var(--vt-font-body);
+
+  /* Tamaños */
+  --vt-fs-display-xxl: 96px;
+  --vt-fs-display-xl:  70px;
+  --vt-fs-display-lg:  55px;
+  --vt-fs-display-md:  48px;
+  --vt-fs-heading-xl:  28px;
+  --vt-fs-heading-lg:  24px;
+  --vt-fs-heading-md:  20px;
+  --vt-fs-heading-sm:  18px;
+  --vt-fs-body-lg:     18px;
+  --vt-fs-body-md:     16px;
+  --vt-fs-caption:     14px;
+  --vt-fs-micro:       13px;
+  --vt-fs-eyebrow:     12px;
+
+  /* Pesos */
+  --vt-fw-thin:    330;
+  --vt-fw-regular: 400;
+  --vt-fw-body:    420;
+  --vt-fw-medium:  500;
+  --vt-fw-strong:  550;
+  --vt-fw-semi:    600;
+  --vt-fw-bold:    700;
+
+  /* Line heights */
+  --vt-lh-tight:   1.0;
+  --vt-lh-snug:    1.14;
+  --vt-lh-normal:  1.5;
+  --vt-lh-relaxed: 1.56;
+
+  /* Letter spacings */
+  --vt-ls-display: 2.4px;
+  --vt-ls-tight:   -0.13px;
+  --vt-ls-normal:  0;
+  --vt-ls-wide:    0.28px;
+  --vt-ls-wider:   0.42px;
+  --vt-ls-eyebrow: 0.72px;
+}
+
+/* =========================================
+   3. ESPACIADO
+   ========================================= */
+:root {
+  --vt-space-xxs:  2px;
+  --vt-space-xs:   4px;
+  --vt-space-sm:   8px;
+  --vt-space-md:   12px;
+  --vt-space-lg:   16px;
+  --vt-space-xl:   24px;
+  --vt-space-xxl:  32px;
+  --vt-space-huge: 64px;
+}
+
+/* =========================================
+   4. BORDER RADIUS
+   ========================================= */
+:root {
+  --vt-radius-xs:   4px;
+  --vt-radius-sm:   5px;
+  --vt-radius-md:   8px;
+  --vt-radius-lg:   12px;
+  --vt-radius-xl:   20px;
+  --vt-radius-pill: 9999px;
+}
+
+/* =========================================
+   5. ELEVATION / SOMBRAS
+   ========================================= */
+:root {
+  /* 0 — flat */
+  --vt-shadow-0: none;
+
+  /* 1 — inset highlight sutil en dark cards */
+  --vt-shadow-1:
+    0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* 2 — dark elevated cards: hairline + drop */
+  --vt-shadow-2:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 5px 10px rgba(0, 0, 0, 0.2);
+
+  /* 3 — stacked tiny shadows (superficies claras) */
+  --vt-shadow-3:
+    0 8px 8px rgba(0, 0, 0, 0.1),
+    0 4px 4px rgba(0, 0, 0, 0.1),
+    0 2px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  /* 4 — modal / floating panel */
+  --vt-shadow-4: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================
+   6. BOOTSTRAP 5 — OVERRIDE DE VARIABLES
+   Hace que todos los componentes de Bootstrap
+   adopten la identidad Vittorio automáticamente
+   sin necesidad de sobreescribir sus clases.
+   ========================================= */
+
+:root {
+  /* ── Body & canvas ──────────────────── */
+  --bs-body-bg:           var(--vt-canvas-night);
+  --bs-body-color:        var(--vt-text-primary);
+  --bs-body-font-family:  var(--vt-font-body);
+  --bs-body-font-size:    var(--vt-fs-body-md);
+  --bs-body-font-weight:  var(--vt-fw-body);
+  --bs-body-line-height:  var(--vt-lh-normal);
+  --bs-secondary-bg:      var(--vt-canvas-night-elevated);
+  --bs-tertiary-bg:       var(--vt-canvas-surface-low);
+
+  /* ── Primary / énfasis ──────────────── */
+  --bs-primary:           var(--vt-on-dark);
+  --bs-primary-rgb:       255, 255, 255;
+  --bs-secondary:         var(--vt-text-secondary);
+  --bs-secondary-rgb:     198, 198, 198;
+
+  /* ── Links ──────────────────────────── */
+  --bs-link-color:        var(--vt-text-primary);
+  --bs-link-hover-color:  var(--vt-on-dark);
+  --bs-link-color-rgb:    220, 220, 220;
+
+  /* ── Border radius ──────────────────── */
+  --bs-border-radius:      var(--vt-radius-md);
+  --bs-border-radius-sm:   var(--vt-radius-sm);
+  --bs-border-radius-lg:   var(--vt-radius-lg);
+  --bs-border-radius-xl:   var(--vt-radius-xl);
+  --bs-border-radius-xxl:  var(--vt-radius-pill);
+  --bs-border-radius-pill: var(--vt-radius-pill);
+
+  /* ── Borders ────────────────────────── */
+  --bs-border-color:                var(--vt-hairline);
+  --bs-border-color-translucent:    var(--vt-hairline);
+
+  /* ── Focus ring — reemplaza el azul Bootstrap */
+  --bs-focus-ring-color:   rgba(220, 220, 220, 0.20);
+  --bs-focus-ring-width:   2px;
+  --bs-focus-ring-opacity: 0.20;
+
+  /* ── Cards ──────────────────────────── */
+  --bs-card-bg:            var(--vt-canvas-night-elevated);
+  --bs-card-border-color:  var(--vt-hairline);
+  --bs-card-border-radius: var(--vt-radius-lg);
+  --bs-card-box-shadow:    var(--vt-shadow-2);
+  --bs-card-cap-bg:        rgba(255, 255, 255, 0.02);
+  --bs-card-color:         var(--vt-text-primary);
+
+  /* ── Tablas ─────────────────────────── */
+  --bs-table-bg:           transparent;
+  --bs-table-color:        var(--vt-text-primary);
+  --bs-table-border-color: var(--vt-hairline);
+  --bs-table-striped-bg:   rgba(255, 255, 255, 0.02);
+  --bs-table-hover-bg:     rgba(255, 255, 255, 0.03);
+  --bs-table-active-bg:    rgba(255, 255, 255, 0.04);
+
+  /* ── Modal ──────────────────────────── */
+  --bs-modal-bg:                    var(--vt-canvas-night-elevated);
+  --bs-modal-color:                 var(--vt-text-primary);
+  --bs-modal-border-color:          var(--vt-hairline);
+  --bs-modal-header-border-color:   var(--vt-hairline);
+  --bs-modal-footer-border-color:   var(--vt-hairline);
+  --bs-modal-box-shadow:            var(--vt-shadow-4);
+
+  /* ── Dropdown ───────────────────────── */
+  --bs-dropdown-bg:                 var(--vt-canvas-night-elevated);
+  --bs-dropdown-border-color:       var(--vt-hairline);
+  --bs-dropdown-color:              var(--vt-text-primary);
+  --bs-dropdown-link-color:         var(--vt-text-secondary);
+  --bs-dropdown-link-hover-color:   var(--vt-on-dark);
+  --bs-dropdown-link-hover-bg:      rgba(255, 255, 255, 0.06);
+  --bs-dropdown-link-active-color:  var(--vt-on-dark);
+  --bs-dropdown-link-active-bg:     rgba(255, 255, 255, 0.10);
+  --bs-dropdown-box-shadow:         var(--vt-shadow-2);
+
+  /* ── Offcanvas ──────────────────────── */
+  --bs-offcanvas-bg:     var(--vt-canvas-night);
+  --bs-offcanvas-color:  var(--vt-text-primary);
+  --bs-offcanvas-border-color: var(--vt-hairline);
+  --bs-offcanvas-box-shadow:   var(--vt-shadow-4);
+
+  /* ── Toast ──────────────────────────── */
+  --bs-toast-bg:          var(--vt-canvas-night-elevated);
+  --bs-toast-border-color: var(--vt-hairline);
+  --bs-toast-color:       var(--vt-text-primary);
+  --bs-toast-header-bg:   rgba(255, 255, 255, 0.02);
+  --bs-toast-header-color: var(--vt-text-secondary);
+
+  /* ── Badge ──────────────────────────── */
+  --bs-badge-font-size:      0.7em;
+  --bs-badge-font-weight:    var(--vt-fw-semi);
+  --bs-badge-padding-x:      0.65em;
+  --bs-badge-padding-y:      0.3em;
+  --bs-badge-border-radius:  var(--vt-radius-pill);
+
+  /* ── Nav ────────────────────────────── */
+  --bs-nav-link-color:                      var(--vt-text-secondary);
+  --bs-nav-link-hover-color:                var(--vt-on-dark);
+  --bs-nav-link-disabled-color:             var(--vt-text-muted);
+  --bs-nav-tabs-border-color:               var(--vt-hairline);
+  --bs-nav-tabs-link-hover-border-color:    var(--vt-hairline-mid);
+  --bs-nav-tabs-link-active-color:          var(--vt-on-dark);
+  --bs-nav-tabs-link-active-bg:             var(--vt-canvas-surface-low);
+  --bs-nav-tabs-link-active-border-color:   var(--vt-hairline-mid);
+
+  /* ── Pagination ─────────────────────── */
+  --bs-pagination-color:            var(--vt-text-secondary);
+  --bs-pagination-bg:               transparent;
+  --bs-pagination-border-color:     var(--vt-hairline);
+  --bs-pagination-hover-color:      var(--vt-on-dark);
+  --bs-pagination-hover-bg:         rgba(255, 255, 255, 0.06);
+  --bs-pagination-hover-border-color: var(--vt-hairline-mid);
+  --bs-pagination-active-color:     var(--vt-canvas-night);
+  --bs-pagination-active-bg:        var(--vt-on-dark);
+  --bs-pagination-active-border-color: var(--vt-on-dark);
+  --bs-pagination-disabled-color:   var(--vt-text-muted);
+  --bs-pagination-disabled-bg:      transparent;
+  --bs-pagination-disabled-border-color: var(--vt-hairline);
+
+  /* ── Alert ──────────────────────────── */
+  --bs-alert-border-radius: var(--vt-radius-md);
+}
+
+/* =========================================
+   7. FORM CONTROLS — Aplicación directa
+   Bootstrap no cascadea todos sus --bs-form-*
+   hacia sus clases; estos selectores cierran
+   la brecha.
+   ========================================= */
+
+.form-control,
+.form-select {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--vt-hairline-mid);
+  color: var(--vt-text-primary);
+  border-radius: var(--vt-radius-md);
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-body-md);
+  padding: 10px 12px;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(220, 220, 220, 0.35);
+  color: var(--vt-on-dark);
+  box-shadow: 0 0 0 2px rgba(220, 220, 220, 0.15);
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: var(--vt-text-muted);
+  opacity: 1;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--vt-error);
+  background-image: none;
+}
+
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: var(--vt-success);
+  background-image: none;
+}
+
+.invalid-feedback {
+  font-size: var(--vt-fs-micro);
+  color: var(--vt-error);
+  letter-spacing: 0.02em;
+}
+
+.valid-feedback {
+  font-size: var(--vt-fs-micro);
+  color: var(--vt-success);
+}
+
+.form-label {
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-caption);
+  font-weight: var(--vt-fw-medium);
+  letter-spacing: var(--vt-ls-wide);
+  color: var(--vt-text-secondary);
+  margin-bottom: 0.375rem;
+}
+
+.form-text {
+  font-size: var(--vt-fs-micro);
+  color: var(--vt-text-muted);
+}
+
+.form-select option {
+  background-color: var(--vt-canvas-surface-low);
+  color: var(--vt-text-primary);
+}
+
+.form-check-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--vt-hairline-mid);
+}
+
+.form-check-input:checked {
+  background-color: var(--vt-on-dark);
+  border-color: var(--vt-on-dark);
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 2px rgba(220, 220, 220, 0.15);
+  border-color: rgba(220, 220, 220, 0.35);
+}
+
+/* =========================================
+   8. TIPOGRAFÍA GLOBAL
+   ========================================= */
+
+html {
+  font-feature-settings: "ss03";
+}
+
+/* Encabezados usan la fuente display (Space Grotesk) */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--vt-font-display);
+  font-weight: var(--vt-fw-semi);
+  color: var(--vt-on-dark);
+  line-height: var(--vt-lh-snug);
+  letter-spacing: var(--vt-ls-wider);
+}
+
+/* Texto body usa Inter Variable */
+p, span, li, td, th, label, input, select, textarea, button {
+  font-family: var(--vt-font-body);
+}
+
+/* Utilitarios de escala tipográfica */
+.vt-display-lg {
+  font-family: var(--vt-font-display);
+  font-size: clamp(2.5rem, 6vw, var(--vt-fs-display-lg));
+  font-weight: var(--vt-fw-thin);
+  line-height: var(--vt-lh-snug);
+  letter-spacing: 0;
+}
+
+.vt-heading-xl {
+  font-family: var(--vt-font-display);
+  font-size: var(--vt-fs-heading-xl);
+  font-weight: var(--vt-fw-medium);
+  line-height: 1.28;
+  letter-spacing: var(--vt-ls-wider);
+}
+
+.vt-heading-md {
+  font-family: var(--vt-font-display);
+  font-size: var(--vt-fs-heading-md);
+  font-weight: var(--vt-fw-medium);
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+}
+
+.vt-caption {
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-caption);
+  font-weight: var(--vt-fw-medium);
+  line-height: 1.49;
+  letter-spacing: var(--vt-ls-wide);
+}
+
+.vt-eyebrow {
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-eyebrow);
+  font-weight: var(--vt-fw-regular);
+  letter-spacing: var(--vt-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--vt-text-muted);
+}

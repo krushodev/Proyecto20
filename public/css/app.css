@@ -1,9 +1,12 @@
 /* ============================================================
    ARCHIVO: app.css
    PROPÓSITO: Hoja de estilos principal de Vittorio
-   DESCRIPCIÓN: Importa todos los componentes y páginas del sitio.
-   Define variables CSS globales, reset y estilos base.
+   DESCRIPCIÓN: Importa tokens, componentes y páginas.
+   Las variables CSS globales viven en base/tokens.css.
    ============================================================ */
+
+/* BASE — debe importarse primero */
+@import './base/tokens.css';
 
 /* COMPONENTES */
 @import './componentes/navbar.css';
@@ -29,89 +32,52 @@
 @import './paginas/admin.css';
 @import './paginas/checkout.css';
 
-/* ========================================
-   VITTORIO RELOJES - ESTILOS PRINCIPALES
-   ======================================== */
-
-/* ========================================
-   RESET Y VARIABLES GLOBALES
-   ======================================== */
+/* =========================================
+   RESET & BASE GLOBAL
+   ========================================= */
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-:root {
-    --font-sans:
-        'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-    --color-bg-primary: #0e0e0e;
-    --color-bg-surface: #131313;
-    --color-bg-surface-low: #1c1b1b;
-    --color-bg-surface-high: #2a2a2a;
-    --color-bg-surface-highest: #353535;
-
-    --color-text-primary: #dcdcdc;
-    --color-text-secondary: #c6c6c6;
-    --color-text-on-surface: #e5e2e1;
-    --color-text-variant: #c4c7c7;
-    --color-text-muted: #777777;
-
-    --color-border-primary: rgba(220, 220, 220, 0.3);
-    --color-border-subtle: rgba(220, 220, 220, 0.1);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-sans);
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: var(--vt-font-body);
+  background-color: var(--vt-canvas-night);
+  color: var(--vt-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 img {
-    max-width: 100%;
-    display: block;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 main {
-    padding-top: 4.5rem;
+  padding-top: 4.5rem;
 }
 
 @media (min-width: 768px) {
-    main {
-        padding-top: 5.25rem;
-    }
+  main {
+    padding-top: 5.25rem;
+  }
 }
 
-button,
-input,
-select,
-textarea {
-    font-family: var(--font-sans);
-}
-
-/* Utilidad: acento de título reutilizable */
+/* Utilitario de acento de título */
 .title-accent {
-    color: rgba(220, 220, 220, 0.5);
-}
-
-/* Imágenes responsive */
-img {
-    height: auto;
-}
-
-/* Scrollbar */
-html {
-    scroll-behavior: smooth;
+  color: rgba(220, 220, 220, 0.5);
 }

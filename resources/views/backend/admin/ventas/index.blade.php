@@ -33,7 +33,7 @@
           <option value="carrito" @selected(($filtros['estado'] ?? '') === 'carrito')>Carrito</option>
         </select>
       </label>
-      <button type="submit" class="admin-btn-edit">Filtrar</button>
+      <button type="submit" class="admin-btn-new">Filtrar</button>
       <a href="{{ route('ventas.index') }}" class="admin-back">Limpiar</a>
     </form>
 

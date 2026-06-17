@@ -25,31 +25,36 @@
 
   {{-- Información Principal --}}
   <div class="perfil-section">
-    <div class="perfil-avatar-container">
-      <div class="perfil-avatar-large">
-        {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
+    <div class="perfil-summary">
+      <div class="perfil-summary-card">
+        <div class="perfil-avatar-container">
+          <div class="perfil-avatar-large">
+            {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
+          </div>
+          <p class="perfil-avatar-name">{{ $usuario->nombre }}</p>
+        </div>
       </div>
-      <p class="perfil-avatar-name">{{ $usuario->nombre }}</p>
-    </div>
 
-    <div class="perfil-grid">
-      <div class="perfil-item">
-        <span class="perfil-item-label">Nombre</span>
-        <span class="perfil-item-value">{{ $usuario->nombre }}</span>
+      <div class="perfil-summary-card perfil-summary-details">
+        <div class="perfil-grid">
+          <div class="perfil-item">
+            <span class="perfil-item-label">Nombre</span>
+            <span class="perfil-item-value">{{ $usuario->nombre }}</span>
+          </div>
+
+          <div class="perfil-item">
+            <span class="perfil-item-label">Email</span>
+            <span class="perfil-item-value">{{ $usuario->email }}</span>
+          </div>
+
+          <div class="perfil-item">
+            <span class="perfil-item-label">Ubicación</span>
+            <span class="perfil-item-value">
+              {{ $usuario->ubicacion ?? 'No configurada' }}
+            </span>
+          </div>
+        </div>
       </div>
-      
-      <div class="perfil-item">
-        <span class="perfil-item-label">Email</span>
-        <span class="perfil-item-value">{{ $usuario->email }}</span>
-      </div>
-      
-      <div class="perfil-item">
-        <span class="perfil-item-label">Ubicación</span>
-        <span class="perfil-item-value">
-          {{ $usuario->ubicacion ?? 'No configurada' }}
-        </span>
-      </div>
-      
     </div>
   </div>
 

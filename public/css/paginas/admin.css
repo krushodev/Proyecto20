@@ -726,10 +726,33 @@ textarea.form-input       { resize: vertical; min-height: 80px; }
 .admin-filters select:focus {
   border-color: rgba(220, 220, 220, 0.35);
   box-shadow: 0 0 0 2px rgba(220, 220, 220, 0.12);
-}
+  }
 
-/* ========================================
-   VENTAS — DETALLE (av-*)
+  .admin-filters .form-input {
+    min-width: 260px;
+    padding: 10px 12px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--vt-hairline-mid);
+    border-radius: var(--vt-radius-md);
+    color: var(--vt-text-primary);
+    font-family: var(--vt-font-body);
+    font-size: var(--vt-fs-caption);
+  }
+
+  .admin-filter-submit {
+    padding: 0.9rem 1.25rem;
+    background-color: var(--vt-accent);
+    border: none;
+    border-radius: var(--vt-radius-md);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .admin-filter-submit:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
    ======================================== */
 
 .admin-order-id {

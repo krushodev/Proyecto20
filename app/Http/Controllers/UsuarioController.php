@@ -7,6 +7,7 @@ use App\Http\Requests\CrearUsuarioRequest;
 use App\Models\Usuario;
 use App\Services\UsuarioService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -14,11 +15,12 @@ class UsuarioController extends Controller
 {
     public function __construct(private UsuarioService $usuarioService) {}
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $usuarios = $this->usuarioService->obtenerTodos();
+        $busqueda = trim((string) $request->query('buscar', ''));
+        $usuarios = $this->usuarioService->obtenerTodos($busqueda);
 
-        return view('backend.admin.usuarios.index', compact('usuarios'));
+        return view('backend.admin.usuarios.index', compact('usuarios', 'busqueda'));
     }
 
     public function create(): View

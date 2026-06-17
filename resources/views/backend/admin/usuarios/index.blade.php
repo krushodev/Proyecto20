@@ -21,6 +21,14 @@
       </div>
     </div>
 
+    <form action="{{ route('usuarios.index') }}" method="GET" class="admin-filters" aria-label="Filtro de usuarios">
+      <label for="buscar">
+        Buscar
+        <input id="buscar" name="buscar" type="search" class="form-input" placeholder="Nombre o email" value="{{ $busqueda ?? '' }}" />
+      </label>
+      <button type="submit" class="admin-filter-submit">Buscar</button>
+    </form>
+
     <div class="admin-table-wrapper">
       <table class="admin-table">
         <thead>

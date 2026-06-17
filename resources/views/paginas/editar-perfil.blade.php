@@ -25,11 +25,6 @@
         <label class="perfil-item-label" for="email">Email</label>
         <input type="email" id="email" name="email" value="{{ old('email', $usuario->email) }}" required>
       </div>
-
-      <div class="perfil-item">
-        <label class="perfil-item-label" for="ubicacion">Ubicación (Dirección)</label>
-        <input type="text" id="ubicacion" name="ubicacion" value="{{ old('ubicacion', $usuario->ubicacion) }}" placeholder="Calle, Número, Ciudad">
-      </div>
     </div>
 
     <h3>Método de Pago</h3>

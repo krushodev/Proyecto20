@@ -46,13 +46,7 @@
             <span class="perfil-item-label">Email</span>
             <span class="perfil-item-value">{{ $usuario->email }}</span>
           </div>
-
-          <div class="perfil-item">
-            <span class="perfil-item-label">Ubicación</span>
-            <span class="perfil-item-value">
-              {{ $usuario->ubicacion ?? 'No configurada' }}
-            </span>
-          </div>
+          
         </div>
       </div>
     </div>

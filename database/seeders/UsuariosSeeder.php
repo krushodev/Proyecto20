@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Hash;
 class UsuariosSeeder extends Seeder
 {
     public const CLIENTES_DEMO = [
-        ['nombre' => 'Juan Pérez',    'email' => 'cliente1@demo.com'],
-        ['nombre' => 'María Gómez',   'email' => 'cliente2@demo.com'],
-        ['nombre' => 'Carlos Ruiz',   'email' => 'cliente3@demo.com'],
+        ['nombre' => 'Valentina Rodríguez', 'email' => 'cliente1@demo.com'],
+        ['nombre' => 'Martín Fernández',    'email' => 'cliente2@demo.com'],
+        ['nombre' => 'Lucía Acosta',        'email' => 'cliente3@demo.com'],
     ];
 
     public function run(): void

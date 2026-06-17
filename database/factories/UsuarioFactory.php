@@ -14,10 +14,39 @@ class UsuarioFactory extends Factory
 
     protected static ?string $password;
 
+    private static array $nombres = [
+        'Valentina', 'Martín', 'Lucía', 'Gonzalo', 'Camila', 'Federico',
+        'Agustina', 'Nicolás', 'Florencia', 'Tomás', 'Sofía', 'Matías',
+        'Micaela', 'Sebastián', 'Julieta', 'Facundo', 'Natalia', 'Diego',
+        'Paula', 'Leandro', 'Celeste', 'Rodrigo', 'Antonella', 'Ezequiel',
+        'Romina', 'Ignacio', 'Melina', 'Maximiliano', 'Noelia', 'Andrés',
+        'Carla', 'Joaquín', 'Soledad', 'Marcos', 'Vanesa', 'Cristian',
+        'Verónica', 'Javier', 'Daniela', 'Pablo',
+    ];
+
+    private static array $apellidos = [
+        'Rodríguez', 'Fernández', 'Acosta', 'Sánchez', 'López', 'García',
+        'Martínez', 'Pérez', 'Díaz', 'Álvarez', 'Romero', 'Torres',
+        'Gutiérrez', 'Herrera', 'Castro', 'Ruiz', 'Moreno', 'Jiménez',
+        'Vargas', 'Ortiz', 'Molina', 'Navarro', 'Ramos', 'Domínguez',
+        'Suárez', 'Mendoza', 'Ríos', 'Silva', 'Blanco', 'Medina',
+        'Fuentes', 'Delgado', 'Ibáñez', 'Vega', 'Paredes', 'Heredia',
+        'Núñez', 'Pereyra', 'Cabrera', 'Benítez',
+    ];
+
+    private static array $dominios = [
+        'gmail.com', 'hotmail.com', 'yahoo.com.ar', 'outlook.com', 'live.com.ar',
+    ];
+
     public function definition(): array
     {
+        $nombre   = self::$nombres[array_rand(self::$nombres)];
+        $apellido = self::$apellidos[array_rand(self::$apellidos)];
+        $slug     = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $nombre . '.' . $apellido));
+        $dominio  = self::$dominios[array_rand(self::$dominios)];
+
         return [
-            'nombre'            => fake()->name(),
+            'nombre'            => "$nombre $apellido",
             'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),

@@ -61,7 +61,7 @@
     @empty
       <div class="admin-empty-state">
         <i data-lucide="inbox"></i>
-        <p>No hay consultas registradas.</p>
+        <p>No hay resultados.</p>
       </div>
     @endforelse
 

@@ -60,7 +60,7 @@
             </td>
           </tr>
           @empty
-          <tr><td colspan="5" class="admin-empty">No hay usuarios registrados.</td></tr>
+          <tr><td colspan="5" class="admin-empty">No hay resultados.</td></tr>
           @endforelse
         </tbody>
       </table>

@@ -19,13 +19,37 @@
       </div>
 
       <div class="catalog-header-right">
-        <form action="{{ route('catalogo') }}" method="GET" class="catalog-filter-form" aria-label="Filtro por línea">
-          <select id="linea" name="linea" class="form-input catalog-filter-select" onchange="this.form.submit()">
-            <option value="" {{ empty($lineaSlug) ? 'selected' : '' }}>Todas las líneas</option>
-            @foreach($lineas as $linea)
-              <option value="{{ $linea->slug }}" {{ $lineaSlug === $linea->slug ? 'selected' : '' }}>{{ $linea->nombre }}</option>
-            @endforeach
-          </select>
+        <form action="{{ route('catalogo') }}" method="GET" class="catalog-filter-form" aria-label="Filtro del catálogo">
+          <div class="catalog-filter-row">
+            <div class="catalog-filter-group">
+              <label for="linea" class="catalog-filter-label">Línea</label>
+              <select id="linea" name="linea" class="form-input catalog-filter-select" onchange="this.form.submit()">
+                <option value="" {{ empty($lineaSlug) ? 'selected' : '' }}>Todas las líneas</option>
+                @foreach($lineas as $linea)
+                  <option value="{{ $linea->slug }}" {{ $lineaSlug === $linea->slug ? 'selected' : '' }}>{{ $linea->nombre }}</option>
+                @endforeach
+              </select>
+            </div>
+
+            <div class="catalog-filter-group">
+              <label for="precio" class="catalog-filter-label">Precio</label>
+              <select id="precio" name="precio" class="form-input catalog-filter-select" onchange="this.form.submit()">
+                <option value="" {{ empty($precio) ? 'selected' : '' }}>Todos los precios</option>
+                <option value="low" {{ ($precio ?? '') === 'low' ? 'selected' : '' }}>Hasta $150.000</option>
+                <option value="mid" {{ ($precio ?? '') === 'mid' ? 'selected' : '' }}>$150.001 - $300.000</option>
+                <option value="high" {{ ($precio ?? '') === 'high' ? 'selected' : '' }}>Más de $300.000</option>
+              </select>
+            </div>
+
+            <div class="catalog-filter-group">
+              <label for="stock" class="catalog-filter-label">Disponibilidad</label>
+              <select id="stock" name="stock" class="form-input catalog-filter-select" onchange="this.form.submit()">
+                <option value="" {{ empty($stock) ? 'selected' : '' }}>Todas</option>
+                <option value="en_stock" {{ ($stock ?? '') === 'en_stock' ? 'selected' : '' }}>En stock</option>
+                <option value="agotado" {{ ($stock ?? '') === 'agotado' ? 'selected' : '' }}>Agotados</option>
+              </select>
+            </div>
+          </div>
         </form>
       </div>
     </header>

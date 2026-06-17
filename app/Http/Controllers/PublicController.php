@@ -26,10 +26,13 @@ class PublicController extends Controller
     public function catalogo(Request $request): View
     {
         $lineaSlug = $request->query('linea');
-        $lineas = $this->categoriaService->obtenerActivas();
-        $categorias = $this->categoriaService->obtenerActivasConProductos($lineaSlug);
+        $precio    = $request->query('precio');
+        $stock     = $request->query('stock');
 
-        return view('paginas.catalogo', compact('categorias', 'lineas', 'lineaSlug'));
+        $lineas = $this->categoriaService->obtenerActivas();
+        $categorias = $this->categoriaService->obtenerActivasConProductos($lineaSlug, $precio, $stock);
+
+        return view('paginas.catalogo', compact('categorias', 'lineas', 'lineaSlug', 'precio', 'stock'));
     }
 
     public function nosotros(): View

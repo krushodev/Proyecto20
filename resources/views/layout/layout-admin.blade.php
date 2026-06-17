@@ -32,13 +32,8 @@
         <span class="admin-topbar-context vt-eyebrow">Administración</span>
       </div>
 
-      {{-- Lado derecho: ver sitio + usuario + logout --}}
+      {{-- Lado derecho: usuario + logout --}}
       <div class="admin-topbar-right">
-        <a href="{{ url('/') }}" class="admin-topbar-action" target="_blank" rel="noopener" aria-label="Ver sitio público">
-          <i data-lucide="external-link"></i>
-          <span>Ver sitio</span>
-        </a>
-
         @auth
           <div class="admin-topbar-divider" aria-hidden="true"></div>
 

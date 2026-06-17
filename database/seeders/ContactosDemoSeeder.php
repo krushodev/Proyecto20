@@ -6,8 +6,8 @@ use App\Models\Contacto;
 use Illuminate\Database\Seeder;
 
 /**
- * Volumen representativo de consultas de contacto, simulando un buzón real:
- * mayoría sin leer y un grupo ya leído por el equipo de soporte.
+ * Consultas de contacto simulando un buzón real de una relojería en La Plata:
+ * mayoría sin leer (recientes) y un grupo ya leído (consultas más antiguas).
  */
 class ContactosDemoSeeder extends Seeder
 {
@@ -17,10 +17,25 @@ class ContactosDemoSeeder extends Seeder
 
     public function run(): void
     {
-        $leidos    = (int) round(self::CANTIDAD_CONTACTOS * self::PROPORCION_LEIDOS);
-        $noLeidos  = self::CANTIDAD_CONTACTOS - $leidos;
+        $leidos   = (int) round(self::CANTIDAD_CONTACTOS * self::PROPORCION_LEIDOS);
+        $noLeidos = self::CANTIDAD_CONTACTOS - $leidos;
 
-        Contacto::factory()->count($noLeidos)->create();
-        Contacto::factory()->count($leidos)->leido()->create();
+        // Consultas sin leer: llegaron en los últimos 30 días
+        for ($i = 0; $i < $noLeidos; $i++) {
+            $fecha = now()->subDays(rand(0, 30))->subHours(rand(0, 23));
+            Contacto::factory()->create([
+                'created_at' => $fecha,
+                'updated_at' => $fecha,
+            ]);
+        }
+
+        // Consultas ya leídas: entre 1 y 6 meses atrás
+        for ($i = 0; $i < $leidos; $i++) {
+            $fecha = now()->subDays(rand(31, 180))->subHours(rand(0, 23));
+            Contacto::factory()->leido()->create([
+                'created_at' => $fecha,
+                'updated_at' => $fecha,
+            ]);
+        }
     }
 }

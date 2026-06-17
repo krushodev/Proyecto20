@@ -26,6 +26,15 @@
         Buscar
         <input id="buscar" name="buscar" type="search" class="form-input" placeholder="Nombre o email" value="{{ $busqueda ?? '' }}" />
       </label>
+      <label for="rol">
+        Rol
+        <select id="rol" name="rol">
+          <option value="">Todos</option>
+          @foreach($roles as $rol)
+            <option value="{{ $rol->id }}" @selected((string) $rol->id === (string) ($rolSeleccionado ?? ''))>{{ $rol->nombre }}</option>
+          @endforeach
+        </select>
+      </label>
       <button type="submit" class="admin-filter-submit">Buscar</button>
     </form>
 

@@ -18,9 +18,11 @@ class UsuarioController extends Controller
     public function index(Request $request): View
     {
         $busqueda = trim((string) $request->query('buscar', ''));
-        $usuarios = $this->usuarioService->obtenerTodos($busqueda);
+        $rolSeleccionado = trim((string) $request->query('rol', ''));
+        $usuarios = $this->usuarioService->obtenerTodos($busqueda, $rolSeleccionado);
+        $roles = $this->usuarioService->obtenerRoles();
 
-        return view('backend.admin.usuarios.index', compact('usuarios', 'busqueda'));
+        return view('backend.admin.usuarios.index', compact('usuarios', 'busqueda', 'rolSeleccionado', 'roles'));
     }
 
     public function create(): View

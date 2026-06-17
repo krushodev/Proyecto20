@@ -16,13 +16,18 @@ class UsuarioService
         });
     }
 
-    public function obtenerTodos(?string $busqueda = null): Collection
+    public function obtenerTodos(?string $busqueda = null, ?string $rolSeleccionado = null): Collection
     {
         return Usuario::with('rol')
             ->when($busqueda !== null && $busqueda !== '', function ($query) use ($busqueda) {
                 $query->where(function ($subquery) use ($busqueda) {
                     $subquery->where('nombre', 'like', "%{$busqueda}%")
                         ->orWhere('email', 'like', "%{$busqueda}%");
+                });
+            })
+            ->when($rolSeleccionado !== null && $rolSeleccionado !== '', function ($query) use ($rolSeleccionado) {
+                $query->whereHas('rol', function ($subquery) use ($rolSeleccionado) {
+                    $subquery->where('id', $rolSeleccionado);
                 });
             })
             ->get();

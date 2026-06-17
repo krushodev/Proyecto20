@@ -116,9 +116,10 @@ it('NO actualiza password cuando se provee string vacio', function () {
     expect($usuario->fresh()->password)->toBe($hashOriginal);
 });
 
-it('actualiza campos de tarjeta correctamente', function () {
+it('ignora campos de tarjeta legacy al actualizar perfil (gestionados via user_tarjetas)', function () {
     $usuario = crearCliente();
 
+    // Los campos de tarjeta ya no se persisten en usuarios; se gestionan via user_tarjetas
     $this->service->actualizarPerfil($usuario, [
         'nombre'              => $usuario->nombre,
         'email'               => $usuario->email,
@@ -130,10 +131,10 @@ it('actualiza campos de tarjeta correctamente', function () {
 
     $fresh = $usuario->fresh();
 
-    expect($fresh->numero_tarjeta)->toBe('4111111111111111');
-    expect($fresh->titular_tarjeta)->toBe('JUAN PEREZ');
-    expect($fresh->vencimiento_tarjeta)->toBe('12/28');
-    expect($fresh->cvv_tarjeta)->toBe('123');
+    expect($fresh->numero_tarjeta)->toBeNull();
+    expect($fresh->titular_tarjeta)->toBeNull();
+    expect($fresh->vencimiento_tarjeta)->toBeNull();
+    expect($fresh->cvv_tarjeta)->toBeNull();
 });
 
 it('pone campos de tarjeta en null si no se proveen', function () {

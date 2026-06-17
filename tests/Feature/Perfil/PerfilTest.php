@@ -116,16 +116,17 @@ it('actualizar perfil rechaza numero de tarjeta con formato invalido', function 
     ])->assertSessionHasErrors(['numero_tarjeta']);
 });
 
-it('actualizar perfil acepta numero de tarjeta con formato valido', function () {
+it('actualizar perfil acepta numero de tarjeta con formato valido sin persistirlo en usuarios', function () {
     $cliente = crearCliente();
 
+    // El campo pasa validación (nullable regex), pero ya no se persiste en usuarios
     $this->actingAs($cliente)->put('/perfil', [
         'nombre'         => $cliente->nombre,
         'email'          => $cliente->email,
         'numero_tarjeta' => '4111 1111 1111 1111',
     ])->assertRedirect(route('perfil.ver'));
 
-    expect($cliente->fresh()->numero_tarjeta)->toBe('4111 1111 1111 1111');
+    expect($cliente->fresh()->numero_tarjeta)->toBeNull();
 });
 
 it('actualizar perfil rechaza vencimiento de tarjeta con formato invalido', function () {

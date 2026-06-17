@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Rol;
 use App\Models\Usuario;
+use App\Models\UserTarjeta;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -67,5 +68,18 @@ class UsuarioFactory extends Factory
         return $this->state(fn () => [
             'rol_id' => Rol::firstOrCreate(['nombre' => 'cliente'])->id,
         ]);
+    }
+
+    /**
+     * Crea el usuario con 1 o 2 tarjetas guardadas aleatorias.
+     * Útil para tests y seeders de volumen.
+     */
+    public function conTarjeta(int $cantidad = 1): static
+    {
+        return $this->afterCreating(function (Usuario $usuario) use ($cantidad) {
+            UserTarjeta::factory()
+                ->count($cantidad)
+                ->create(['user_id' => $usuario->id]);
+        });
     }
 }

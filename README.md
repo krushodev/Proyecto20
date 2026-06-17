@@ -1,6 +1,6 @@
 # Vittorio — Plataforma E-commerce de Relojes
 
-> Aplicación web de comercio electrónico especializada en la venta de relojes, desarrollada con Laravel 13. Incluye catálogo de productos, carrito de compras, proceso de checkout con integración a Mercado Pago, panel de administración y gestión de pedidos con generación de facturas en PDF.
+> Aplicación web de comercio electrónico especializada en la venta de relojes, desarrollada con Laravel 13. Incluye catálogo de productos, carrito de compras, proceso de checkout con integración a Mercado Pago, gestión de tarjetas de crédito guardadas, panel de administración y gestión de pedidos con generación de facturas en PDF.
 
 ---
 
@@ -18,12 +18,13 @@
 10. [Comandos Útiles](#comandos-útiles)
 11. [Estructura de Carpetas](#estructura-de-carpetas)
 12. [Flujo de Autenticación y Roles](#flujo-de-autenticación-y-roles)
-13. [Integración con Mercado Pago](#integración-con-mercado-pago)
-14. [Testing de Pagos (Sandbox)](#testing-de-pagos-sandbox)
-15. [Pruebas Automatizadas](#pruebas-automatizadas)
-16. [Consideraciones de Despliegue](#consideraciones-de-despliegue)
-17. [Solución de Problemas Frecuentes](#solución-de-problemas-frecuentes)
-18. [Buenas Prácticas para Nuevos Desarrolladores](#buenas-prácticas-para-nuevos-desarrolladores)
+13. [Gestión de Tarjetas de Crédito](#gestión-de-tarjetas-de-crédito)
+14. [Integración con Mercado Pago](#integración-con-mercado-pago)
+15. [Testing de Pagos (Sandbox)](#testing-de-pagos-sandbox)
+16. [Pruebas Automatizadas](#pruebas-automatizadas)
+17. [Consideraciones de Despliegue](#consideraciones-de-despliegue)
+18. [Solución de Problemas Frecuentes](#solución-de-problemas-frecuentes)
+19. [Buenas Prácticas para Nuevos Desarrolladores](#buenas-prácticas-para-nuevos-desarrolladores)
 
 ---
 
@@ -43,10 +44,12 @@ El diseño sigue un sistema de doble paleta visual: un modo oscuro de marketing 
 - Carrito de compras con sesión persistente
 - Checkout en múltiples pasos: envío → costo de envío → pago
 - Pago con Mercado Pago (sandbox y producción)
+- **Gestión de tarjetas de crédito/débito**: agregar múltiples tarjetas al perfil con UI visual animada, detección automática de franquicia (Visa, Mastercard, Amex, Cabal, Naranja X, etc.) y selección rápida en el checkout
 - Historial de compras con descarga de facturas en PDF
 - Gestión de perfil y direcciones de envío guardadas
 - Formulario de contacto con notificación por email al administrador
 - Registro, login y recuperación de contraseña
+- Toggle de visibilidad en todos los campos de contraseña
 
 ### Para el administrador
 - Dashboard con métricas generales
@@ -261,6 +264,20 @@ Luego de ejecutar `SuperAdminSeeder`, el usuario administrador es:
 
 > **Nota:** Las credenciales del superadmin no están hardcodeadas en este README por seguridad. Consultá directamente el archivo `database/seeders/SuperAdminSeeder.php` o pedíselas al líder del proyecto.
 
+### Usuarios de demostración (clientes)
+
+`UsuariosSeeder` crea 3 clientes de demo con tarjetas preconfiguradas y 47 clientes aleatorios:
+
+| Email | Contraseña | Tarjetas precargadas |
+|-------|-----------|----------------------|
+| `cliente1@demo.com` | `123456789` | Visa ···4242, Mastercard ···5521 |
+| `cliente2@demo.com` | `123456789` | Amex ···0005 |
+| `cliente3@demo.com` | `123456789` | Naranja X ···6234 |
+
+Los 47 clientes aleatorios se generan con probabilidades: 50% sin tarjeta, 30% con una tarjeta, 20% con dos tarjetas.
+
+> Los seeders son idempotentes: ejecutar `db:seed` varias veces no duplica datos.
+
 ---
 
 ## Ejecución Local
@@ -390,7 +407,7 @@ Proyecto20/
 │   │   ├── Middleware/         # CheckRol — control de acceso por rol
 │   │   └── Requests/           # Form Requests de validación (12 archivos)
 │   ├── Mail/                   # Clases Mailable (ContactoRecibidoMail, FacturaCompraMail)
-│   ├── Models/                 # Modelos Eloquent (9 modelos)
+│   ├── Models/                 # Modelos Eloquent (10 modelos)
 │   ├── Notifications/          # ResetPasswordNotification
 │   ├── Providers/              # Service Providers de Laravel
 │   └── Services/               # Capa de servicios con lógica de negocio (9 servicios)
@@ -490,6 +507,64 @@ Route::middleware('guest')->group(...);
 4. `POST /reset-password` → actualiza contraseña y redirige al login
 
 > **Requiere queue listener activo** para el envío del email de recuperación.
+
+---
+
+## Gestión de Tarjetas de Crédito
+
+### Descripción
+
+Los clientes pueden guardar múltiples tarjetas de crédito/débito en su perfil (`/perfil`) y seleccionarlas directamente en el paso de pago del checkout. El número completo de tarjeta **nunca se almacena** — solo los últimos 4 dígitos, el titular y la fecha de vencimiento.
+
+### Tabla `user_tarjetas`
+
+| Columna | Tipo | Descripción |
+|---------|------|-------------|
+| `id` | bigint PK | |
+| `user_id` | FK → `usuarios` | Cascade delete |
+| `ultimos_cuatro` | char(4) | Últimos 4 dígitos |
+| `titular` | varchar(100) | Nombre en la tarjeta |
+| `mes_exp` | char(2) | Mes de vencimiento (01–12) |
+| `anio_exp` | char(2) | Año de vencimiento (dos dígitos) |
+| `tipo` | varchar(20) | Franquicia: `visa`, `mastercard`, `amex`, `cabal`, `naranja`, etc. |
+
+### Rutas
+
+```
+POST   /perfil/tarjetas              perfil.tarjetas.guardar   (auth, !admin)
+DELETE /perfil/tarjetas/{tarjeta}    perfil.tarjetas.eliminar  (auth, !admin)
+```
+
+### Detección de franquicia
+
+La franquicia se detecta en tiempo real vía JavaScript mientras el usuario escribe el número de tarjeta, usando regexes sobre los primeros dígitos (BIN):
+
+| Franquicia | Prefijo |
+|-----------|---------|
+| Visa | `4` |
+| Mastercard | `51–55`, `2221–2720` |
+| Amex | `34`, `37` |
+| Naranja X | `589562` |
+| Cabal | `604201–604229`, `589657` |
+| Argencard | `501105` |
+
+El partial `resources/views/partes/card-brand-svg.blade.php` renderiza el SVG de la franquicia en las tarjetas visuales del perfil y el checkout.
+
+### Modelo `UserTarjeta`
+
+```php
+// Relación inversa
+public function usuario(): BelongsTo  // → App\Models\Usuario
+
+// Accessor conveniente
+$tarjeta->vencimiento  // devuelve "MM/AA"
+```
+
+La relación directa en `Usuario`:
+
+```php
+public function tarjetas(): HasMany  // ordenadas por más reciente
+```
 
 ---
 
@@ -737,6 +812,24 @@ composer run test       # verifica que no hay regresiones
 - **No modificar migraciones existentes** — siempre crear una nueva migración para cambios
 - Usar `php artisan migrate:fresh --seed` solo en desarrollo, nunca en producción
 - Las relaciones entre modelos están definidas en los archivos `app/Models/` — revisarlos antes de hacer queries manuales
+
+### Factories y seeders
+
+El proyecto usa factories con **estados** para componer datos de prueba de forma expresiva:
+
+```php
+// Crear un usuario cliente con 2 tarjetas guardadas
+Usuario::factory()->cliente()->conTarjeta(2)->create();
+
+// Crear tarjetas de una franquicia específica
+UserTarjeta::factory()->visa()->create(['user_id' => $usuario->id]);
+UserTarjeta::factory()->mastercard()->create(['user_id' => $usuario->id]);
+UserTarjeta::factory()->amex()->create(['user_id' => $usuario->id]);
+```
+
+El estado `conTarjeta(int $cantidad)` en `UsuarioFactory` usa `afterCreating()` para encadenar la creación de `UserTarjeta` tras crear el usuario, manteniendo los seeders limpios y los tests expresivos.
+
+Los seeders usan `firstOrCreate` + verificaciones de conteo para ser **idempotentes** — se pueden re-ejecutar sin duplicar datos.
 
 
 *Desarrollado con [Laravel](https://laravel.com) v13 — PHP 8.3+*

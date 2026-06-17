@@ -63,7 +63,7 @@
               </span>
             </label>
 
-            {{-- Tarjeta (simulación) --}}
+            {{-- Tarjeta --}}
             <label class="metodo-option" data-target="panel-tarjeta">
               <input type="radio" name="metodo_pago" value="tarjeta"
                      class="metodo-radio" />
@@ -127,73 +127,125 @@
           </p>
         </div>
 
-        {{-- Panel tarjeta (simulación visual) --}}
+        {{-- Panel tarjeta --}}
         <div class="checkout-card panel-pago is-hidden" id="panel-tarjeta">
           <h2 class="checkout-card-title">Datos de la tarjeta</h2>
 
-          {{-- Tarjeta animada --}}
-          <div class="card-preview-wrap">
-            <div class="card-preview" id="card-preview">
-              <div class="card-front">
-                <div class="card-chip"></div>
-                <div class="card-number-display" id="card-number-display">•••• •••• •••• ••••</div>
-                <div class="card-bottom">
-                  <div>
-                    <div class="card-label">Titular</div>
-                    <div class="card-holder-display" id="card-holder-display">NOMBRE APELLIDO</div>
+          {{-- ── Tarjetas guardadas ───────────────────────────────── --}}
+          @if($tarjetas->isNotEmpty())
+            <div class="saved-cards-section">
+              <p class="saved-cards-label">Tus tarjetas guardadas</p>
+              <div class="saved-cards-grid">
+                @foreach($tarjetas as $tarjeta)
+                  <label class="saved-card-option" data-brand="{{ $tarjeta->tipo }}">
+                    <input type="radio" name="tarjeta_seleccionada" value="{{ $tarjeta->id }}"
+                           class="saved-card-radio" />
+                    <div class="sco-face">
+                      <div class="sco-chip"></div>
+                      <div class="sco-number">•••• {{ $tarjeta->ultimos_cuatro }}</div>
+                      <div class="sco-footer">
+                        <div>
+                          <div class="sco-meta">{{ $tarjeta->titular }}</div>
+                          <div class="sco-exp">{{ $tarjeta->mes_exp }}/{{ $tarjeta->anio_exp }}</div>
+                        </div>
+                        <div class="sco-brand-icon">
+                          @include('partes.card-brand-svg', ['tipo' => $tarjeta->tipo])
+                        </div>
+                      </div>
+                    </div>
+                    <div class="sco-check-ring">
+                      <i data-lucide="check" class="sco-check-icon"></i>
+                    </div>
+                  </label>
+                @endforeach
+
+                {{-- Opción "nueva tarjeta" --}}
+                <label class="saved-card-option saved-card-option--new" id="opt-nueva-tarjeta">
+                  <input type="radio" name="tarjeta_seleccionada" value="nueva"
+                         class="saved-card-radio" />
+                  <div class="sco-face sco-face--new">
+                    <i data-lucide="plus-circle" class="sco-new-icon"></i>
+                    <span class="sco-new-label">Nueva<br>tarjeta</span>
                   </div>
-                  <div>
-                    <div class="card-label">Vence</div>
-                    <div class="card-exp-display" id="card-exp-display">MM/AA</div>
+                  <div class="sco-check-ring">
+                    <i data-lucide="check" class="sco-check-icon"></i>
                   </div>
-                  <div class="card-brand">
-                    <svg viewBox="0 0 48 48" fill="none" class="card-brand-svg">
-                      <circle cx="18" cy="24" r="14" fill="rgba(255,255,255,.25)"/>
-                      <circle cx="30" cy="24" r="14" fill="rgba(255,255,255,.15)"/>
-                    </svg>
+                </label>
+              </div>
+            </div>
+          @endif
+
+          {{-- ── Formulario nueva tarjeta ─────────────────────────── --}}
+          {{-- Si hay tarjetas guardadas: oculto hasta que el usuario elija "nueva" --}}
+          <div id="checkout-nueva-tarjeta-form" class="{{ $tarjetas->isNotEmpty() ? 'is-hidden' : '' }}">
+
+            {{-- Tarjeta animada --}}
+            <div class="card-preview-wrap">
+              <div class="card-preview" id="card-preview">
+                <div class="card-front">
+                  <div class="card-chip"></div>
+                  <div class="card-number-display" id="card-number-display">•••• •••• •••• ••••</div>
+                  <div class="card-bottom">
+                    <div>
+                      <div class="card-label">Titular</div>
+                      <div class="card-holder-display" id="card-holder-display">NOMBRE APELLIDO</div>
+                    </div>
+                    <div>
+                      <div class="card-label">Vence</div>
+                      <div class="card-exp-display" id="card-exp-display">MM/AA</div>
+                    </div>
+                    <div class="card-brand">
+                      <svg viewBox="0 0 48 48" fill="none" class="card-brand-svg" id="checkout-brand-svg">
+                        <circle cx="18" cy="24" r="14" fill="rgba(255,255,255,.25)"/>
+                        <circle cx="30" cy="24" r="14" fill="rgba(255,255,255,.15)"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-back">
-                <div class="card-strip"></div>
-                <div class="card-cvv-row">
-                  <div class="card-cvv-bar"></div>
-                  <div class="card-cvv-box">
-                    <div class="card-label">CVV</div>
-                    <div class="card-cvv-display" id="card-cvv-display">•••</div>
+                <div class="card-back">
+                  <div class="card-strip"></div>
+                  <div class="card-cvv-row">
+                    <div class="card-cvv-bar"></div>
+                    <div class="card-cvv-box">
+                      <div class="card-label">CVV</div>
+                      <div class="card-cvv-display" id="card-cvv-display">•••</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <label class="form-label" for="card_number">Número de tarjeta</label>
+              <input type="text" id="card_number" class="form-input"
+                     placeholder="0000 0000 0000 0000" maxlength="19"
+                     inputmode="numeric" autocomplete="cc-number" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="card_holder">Nombre del titular</label>
+              <input type="text" id="card_holder" class="form-input"
+                     placeholder="Como figura en la tarjeta" autocomplete="cc-name" />
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="card_exp">Vencimiento</label>
+                <input type="text" id="card_exp" class="form-input"
+                       placeholder="MM/AA" maxlength="5"
+                       inputmode="numeric" autocomplete="cc-exp" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="card_cvv">CVV</label>
+                <input type="text" id="card_cvv" class="form-input"
+                       placeholder="•••" maxlength="4"
+                       inputmode="numeric" autocomplete="cc-csc" />
+              </div>
+            </div>
+            <p class="transferencia-nota">
+              <i data-lucide="shield-check" class="icon-13"></i>
+              Simulación frontend — los datos de tarjeta no se envían ni almacenan.
+            </p>
           </div>
 
-          {{-- Campos (solo visual, no se envían al servidor) --}}
-          <div class="form-group">
-            <label class="form-label" for="card_number">Número de tarjeta</label>
-            <input type="text" id="card_number" class="form-input"
-                   placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" autocomplete="cc-number" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="card_holder">Nombre del titular</label>
-            <input type="text" id="card_holder" class="form-input"
-                   placeholder="Como figura en la tarjeta" autocomplete="cc-name" />
-          </div>
-          <div class="form-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="card_exp">Vencimiento</label>
-              <input type="text" id="card_exp" class="form-input"
-                     placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="cc-exp" />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="card_cvv">CVV</label>
-              <input type="text" id="card_cvv" class="form-input"
-                     placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc" />
-            </div>
-          </div>
-          <p class="transferencia-nota">
-            <i data-lucide="shield-check" class="icon-13"></i>
-            Simulación frontend — los datos de tarjeta no se envían ni almacenan.
-          </p>
         </div>
 
         {{-- Panel MercadoPago --}}
@@ -213,7 +265,6 @@
               <span class="mp-badge"><i data-lucide="repeat" class="icon-12"></i> Cuotas disponibles</span>
             </div>
           </div>
-
         </div>
 
         {{-- Acciones --}}
@@ -276,6 +327,7 @@
 @push('scripts')
 <script>
 (function () {
+
   /* ── Cambio de panel según método seleccionado ─────────────────── */
   var panels   = { transferencia: 'panel-transferencia', tarjeta: 'panel-tarjeta', mercadopago: 'panel-mp' };
   var radios   = document.querySelectorAll('.metodo-radio');
@@ -283,9 +335,14 @@
   var btnSubmit = document.getElementById('btn-submit');
 
   function showPanel(value) {
-    Object.values(panels).forEach(function(id) {
+    Object.values(panels).forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) el.style.display = id === panels[value] ? '' : 'none';
+      if (!el) return;
+      if (id === panels[value]) {
+        el.classList.remove('is-hidden');
+      } else {
+        el.classList.add('is-hidden');
+      }
     });
     if (btnSubmit) {
       var span = btnSubmit.childNodes[0];
@@ -293,13 +350,78 @@
     }
   }
 
-  radios.forEach(function(radio) {
-    radio.addEventListener('change', function() { showPanel(this.value); });
+  radios.forEach(function (radio) {
+    radio.addEventListener('change', function () { showPanel(this.value); });
   });
 
-  /* Inicializar con el valor checked */
   var checked = document.querySelector('.metodo-radio:checked');
   if (checked) showPanel(checked.value);
+
+  /* ── Tarjetas guardadas: toggle "nueva tarjeta" ────────────────── */
+  var savedRadios = document.querySelectorAll('.saved-card-radio');
+  var nuevaForm   = document.getElementById('checkout-nueva-tarjeta-form');
+
+  savedRadios.forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      var isNueva = this.value === 'nueva';
+      if (nuevaForm) {
+        if (isNueva) {
+          nuevaForm.classList.remove('is-hidden');
+        } else {
+          nuevaForm.classList.add('is-hidden');
+        }
+      }
+      // Refrescar iconos
+      if (window.lucide) lucide.createIcons();
+    });
+  });
+
+  /* ── Detección de franquicia ─────────────────────────────────── */
+  var BRANDS = {
+    visa:       { color1: '#1a1f71', color2: '#0e3d8c' },
+    mastercard: { color1: '#1c1c1c', color2: '#3a1a00' },
+    amex:       { color1: '#007bc1', color2: '#004d7c' },
+    discover:   { color1: '#231f20', color2: '#4d1f00' },
+    cabal:      { color1: '#003082', color2: '#0044b3' },
+    naranja:    { color1: '#d64d00', color2: '#f05a00' },
+    argencard:  { color1: '#002c77', color2: '#0041aa' },
+    default:    { color1: '#1a1a2e', color2: '#0f3460' },
+  };
+
+  function detectarFranquicia(n) {
+    n = n.replace(/\D/g, '');
+    if (!n) return 'default';
+    if (/^4/.test(n)) return 'visa';
+    if (/^5[1-5]/.test(n)) return 'mastercard';
+    if (/^2[2-7]/.test(n)) {
+      var p = parseInt(n.slice(0, 4), 10);
+      if (p >= 2221 && p <= 2720) return 'mastercard';
+    }
+    if (/^3[47]/.test(n)) return 'amex';
+    if (/^6011|^65/.test(n)) return 'discover';
+    if (/^589892/.test(n)) return 'argencard';
+    if (/^603493|^627170/.test(n)) return 'cabal';
+    if (/^589562/.test(n)) return 'naranja';
+    return 'default';
+  }
+
+  function buildBrandSvg(tipo) {
+    if (tipo === 'visa') return '<text x="2" y="34" font-family="Arial Black,Arial,sans-serif" font-size="22" font-weight="900" fill="white" letter-spacing="1">VISA</text>';
+    if (tipo === 'mastercard') return '<circle cx="16" cy="24" r="13" fill="#eb001b" opacity=".9"/><circle cx="32" cy="24" r="13" fill="#f79e1b" opacity=".9"/><path d="M24 13.3a13 13 0 0 1 0 21.4A13 13 0 0 1 24 13.3z" fill="#ff5f00" opacity=".9"/>';
+    if (tipo === 'amex') return '<text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-size="16" font-weight="900" fill="white">AMEX</text>';
+    if (tipo === 'naranja') return '<circle cx="24" cy="24" r="18" fill="#f05a00" opacity=".7"/><text x="24" y="29" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="white" text-anchor="middle">NARANJA</text>';
+    if (tipo === 'cabal') return '<text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-size="18" font-weight="900" fill="white">CABAL</text>';
+    return '<circle cx="18" cy="24" r="14" fill="rgba(255,255,255,.25)"/><circle cx="30" cy="24" r="14" fill="rgba(255,255,255,.15)"/>';
+  }
+
+  function aplicarBrandCheckout(tipo) {
+    var brand   = BRANDS[tipo] || BRANDS['default'];
+    var preview = document.getElementById('card-preview');
+    var front   = preview ? preview.querySelector('.card-front') : null;
+    var svgEl   = document.getElementById('checkout-brand-svg');
+    if (front) front.style.background = 'linear-gradient(135deg,' + brand.color1 + ' 0%,' + brand.color2 + ' 100%)';
+    if (svgEl) svgEl.innerHTML = buildBrandSvg(tipo);
+  }
 
   /* ── Simulación de tarjeta ─────────────────────────────────────── */
   var cardPreview = document.getElementById('card-preview');
@@ -314,35 +436,36 @@
   var cvvInput    = document.getElementById('card_cvv');
 
   if (numInput) {
-    numInput.addEventListener('input', function() {
-      var v = this.value.replace(/\D/g, '').slice(0, 16);
+    numInput.addEventListener('input', function () {
+      var v   = this.value.replace(/\D/g, '').slice(0, 16);
       var fmt = v.replace(/(.{4})/g, '$1 ').trim();
       this.value = fmt;
       var padded = v.padEnd(16, '•');
       numDisplay.textContent = padded.replace(/(.{4})/g, '$1 ').trim();
+      aplicarBrandCheckout(detectarFranquicia(v));
     });
   }
 
   if (holderInput) {
-    holderInput.addEventListener('input', function() {
+    holderInput.addEventListener('input', function () {
       holderDisp.textContent = this.value.toUpperCase() || 'NOMBRE APELLIDO';
     });
   }
 
   if (expInput) {
-    expInput.addEventListener('input', function() {
+    expInput.addEventListener('input', function () {
       var v = this.value.replace(/\D/g, '').slice(0, 4);
-      if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+      if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
       this.value = v;
       expDisp.textContent = v || 'MM/AA';
     });
   }
 
   if (cvvInput) {
-    cvvInput.addEventListener('focus', function() { if (cardPreview) cardPreview.classList.add('flipped'); });
-    cvvInput.addEventListener('blur',  function() { if (cardPreview) cardPreview.classList.remove('flipped'); });
-    cvvInput.addEventListener('input', function() {
-      cvvDisp.textContent = this.value.replace(/\D/g,'').slice(0,4) || '•••';
+    cvvInput.addEventListener('focus', function () { if (cardPreview) cardPreview.classList.add('flipped'); });
+    cvvInput.addEventListener('blur',  function () { if (cardPreview) cardPreview.classList.remove('flipped'); });
+    cvvInput.addEventListener('input', function () {
+      cvvDisp.textContent = this.value.replace(/\D/g, '').slice(0, 4) || '•••';
     });
   }
 
@@ -353,20 +476,12 @@
   if (formPago) {
     formPago.addEventListener('submit', function (e) {
       var seleccionado = document.querySelector('.metodo-radio:checked');
-      if (!seleccionado || seleccionado.value !== 'mercadopago') return; // deja funcionar normal para otros métodos
+      if (!seleccionado || seleccionado.value !== 'mercadopago') return;
 
       e.preventDefault();
 
-      // Abrir pestaña SINCRÓNICAMENTE dentro del evento (evita el bloqueador de popups)
-      var mpTab = window.open('', '_blank');
-      if (mpTab) {
-        mpTab.document.write(
-          '<html><head><title>Redirigiendo...</title></head>' +
-          '<body style="margin:0;background:#009ee3;display:flex;align-items:center;justify-content:center;height:100vh;">' +
-          '<p style="color:#fff;font-family:sans-serif;font-size:1.1rem;letter-spacing:.04em;">Conectando con Mercado Pago&hellip;</p>' +
-          '</body></html>'
-        );
-      }
+      var btnSubmitEl = document.getElementById('btn-submit');
+      if (btnSubmitEl) btnSubmitEl.disabled = true;
 
       var formData = new FormData(formPago);
 
@@ -378,18 +493,22 @@
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (data.url) {
-            if (mpTab) { mpTab.location.href = data.url; }
+            // Redirigir en la misma pestaña evita que el bloqueador de popups
+            // intercepte la apertura, ya que window.open diferido no cuenta
+            // como gesto del usuario
+            window.location.href = data.url;
           } else {
-            if (mpTab) { mpTab.close(); }
+            if (btnSubmitEl) btnSubmitEl.disabled = false;
             alert(data.error || 'No se pudo obtener la URL de MercadoPago.');
           }
         })
         .catch(function () {
-          if (mpTab) { mpTab.close(); }
+          if (btnSubmitEl) btnSubmitEl.disabled = false;
           alert('Error de conexión. Intentá de nuevo.');
         });
     });
   }
+
 })();
 </script>
 @endpush

@@ -29,5 +29,36 @@
   </script>
   @include ('partes.toasts')
   @stack ('scripts')
+  <script>
+  /* ── Password visibility toggle (global, auto-init) ──────────── */
+  (function () {
+    document.querySelectorAll('input[type="password"]').forEach(function (input) {
+      // Excluir campos CVV de tarjeta
+      if (input.getAttribute('autocomplete') === 'cc-csc') return;
+      if (input.parentElement && input.parentElement.classList.contains('pw-wrap')) return;
+
+      var wrap = document.createElement('div');
+      wrap.className = 'pw-wrap';
+      input.parentNode.insertBefore(wrap, input);
+      wrap.appendChild(input);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'pw-eye-btn';
+      btn.setAttribute('aria-label', 'Mostrar contraseña');
+      btn.innerHTML = '<i data-lucide="eye"></i>';
+      wrap.appendChild(btn);
+
+      btn.addEventListener('click', function () {
+        var visible = input.type === 'text';
+        input.type = visible ? 'password' : 'text';
+        btn.setAttribute('aria-label', visible ? 'Mostrar contraseña' : 'Ocultar contraseña');
+        btn.innerHTML = visible ? '<i data-lucide="eye"></i>' : '<i data-lucide="eye-off"></i>';
+        lucide.createIcons();
+      });
+    });
+    lucide.createIcons();
+  })();
+  </script>
 </body>
 </html>

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\UserTarjeta;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -57,6 +58,11 @@ class Usuario extends Authenticatable implements CanResetPasswordContract
     public function direcciones(): HasMany
     {
         return $this->hasMany(UserDireccion::class, 'user_id')->orderBy('alias');
+    }
+
+    public function tarjetas(): HasMany
+    {
+        return $this->hasMany(UserTarjeta::class, 'user_id')->latest();
     }
 
     public function sendPasswordResetNotification($token): void

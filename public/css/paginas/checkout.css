@@ -441,3 +441,87 @@
 
 /* ── Acciones (confirmación) ─────────────────────────────────────────── */
 .confirmacion-actions { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ============================================================
+   SAVED CARDS — Selector de tarjetas guardadas en checkout
+   ============================================================ */
+
+.saved-cards-section { margin-bottom: 1.5rem; }
+
+.saved-cards-label {
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: .75rem;
+}
+
+.saved-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: .6rem;
+}
+
+.saved-card-option { position: relative; cursor: pointer; display: block; }
+.saved-card-radio  { display: none; }
+
+.sco-face {
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 1.586;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  border: 1.5px solid rgba(255,255,255,.1);
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: border-color .2s, transform .15s;
+}
+
+.saved-card-radio:checked + .sco-face { border-color: rgba(255,255,255,.7); transform: scale(1.02); }
+.saved-card-option:hover .sco-face    { border-color: rgba(255,255,255,.35); }
+
+.saved-card-option[data-brand="visa"]       .sco-face { background: linear-gradient(135deg, #1a1f71 0%, #0e3d8c 100%); }
+.saved-card-option[data-brand="mastercard"] .sco-face { background: linear-gradient(135deg, #1c1c1c 0%, #3a1a00 100%); }
+.saved-card-option[data-brand="amex"]       .sco-face { background: linear-gradient(135deg, #007bc1 0%, #004d7c 100%); }
+.saved-card-option[data-brand="discover"]   .sco-face { background: linear-gradient(135deg, #231f20 0%, #4d1f00 100%); }
+.saved-card-option[data-brand="cabal"]      .sco-face { background: linear-gradient(135deg, #003082 0%, #0044b3 100%); }
+.saved-card-option[data-brand="naranja"]    .sco-face { background: linear-gradient(135deg, #d64d00 0%, #f05a00 100%); }
+.saved-card-option[data-brand="argencard"]  .sco-face { background: linear-gradient(135deg, #002c77 0%, #0041aa 100%); }
+
+.sco-chip { width: 22px; height: 16px; border-radius: 3px; background: linear-gradient(135deg, #d4a843, #f0c040, #b8952e); }
+
+.sco-number { font-family: var(--vt-font-mono); font-size: .68rem; letter-spacing: .1em; color: rgba(255,255,255,.85); }
+
+.sco-footer { display: flex; align-items: flex-end; justify-content: space-between; }
+
+.sco-meta  { font-size: .6rem; font-weight: 600; color: rgba(255,255,255,.8); text-transform: uppercase; letter-spacing: .04em; line-height: 1.3; max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sco-exp   { font-size: .56rem; color: rgba(255,255,255,.5); letter-spacing: .04em; }
+
+.sco-brand-icon svg { width: 26px; height: 18px; display: block; }
+
+.sco-check-ring {
+  position: absolute; top: .35rem; right: .35rem;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.saved-card-radio:checked ~ .sco-check-ring { opacity: 1; }
+.sco-check-icon { width: 10px; height: 10px; color: #0f3460; stroke-width: 2.5; }
+
+.sco-face--new {
+  background: rgba(255,255,255,.03) !important;
+  border-style: dashed !important;
+  border-color: rgba(255,255,255,.2) !important;
+  align-items: center; justify-content: center; flex-direction: column;
+  gap: .35rem; text-align: center;
+}
+.saved-card-option--new:hover .sco-face { border-color: rgba(255,255,255,.5) !important; background: rgba(255,255,255,.05) !important; }
+.saved-card-radio:checked + .sco-face--new { border-color: rgba(255,255,255,.7) !important; border-style: solid !important; }
+
+.sco-new-icon  { width: 22px; height: 22px; color: rgba(255,255,255,.4); }
+.sco-new-label { font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.4); line-height: 1.3; }
+
+@media (max-width: 500px) { .saved-cards-grid { grid-template-columns: repeat(2, 1fr); } }

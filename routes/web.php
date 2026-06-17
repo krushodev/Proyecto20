@@ -77,6 +77,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/perfil', [PerfilController::class, 'actualizar'])
         ->middleware('check.rol:!admin')
         ->name('perfil.actualizar');
+
+    Route::post('/perfil/tarjetas', [PerfilController::class, 'guardarTarjeta'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.tarjetas.guardar');
+
+    Route::delete('/perfil/tarjetas/{tarjeta}', [PerfilController::class, 'eliminarTarjeta'])
+        ->middleware('check.rol:!admin')
+        ->name('perfil.tarjetas.eliminar');
 });
 
 /*

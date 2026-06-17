@@ -107,10 +107,12 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.envio');
         }
 
-        $carrito = $this->carritoService->obtenerCarrito();
+        $carrito  = $this->carritoService->obtenerCarrito();
         $carrito->load('detalles.producto.imagenes');
 
-        return view('checkout.pago', compact('carrito', 'envio'));
+        $tarjetas = Auth::user()->tarjetas;
+
+        return view('checkout.pago', compact('carrito', 'envio', 'tarjetas'));
     }
 
     public function procesarPago(Request $request): RedirectResponse|\Illuminate\Http\JsonResponse

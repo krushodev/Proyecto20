@@ -16,7 +16,11 @@
 .swal2-container.vt-wrap {
   padding: .5rem !important;
   z-index: 9999 !important;
+  background: transparent !important;  /* evita el fondo oscuro que SweetAlert2 aplica durante la animación */
+  pointer-events: none !important;     /* los clics atraviesan el contenedor; el popup los captura */
 }
+
+.swal2-container.vt-wrap .swal2-popup { pointer-events: auto !important; }
 
 .swal2-container.vt-wrap.swal2-top-end {
   top: 68px !important;
@@ -31,6 +35,8 @@
   width:            auto !important;
   min-width:        220px !important;
   max-width:        min(360px, calc(100vw - 1.5rem)) !important;
+  min-height:       0 !important;       /* elimina la altura mínima de SweetAlert2 */
+  height:           auto !important;
   box-sizing:       border-box !important;
   background:       var(--vt-canvas-night-elevated) !important;
   border:           1px solid var(--vt-hairline) !important;
@@ -41,6 +47,21 @@
   font-family:      var(--vt-font-body) !important;
   padding:          .875rem 1.125rem !important;
   overflow:         hidden !important;
+}
+
+/* Suprimir contenedores internos vacíos que SweetAlert2 inyecta
+   aunque showConfirmButton:false — siguen ocupando altura */
+.swal2-container.vt-wrap .swal2-actions {
+  display: none !important;
+}
+.swal2-container.vt-wrap .swal2-close {
+  display: none !important;
+}
+.swal2-container.vt-wrap .swal2-html-container.vt-html:empty {
+  display:  none !important;
+  margin:   0 !important;
+  padding:  0 !important;
+  height:   0 !important;
 }
 
 /* 3. Color del borde izquierdo según variante */
@@ -126,8 +147,8 @@
    MODALES (Swal.fire sin toast:true, customClass: vt-modal-*)
    ============================================================ */
 
-/* Overlay */
-.swal2-backdrop-show { background: rgba(0, 0, 0, 0.60) !important; }
+/* Overlay — sólo para modales (no para toasts, que usan .vt-wrap) */
+.swal2-backdrop-show:not(.vt-wrap) { background: rgba(0, 0, 0, 0.60) !important; }
 
 /* Popup */
 .swal2-popup.vt-modal-popup {

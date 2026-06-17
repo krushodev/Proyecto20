@@ -351,3 +351,181 @@
 .perfil-actions-spaced {
     margin-top: 12px;
 }
+
+/* ============================================================
+   MÉTODOS DE PAGO — Tarjetas
+   ============================================================ */
+
+.perfil-metodos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.perfil-metodos-header h2 {
+  margin: 0;
+}
+
+.perfil-tarjetas-empty {
+  font-size: var(--vt-fs-caption);
+  color: var(--vt-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Grid de tarjetas guardadas (perfil) ─────────────────────── */
+.perfil-tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tile: la tarjeta visual + botón eliminar */
+.perfil-tarjeta-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Face: representa la cara de la tarjeta */
+.ptt-face {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.586;  /* proporción estándar de tarjeta */
+  border-radius: var(--vt-radius-lg);
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: var(--vt-shadow-2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.perfil-tarjeta-tile:hover .ptt-face {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+
+/* Brand-driven gradients */
+.perfil-tarjeta-tile[data-brand="visa"]       .ptt-face { background: linear-gradient(135deg, #1a1f71 0%, #0e3d8c 100%); }
+.perfil-tarjeta-tile[data-brand="mastercard"] .ptt-face { background: linear-gradient(135deg, #1c1c1c 0%, #3a1a00 100%); }
+.perfil-tarjeta-tile[data-brand="amex"]       .ptt-face { background: linear-gradient(135deg, #007bc1 0%, #004d7c 100%); }
+.perfil-tarjeta-tile[data-brand="discover"]   .ptt-face { background: linear-gradient(135deg, #231f20 0%, #4d1f00 100%); }
+.perfil-tarjeta-tile[data-brand="cabal"]      .ptt-face { background: linear-gradient(135deg, #003082 0%, #0044b3 100%); }
+.perfil-tarjeta-tile[data-brand="naranja"]    .ptt-face { background: linear-gradient(135deg, #d64d00 0%, #f05a00 100%); }
+.perfil-tarjeta-tile[data-brand="argencard"]  .ptt-face { background: linear-gradient(135deg, #002c77 0%, #0041aa 100%); }
+
+.ptt-chip {
+  width: 30px;
+  height: 22px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #d4a843, #f0c040, #b8952e);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.3);
+}
+
+.ptt-number {
+  font-family: var(--vt-font-mono);
+  font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,.9);
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+
+.ptt-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ptt-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ptt-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+
+.ptt-value {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+.ptt-brand-icon {
+  flex-shrink: 0;
+}
+
+.ptt-brand-icon svg {
+  width: 38px;
+  height: 26px;
+  display: block;
+}
+
+.ptt-delete-btn {
+  align-self: flex-end;
+}
+
+/* ── Formulario nueva tarjeta (perfil) ───────────────────────── */
+.perfil-nueva-tarjeta-wrap {
+  margin-top: 0.5rem;
+}
+
+.pnt-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.pnt-divider::before,
+.pnt-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--vt-hairline-mid);
+}
+
+.pnt-divider-label {
+  font-size: var(--vt-fs-eyebrow);
+  letter-spacing: var(--vt-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--vt-text-muted);
+  white-space: nowrap;
+}
+
+.pnt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .perfil-tarjetas-grid {
+    grid-template-columns: 1fr;
+  }
+  .pnt-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .pnt-actions .btn-vt {
+    justify-content: center;
+  }
+}

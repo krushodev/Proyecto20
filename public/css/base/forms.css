@@ -255,3 +255,79 @@ select.form-input option {
 .forgot-link:hover {
   color: var(--vt-text-primary);
 }
+
+/* =========================================
+   PASSWORD TOGGLE — .pw-wrap / .pw-eye-btn
+   Inyectado vía JS global en layout.blade.php
+   para todos los input[type="password"] que
+   no sean campos CVV (autocomplete="cc-csc").
+   ========================================= */
+
+/* Contenedor relativo que envuelve el input */
+.pw-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* El input cede espacio al botón en su padding derecho */
+.pw-wrap > input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 2.75rem !important;
+}
+
+/*
+  Botón "ojo" — ocupa toda la altura del input (top:0 / bottom:0)
+  y se pega al borde derecho, con border-radius que coincide con
+  el del input (--vt-radius-md = 8px lado derecho).
+  Sin fondo visible: el color del input se ve a través del botón,
+  dando la ilusión de estar "dentro" del campo.
+
+  Colores según DESIGN.md shade ladder:
+    default → shade-50 (#71717a): icono muted, discreto
+    hover   → shade-30 (#d4d4d8): levanta sin llegar a on-dark
+*/
+.pw-eye-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0 var(--vt-radius-md) var(--vt-radius-md) 0;
+  cursor: pointer;
+  color: var(--vt-shade-50);        /* #71717a — shade-50 DESIGN.md */
+  padding: 0;
+  z-index: 2;
+  transition: color 0.18s ease;
+  flex-shrink: 0;
+}
+
+.pw-eye-btn:hover {
+  color: var(--vt-shade-30);        /* #d4d4d8 — shade-30 DESIGN.md */
+}
+
+.pw-eye-btn:focus-visible {
+  outline: 2px solid rgba(220, 220, 220, 0.30);
+  outline-offset: -2px;
+  border-radius: 0 var(--vt-radius-md) var(--vt-radius-md) 0;
+  color: var(--vt-shade-30);
+}
+
+.pw-eye-btn:active {
+  color: var(--vt-text-primary);
+}
+
+.pw-eye-btn i,
+.pw-eye-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  pointer-events: none;
+  flex-shrink: 0;
+}

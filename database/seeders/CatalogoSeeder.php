@@ -151,7 +151,7 @@ class CatalogoSeeder extends Seeder
                         'slug'            => 'bronzo',
                         'precio'          => 220000.00,
                         'descripcion'     => 'Un cronógrafo de elevado carácter, con tonos cálidos y una presencia deportiva refinada.',
-                        'imagen_lifestyle' => 'assets/bronzo1.jpg',
+                        'imagen_lifestyle' => 'assets/bronzo1.png',
                         'imagen_studio'   => 'assets/bronzo2.jpg',
                         'caja'            => 'Acero con baño bronce 44mm',
                         'movimiento'      => 'Cuarzo cronógrafo',

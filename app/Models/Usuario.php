@@ -65,6 +65,13 @@ class Usuario extends Authenticatable implements CanResetPasswordContract
         return $this->hasMany(UserTarjeta::class, 'user_id')->latest();
     }
 
+    public function hasRole(string|array $roles): bool
+    {
+        $rolNombre = $this->rol?->nombre;
+
+        return in_array($rolNombre, (array) $roles, true);
+    }
+
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));

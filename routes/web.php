@@ -147,6 +147,7 @@ Route::middleware(['auth', 'check.rol:admin'])
 
         Route::resource('ventas', AdminVentaController::class)
             ->only(['index', 'show']);
+        Route::get('ventas/{id}/factura', [AdminVentaController::class, 'factura'])->name('ventas.factura');
 
         Route::get('contactos', [AdminContactoController::class, 'index'])->name('contactos.index');
         Route::patch('contactos/{id}/leido', [AdminContactoController::class, 'marcarLeido'])->name('contactos.leido');

@@ -9,7 +9,7 @@
     <div class="admin-header admin-header--with-action">
       <div>
         <h1 class="admin-title">Usuarios</h1>
-        <p class="admin-subtitle">{{ $usuarios->count() }} usuarios registrados</p>
+        <p class="admin-subtitle">{{ $usuarios->total() }} usuarios registrados</p>
       </div>
       <div class="admin-header-actions">
         <a href="{{ route('usuarios.create') }}" class="admin-btn-new">
@@ -64,6 +64,10 @@
           @endforelse
         </tbody>
       </table>
+    </div>
+
+    <div class="admin-pagination">
+      {{ $usuarios->appends(request()->query())->links() }}
     </div>
 
   </div>

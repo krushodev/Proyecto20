@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Producto extends Model
 {
@@ -51,19 +52,28 @@ class Producto extends Model
 
     public function getImagenLifestyleAttribute(): ?string
     {
-        if ($this->relationLoaded('imagenes')) {
-            return $this->imagenes->where('tipo', 'lifestyle')->first()?->url;
-        }
+        $url = $this->relationLoaded('imagenes')
+            ? $this->imagenes->where('tipo', 'lifestyle')->first()?->url
+            : $this->imagenes()->where('tipo', 'lifestyle')->value('url');
 
-        return $this->imagenes()->where('tipo', 'lifestyle')->value('url');
+        return $this->resolverUrlImagen($url);
     }
 
     public function getImagenStudioAttribute(): ?string
     {
-        if ($this->relationLoaded('imagenes')) {
-            return $this->imagenes->where('tipo', 'studio')->first()?->url;
+        $url = $this->relationLoaded('imagenes')
+            ? $this->imagenes->where('tipo', 'studio')->first()?->url
+            : $this->imagenes()->where('tipo', 'studio')->value('url');
+
+        return $this->resolverUrlImagen($url);
+    }
+
+    private function resolverUrlImagen(?string $url): ?string
+    {
+        if ($url === null) {
+            return null;
         }
 
-        return $this->imagenes()->where('tipo', 'studio')->value('url');
+        return str_starts_with($url, 'http') ? $url : Storage::disk('public')->url($url);
     }
 }

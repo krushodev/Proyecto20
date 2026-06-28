@@ -13,9 +13,14 @@
           {{ $venta->fecha_venta?->format('d/m/Y \a \l\a\s H:i') ?? '—' }}
         </p>
       </div>
-      <a href="{{ route('ventas.index') }}" class="admin-back">
-        <i data-lucide="arrow-left"></i> Volver a Ventas
-      </a>
+      <div class="admin-header-actions">
+        <a href="{{ route('ventas.factura', $venta->id) }}" class="admin-btn-new">
+          <i data-lucide="download"></i> Descargar Comprobante
+        </a>
+        <a href="{{ route('ventas.index') }}" class="admin-back">
+          <i data-lucide="arrow-left"></i> Volver a Ventas
+        </a>
+      </div>
     </div>
 
     {{-- Datos del cliente --}}

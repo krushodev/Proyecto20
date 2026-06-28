@@ -16,7 +16,7 @@
       </a>
     </div>
 
-    <form action="{{ route('productos.store') }}" method="POST" class="admin-form">
+    <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data" class="admin-form">
       @csrf
 
       <div class="admin-form-section">
@@ -94,18 +94,18 @@
         <h2 class="admin-form-section-title">Imágenes</h2>
 
         <div class="form-group">
-          <label for="imagen_lifestyle" class="form-label">URL Imagen Lifestyle</label>
-          <input type="url" id="imagen_lifestyle" name="imagen_lifestyle"
+          <label for="imagen_lifestyle" class="form-label">Imagen Lifestyle</label>
+          <input type="file" id="imagen_lifestyle" name="imagen_lifestyle"
                  class="form-input {{ $errors->has('imagen_lifestyle') ? 'is-invalid' : '' }}"
-                 value="{{ old('imagen_lifestyle') }}" placeholder="https://..." />
+                 accept="image/jpeg,image/png,image/jpg,image/webp" />
           @error('imagen_lifestyle')<span class="form-error">{{ $message }}</span>@enderror
         </div>
 
         <div class="form-group">
-          <label for="imagen_studio" class="form-label">URL Imagen Studio</label>
-          <input type="url" id="imagen_studio" name="imagen_studio"
+          <label for="imagen_studio" class="form-label">Imagen Studio</label>
+          <input type="file" id="imagen_studio" name="imagen_studio"
                  class="form-input {{ $errors->has('imagen_studio') ? 'is-invalid' : '' }}"
-                 value="{{ old('imagen_studio') }}" placeholder="https://..." />
+                 accept="image/jpeg,image/png,image/jpg,image/webp" />
           @error('imagen_studio')<span class="form-error">{{ $message }}</span>@enderror
         </div>
       </div>

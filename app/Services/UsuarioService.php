@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Rol;
 use App\Models\Usuario;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class UsuarioService
         });
     }
 
-    public function obtenerTodos(?string $busqueda = null, ?string $rolSeleccionado = null): Collection
+    public function obtenerTodos(?string $busqueda = null, ?string $rolSeleccionado = null): LengthAwarePaginator
     {
         return Usuario::with('rol')
             ->when($busqueda !== null && $busqueda !== '', function ($query) use ($busqueda) {
@@ -30,7 +31,7 @@ class UsuarioService
                     $subquery->where('id', $rolSeleccionado);
                 });
             })
-            ->get();
+            ->paginate(15);
     }
 
     public function obtenerRoles(): Collection

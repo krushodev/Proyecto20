@@ -10,8 +10,8 @@
       <div>
         <h1 class="admin-title">Consultas</h1>
         <p class="admin-subtitle">
-          {{ $contactos->count() }} {{ $contactos->count() === 1 ? 'mensaje' : 'mensajes' }}
-          @php($sinLeer = $contactos->where('leido', false)->count())
+          {{ $contactos->total() }} {{ $contactos->total() === 1 ? 'mensaje' : 'mensajes' }}
+          @php($sinLeer = $contactos->getCollection()->where('leido', false)->count())
           @if($sinLeer > 0)
             &nbsp;·&nbsp; <span class="ac-unread-count">{{ $sinLeer }} sin leer</span>
           @endif
@@ -64,6 +64,10 @@
         <p>No hay resultados.</p>
       </div>
     @endforelse
+
+    <div class="admin-pagination">
+      {{ $contactos->appends(request()->query())->links() }}
+    </div>
 
   </div>
 </div>

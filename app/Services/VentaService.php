@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\VentaCabecera;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class VentaService
@@ -16,7 +17,7 @@ class VentaService
             ->get();
     }
 
-    public function obtenerParaAdmin(array $filtros = []): Collection
+    public function obtenerParaAdmin(array $filtros = []): LengthAwarePaginator
     {
         $query = VentaCabecera::with('usuario')
             ->withCount('detalles')
@@ -30,7 +31,7 @@ class VentaService
             $query->whereDate('fecha_venta', '<=', $filtros['hasta']);
         }
 
-        return $query->orderByDesc('fecha_venta')->get();
+        return $query->orderByDesc('fecha_venta')->paginate(15);
     }
 
     public function obtenerPorId(int $id): ?VentaCabecera

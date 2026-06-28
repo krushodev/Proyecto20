@@ -8,7 +8,7 @@
   - rol admin    → solo logo + enlace a Panel Admin + logout
   ============================================================
 --}}
-@php($esAdminUser = auth()->check() && auth()->user()->rol?->nombre === 'admin')
+@php($esAdminUser = auth()->check() && auth()->user()->hasRole('admin'))
 @php($esAdminArea = $esAdminUser && Request::is('admin*'))
 
 <nav class="navbar navbar-expand-lg navbar-vittorio fixed-top" aria-label="Navegación principal">

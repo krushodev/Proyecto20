@@ -16,7 +16,7 @@
       </a>
     </div>
 
-    <form action="{{ route('productos.update', $producto) }}" method="POST" class="admin-form">
+    <form action="{{ route('productos.update', $producto) }}" method="POST" enctype="multipart/form-data" class="admin-form">
       @csrf @method('PUT')
 
       <div class="admin-form-section">
@@ -94,18 +94,28 @@
         <h2 class="admin-form-section-title">Imágenes</h2>
 
         <div class="form-group">
-          <label for="imagen_lifestyle" class="form-label">URL Imagen Lifestyle</label>
-          <input type="url" id="imagen_lifestyle" name="imagen_lifestyle"
+          <label for="imagen_lifestyle" class="form-label">Imagen Lifestyle</label>
+          @if($producto->imagen_lifestyle)
+            <img src="{{ $producto->imagen_lifestyle }}"
+                 alt="Lifestyle actual" class="admin-product-thumb" style="margin-bottom:8px;" />
+            <p class="form-hint">Subí un nuevo archivo para reemplazar la imagen actual.</p>
+          @endif
+          <input type="file" id="imagen_lifestyle" name="imagen_lifestyle"
                  class="form-input {{ $errors->has('imagen_lifestyle') ? 'is-invalid' : '' }}"
-                 value="{{ old('imagen_lifestyle', $producto->imagen_lifestyle) }}" placeholder="https://..." />
+                 accept="image/jpeg,image/png,image/jpg,image/webp" />
           @error('imagen_lifestyle')<span class="form-error">{{ $message }}</span>@enderror
         </div>
 
         <div class="form-group">
-          <label for="imagen_studio" class="form-label">URL Imagen Studio</label>
-          <input type="url" id="imagen_studio" name="imagen_studio"
+          <label for="imagen_studio" class="form-label">Imagen Studio</label>
+          @if($producto->imagen_studio)
+            <img src="{{ $producto->imagen_studio }}"
+                 alt="Studio actual" class="admin-product-thumb" style="margin-bottom:8px;" />
+            <p class="form-hint">Subí un nuevo archivo para reemplazar la imagen actual.</p>
+          @endif
+          <input type="file" id="imagen_studio" name="imagen_studio"
                  class="form-input {{ $errors->has('imagen_studio') ? 'is-invalid' : '' }}"
-                 value="{{ old('imagen_studio', $producto->imagen_studio) }}" placeholder="https://..." />
+                 accept="image/jpeg,image/png,image/jpg,image/webp" />
           @error('imagen_studio')<span class="form-error">{{ $message }}</span>@enderror
         </div>
       </div>

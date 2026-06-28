@@ -43,6 +43,9 @@
               <span class="mc-total-label">Total</span>
               <span class="mc-total-amount">$ {{ number_format($compra->total, 0, ',', '.') }} ARS</span>
             </div>
+            <a href="{{ route('compras.factura', $compra->id) }}" class="btn-vt btn-vt-secondary mc-factura-btn">
+              <i data-lucide="download"></i> Descargar Comprobante
+            </a>
           </div>
 
           <div class="mc-items">

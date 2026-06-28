@@ -9,7 +9,7 @@
     <div class="admin-header admin-header--with-action">
       <div>
         <h1 class="admin-title">Ventas</h1>
-        <p class="admin-subtitle">{{ $ventas->count() }} {{ $ventas->count() === 1 ? 'venta confirmada' : 'ventas confirmadas' }}</p>
+        <p class="admin-subtitle">{{ $ventas->total() }} {{ $ventas->total() === 1 ? 'venta confirmada' : 'ventas confirmadas' }}</p>
       </div>
       <a href="{{ route('admin.panel') }}" class="admin-back">
         <i data-lucide="arrow-left"></i> Volver al panel
@@ -69,6 +69,10 @@
           @endforelse
         </tbody>
       </table>
+    </div>
+
+    <div class="admin-pagination">
+      {{ $ventas->appends(request()->query())->links() }}
     </div>
 
   </div>

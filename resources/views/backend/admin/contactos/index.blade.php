@@ -66,7 +66,7 @@
     @endforelse
 
     <div class="admin-pagination">
-      {{ $contactos->appends(request()->query())->links() }}
+      {{ $contactos->appends(request()->query())->links('vendor.pagination.admin') }}
     </div>
 
   </div>

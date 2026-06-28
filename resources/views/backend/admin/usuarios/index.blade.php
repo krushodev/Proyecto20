@@ -67,7 +67,7 @@
     </div>
 
     <div class="admin-pagination">
-      {{ $usuarios->appends(request()->query())->links() }}
+      {{ $usuarios->appends(request()->query())->links('vendor.pagination.admin') }}
     </div>
 
   </div>

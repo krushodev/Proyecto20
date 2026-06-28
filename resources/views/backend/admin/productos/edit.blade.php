@@ -93,31 +93,42 @@
       <div class="admin-form-section">
         <h2 class="admin-form-section-title">Imágenes</h2>
 
+        @foreach([['lifestyle', 'Lifestyle', $producto->imagen_lifestyle], ['studio', 'Studio', $producto->imagen_studio]] as [$tipo, $etiqueta, $urlActual])
         <div class="form-group">
-          <label for="imagen_lifestyle" class="form-label">Imagen Lifestyle</label>
-          @if($producto->imagen_lifestyle)
-            <img src="{{ $producto->imagen_lifestyle }}"
-                 alt="Lifestyle actual" class="admin-product-thumb" style="margin-bottom:8px;" />
-            <p class="form-hint">Subí un nuevo archivo para reemplazar la imagen actual.</p>
+          @if($urlActual)
+            <div class="img-preview-row">
+              <img src="{{ $urlActual }}" alt="Imagen {{ $etiqueta }} actual" class="admin-product-thumb img-preview-thumb" />
+              <span class="img-preview-label">Imagen actual · subí una nueva o ingresá una URL para reemplazarla</span>
+            </div>
           @endif
-          <input type="file" id="imagen_lifestyle" name="imagen_lifestyle"
-                 class="form-input {{ $errors->has('imagen_lifestyle') ? 'is-invalid' : '' }}"
-                 accept="image/jpeg,image/png,image/jpg,image/webp" />
-          @error('imagen_lifestyle')<span class="form-error">{{ $message }}</span>@enderror
-        </div>
 
-        <div class="form-group">
-          <label for="imagen_studio" class="form-label">Imagen Studio</label>
-          @if($producto->imagen_studio)
-            <img src="{{ $producto->imagen_studio }}"
-                 alt="Studio actual" class="admin-product-thumb" style="margin-bottom:8px;" />
-            <p class="form-hint">Subí un nuevo archivo para reemplazar la imagen actual.</p>
-          @endif
-          <input type="file" id="imagen_studio" name="imagen_studio"
-                 class="form-input {{ $errors->has('imagen_studio') ? 'is-invalid' : '' }}"
-                 accept="image/jpeg,image/png,image/jpg,image/webp" />
-          @error('imagen_studio')<span class="form-error">{{ $message }}</span>@enderror
+          <div class="img-field-header">
+            <label class="form-label">Imagen {{ $etiqueta }}</label>
+            <div class="img-field-tabs" role="tablist">
+              <button type="button" class="img-tab img-tab--active" data-target="file-{{ $tipo }}" data-group="{{ $tipo }}">
+                Subir archivo
+              </button>
+              <button type="button" class="img-tab" data-target="url-{{ $tipo }}" data-group="{{ $tipo }}">
+                URL externa
+              </button>
+            </div>
+          </div>
+
+          <div id="file-{{ $tipo }}" class="img-panel">
+            <input type="file" id="imagen_{{ $tipo }}_file" name="imagen_{{ $tipo }}"
+                   class="form-input {{ $errors->has('imagen_' . $tipo) ? 'is-invalid' : '' }}"
+                   accept="image/jpeg,image/png,image/jpg,image/webp" />
+          </div>
+
+          <div id="url-{{ $tipo }}" class="img-panel img-panel--hidden">
+            <input type="url" id="imagen_{{ $tipo }}_url" name="imagen_{{ $tipo }}"
+                   class="form-input {{ $errors->has('imagen_' . $tipo) ? 'is-invalid' : '' }}"
+                   placeholder="https://..." />
+          </div>
+
+          @error('imagen_' . $tipo)<span class="form-error">{{ $message }}</span>@enderror
         </div>
+        @endforeach
       </div>
 
       <div class="admin-form-section">
@@ -143,3 +154,30 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  document.querySelectorAll('.img-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      const group  = this.dataset.group;
+      const target = this.dataset.target;
+
+      document.querySelectorAll('[data-group="' + group + '"]').forEach(function (t) {
+        t.classList.remove('img-tab--active');
+      });
+      this.classList.add('img-tab--active');
+
+      document.querySelectorAll('#file-' + group + ', #url-' + group).forEach(function (panel) {
+        panel.classList.add('img-panel--hidden');
+        panel.querySelectorAll('input').forEach(function (i) { i.disabled = true; i.value = ''; });
+      });
+
+      const active = document.getElementById(target);
+      active.classList.remove('img-panel--hidden');
+      active.querySelectorAll('input').forEach(function (i) { i.disabled = false; });
+    });
+  });
+
+  document.querySelectorAll('.img-panel--hidden input').forEach(function (i) { i.disabled = true; });
+</script>
+@endpush

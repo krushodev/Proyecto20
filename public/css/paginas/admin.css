@@ -841,4 +841,156 @@ textarea.form-input       { resize: vertical; min-height: 80px; }
   color: var(--vt-on-dark);
 }
 
+/* ========================================
+   PAGINACIÓN
+   ======================================== */
+
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Contenedor del paginador custom */
+.admin-pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Botón base: mismo vocabulario que .admin-btn-edit */
+.admin-pager-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-micro);
+  font-weight: var(--vt-fw-medium);
+  color: var(--vt-text-secondary);
+  border: 1.5px solid var(--vt-hairline-mid);
+  border-radius: var(--vt-radius-pill);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  line-height: 1;
+  user-select: none;
+}
+
+.admin-pager-btn svg,
+.admin-pager-btn i { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* Hover: igual que .admin-btn-edit:hover */
+a.admin-pager-btn:hover {
+  color: var(--vt-on-dark);
+  border-color: var(--vt-hairline-strong);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Página activa: fill blanco, texto oscuro */
+.admin-pager-btn--active {
+  background-color: var(--vt-on-dark);
+  border-color: var(--vt-on-dark);
+  color: var(--vt-canvas-night);
+  font-weight: var(--vt-fw-semi);
+  cursor: default;
+}
+
+/* Deshabilitado: igual que .admin-back muted */
+.admin-pager-btn--disabled {
+  color: var(--vt-text-faint);
+  border-color: var(--vt-hairline);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Puntos suspensivos */
+.admin-pager-btn--dots {
+  border-color: transparent;
+  color: var(--vt-text-muted);
+  cursor: default;
+  pointer-events: none;
+  min-width: 20px;
+  padding: 0;
+}
+
+/* ========================================
+   IMAGEN UPLOAD / URL TOGGLE (img-field-*)
+   ======================================== */
+
+.img-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--vt-hairline);
+  border-radius: var(--vt-radius-md);
+}
+
+.img-preview-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: var(--vt-radius-xs);
+  flex-shrink: 0;
+}
+
+.img-preview-label {
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-micro);
+  color: var(--vt-text-muted);
+  line-height: 1.4;
+}
+
+.img-field-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.img-field-header .form-label { margin-bottom: 0; }
+
+/* Tabs archivo / URL — toman el vocabulario de .admin-btn-edit */
+.img-field-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.img-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-family: var(--vt-font-body);
+  font-size: var(--vt-fs-micro);
+  font-weight: var(--vt-fw-medium);
+  color: var(--vt-text-muted);
+  border: 1.5px solid var(--vt-hairline);
+  border-radius: var(--vt-radius-pill);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.img-tab:hover {
+  color: var(--vt-text-secondary);
+  border-color: var(--vt-hairline-mid);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.img-tab--active {
+  color: var(--vt-on-dark);
+  border-color: var(--vt-hairline-strong);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.img-panel { margin-top: 0; }
+
+.img-panel--hidden { display: none; }
+
 /* .admin-alert-success — definición canónica en base/forms.css */
